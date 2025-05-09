@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "Rule.schema.json",
+  "title": "Rule",
+  "definitions": {
+    "Rule": {
+      "type": "object",
+      "$id": "#Rule",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "../Common/Entity.json#Entity"
+        }
+      ]
+    }
+  }
+}

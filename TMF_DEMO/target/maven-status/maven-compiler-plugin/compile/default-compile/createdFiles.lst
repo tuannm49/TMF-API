@@ -1,0 +1,10 @@
+com/example/repository/GenericRepository.class
+com/example/repository/UnifiedGenericRepository.class
+com/example/config/MongoConfig.class
+com/example/dto/UserDTO.class
+com/example/config/MySqlConfig.class
+com/example/service/GenericService.class
+com/example/controller/ProductController.class
+com/example/Application.class
+com/example/dto/ProductDTO.class
+com/example/controller/UserController.class
