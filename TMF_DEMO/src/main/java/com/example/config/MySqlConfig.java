@@ -1,16 +1,17 @@
 package com.example.config;
 
-import com.example.model.Product;
-import com.example.model.User;
-import com.example.repository.GenericRepository;
-import com.example.repository.JpaGenericRepository;
-import com.example.service.GenericService;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import javax.sql.DataSource;
+import jakarta.persistence.EntityManagerFactory;
+import com.zaxxer.hikari.HikariDataSource;
+
+import java.util.Properties;
 
 @Configuration
 @ConditionalOnProperty(name = "spring.profiles.active", havingValue = "mysql")
@@ -18,22 +19,37 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class MySqlConfig {
 
     @Bean
-    public GenericRepository<User> userRepository(@Autowired EntityManager entityManager) {
-        return new JpaGenericRepository<>(entityManager, User.class);
+    public DataSource dataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/serviceInvtory?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+        dataSource.setUsername("root");
+        dataSource.setPassword("rootpassword");
+        dataSource.setMaximumPoolSize(10);
+        dataSource.setMinimumIdle(2);
+        return dataSource;
     }
 
     @Bean
-    public GenericRepository<Product> productRepository(@Autowired EntityManager entityManager) {
-        return new JpaGenericRepository<>(entityManager, Product.class);
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource);
+        em.setPackagesToScan("com.example.model");
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(hibernateProperties());
+        return em;
+    }
+
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.show_sql", "false");
+        properties.setProperty("hibernate.generate_statistics", "false");
+        return properties;
     }
 
     @Bean
-    public GenericService<User> userService(GenericRepository<User> userRepository) {
-        return new GenericService<>(userRepository);
-    }
-
-    @Bean
-    public GenericService<Product> productService(GenericRepository<Product> productRepository) {
-        return new GenericService<>(productRepository);
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 }
