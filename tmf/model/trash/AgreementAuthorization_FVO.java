@@ -1,0 +1,38 @@
+package com.example.trash;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import java.time.OffsetDateTime;
+
+@Entity
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class AgreementAuthorization_FVO implements java.io.Serializable {
+    private OffsetDateTime date;
+    @JsonProperty("@baseType")
+    private String baseType;
+    @ManyToOne
+    @JoinColumn(name = "signature_id")
+    @JsonBackReference
+    private AttachmentRefOrValue_FVO signature;
+    @JsonProperty("@type")
+    private String type;
+    private String signatureRepresentation;
+    @Id
+    private String id;
+    private String state;
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
+    @ManyToOne
+    @JoinColumn(name = "party_id")
+    @JsonBackReference
+    private PartyRefOrPartyRoleRef party;
+}

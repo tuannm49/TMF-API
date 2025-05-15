@@ -1,0 +1,557 @@
+openapi: 3.0.1
+info:
+  title: VNPT API Address
+  description: |-
+    ## VNPT API Reference : VNPT 002 - Address 
+
+    ### Release : 1.0 
+
+    Desciption about Address
+
+    ### Resources
+    - Address
+
+    Address API performs the following operations :
+    - Retrieve an address
+    - Retrieve a collection of addresss according to given criteria
+    - Create a new address
+    - Update an existing address
+  version: 1.0.0
+servers:
+  - url: https://serverRoot/vnpt-api/address/v1/
+tags:
+  - name: address
+paths:
+  /address:
+    get:
+      tags:
+        - address
+      summary: List or find Address objects
+      description: This operation list or find Address entities
+      operationId: listAddress
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - address
+      summary: Creates a Address
+      description: This operation creates a Address entity.
+      operationId: createAddress
+      requestBody:
+        description: The Address to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: Address
+  /address/{id}:
+    get:
+      tags:
+        - address
+      summary: Retrieves a Address by ID
+      description: This operation retrieves a Address entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveAddress
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Address
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - address
+      summary: Updates partially a Address
+      description: This operation updates partially a Address entity.
+      operationId: patchAddress
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Address
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Address to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: Address
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        city:
+          type: string
+          description: City that the address is in
+        cityId:
+          type: string
+          description: City id that the address is in
+        country:
+          type: string
+          description: Country that the address is in
+        countryId:
+          type: string
+          description: Country ID that the address is in
+        locality:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        localityId:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        postcode:
+          type: string
+          description: descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)
+        stateOrProvince:
+          type: string
+          description: the State or Province that the address is in
+        provinceId:
+          type: string
+          description: the Province Id that the address is in
+        streetName:
+          type: string
+          description: Name of the street or other street type
+        streetId:
+          type: string
+          description: id of the street or other street type
+        streetNr:
+          type: string
+          description: Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses
+        streetNrLast:
+          type: string
+          description: Last number in a range of street numbers allocated to a property
+        streetNrLastSuffix:
+          type: string
+          description: Last street number suffix for a ranged address
+        streetNrSuffix:
+          type: string
+          description: the first street number suffix
+        streetSuffix:
+          type: string
+          description: A modifier denoting a relative direction
+        streetType:
+          type: string
+          description: 'alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf '
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).
+        Note : Address corresponds to SID UrbanPropertyAddress
+    Address_Create:
+      type: object
+      properties:
+        href:
+          type: string
+          description: Unique reference of the place
+        city:
+          type: string
+          description: City that the address is in
+        cityId:
+          type: string
+          description: City id that the address is in
+        country:
+          type: string
+          description: Country that the address is in
+        countryId:
+          type: string
+          description: Country ID that the address is in
+        locality:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        localityId:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        postcode:
+          type: string
+          description: descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)
+        stateOrProvince:
+          type: string
+          description: the State or Province that the address is in
+        provinceId:
+          type: string
+          description: the Province Id that the address is in
+        streetName:
+          type: string
+          description: Name of the street or other street type
+        streetId:
+          type: string
+          description: id of the street or other street type
+        streetNr:
+          type: string
+          description: Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses
+        streetNrLast:
+          type: string
+          description: Last number in a range of street numbers allocated to a property
+        streetNrLastSuffix:
+          type: string
+          description: Last street number suffix for a ranged address
+        streetNrSuffix:
+          type: string
+          description: the first street number suffix
+        streetSuffix:
+          type: string
+          description: A modifier denoting a relative direction
+        streetType:
+          type: string
+          description: 'alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf '
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        Address represents a single zone independen with other.
+        Skipped properties: id,href
+    Address_Update:
+      type: object
+      properties:
+        href:
+          type: string
+          description: Unique reference of the place
+        city:
+          type: string
+          description: City that the address is in
+        cityId:
+          type: string
+          description: City id that the address is in
+        country:
+          type: string
+          description: Country that the address is in
+        countryId:
+          type: string
+          description: Country ID that the address is in
+        locality:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        localityId:
+          type: string
+          description: An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        postcode:
+          type: string
+          description: descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)
+        stateOrProvince:
+          type: string
+          description: the State or Province that the address is in
+        provinceId:
+          type: string
+          description: the Province Id that the address is in
+        streetName:
+          type: string
+          description: Name of the street or other street type
+        streetId:
+          type: string
+          description: id of the street or other street type
+        streetNr:
+          type: string
+          description: Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses
+        streetNrLast:
+          type: string
+          description: Last number in a range of street numbers allocated to a property
+        streetNrLastSuffix:
+          type: string
+          description: Last street number suffix for a ranged address
+        streetNrSuffix:
+          type: string
+          description: the first street number suffix
+        streetSuffix:
+          type: string
+          description: A modifier denoting a relative direction
+        streetType:
+          type: string
+          description: 'alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf '
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

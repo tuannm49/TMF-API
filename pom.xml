@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>TMF638</module>
-        <module>Generator</module>
         <module>TMF_DEMO</module>
+        <module>TMF_CODE_GEN</module>
     </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -75,6 +75,22 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version> <!-- Phiên bản mới nhất tại thời điểm gần đây -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

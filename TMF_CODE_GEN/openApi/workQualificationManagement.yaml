@@ -1,0 +1,3829 @@
+openapi: 3.0.1
+info:
+  title: Work Qualification Management
+  description: '## TMF API Reference: TMF 714 - Work Qualification Management'
+  version: 4.0.0
+servers:
+  - url: https://serverRoot/tmf-api/workQualificationManagement/v4
+tags:
+  - name: checkWorkQualification
+  - name: queryWorkQualification
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /checkWorkQualification:
+    get:
+      tags:
+        - checkWorkQualification
+      summary: List or find CheckWorkQualification objects
+      description: This operation list or find CheckWorkQualification entities
+      operationId: listCheckWorkQualification
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - checkWorkQualification
+      summary: Creates a CheckWorkQualification
+      description: This operation creates a CheckWorkQualification entity.
+      operationId: createCheckWorkQualification
+      requestBody:
+        description: The CheckWorkQualification to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualification_Create'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckWorkQualification'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: checkWorkQualification
+  /checkWorkQualification/{id}:
+    get:
+      tags:
+        - checkWorkQualification
+      summary: Retrieves a CheckWorkQualification by ID
+      description: This operation retrieves a CheckWorkQualification entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveCheckWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the CheckWorkQualification
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - checkWorkQualification
+      summary: Deletes a CheckWorkQualification
+      description: This operation deletes a CheckWorkQualification entity.
+      operationId: deleteCheckWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the CheckWorkQualification
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - checkWorkQualification
+      summary: Updates partially a CheckWorkQualification
+      description: This operation updates partially a CheckWorkQualification entity.
+      operationId: patchCheckWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the CheckWorkQualification
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The CheckWorkQualification to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualification_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: checkWorkQualification
+  /queryWorkQualification:
+    get:
+      tags:
+        - queryWorkQualification
+      summary: List or find QueryWorkQualification objects
+      description: This operation list or find QueryWorkQualification entities
+      operationId: listQueryWorkQualification
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - queryWorkQualification
+      summary: Creates a QueryWorkQualification
+      description: This operation creates a QueryWorkQualification entity.
+      operationId: createQueryWorkQualification
+      requestBody:
+        description: The QueryWorkQualification to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryWorkQualification_Create'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryWorkQualification'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: queryWorkQualification
+  /queryWorkQualification/{id}:
+    get:
+      tags:
+        - queryWorkQualification
+      summary: Retrieves a QueryWorkQualification by ID
+      description: This operation retrieves a QueryWorkQualification entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveQueryWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the QueryWorkQualification
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - queryWorkQualification
+      summary: Deletes a QueryWorkQualification
+      description: This operation deletes a QueryWorkQualification entity.
+      operationId: deleteQueryWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the QueryWorkQualification
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - queryWorkQualification
+      summary: Updates partially a QueryWorkQualification
+      description: This operation updates partially a QueryWorkQualification entity.
+      operationId: patchQueryWorkQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the QueryWorkQualification
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The QueryWorkQualification to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryWorkQualification_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryWorkQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: queryWorkQualification
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/checkWorkQualificationCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity CheckWorkQualificationCreateEvent
+      description: Example of a client listener for receiving the notification CheckWorkQualificationCreateEvent
+      operationId: listenToCheckWorkQualificationCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualificationCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/checkWorkQualificationAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity CheckWorkQualificationAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification CheckWorkQualificationAttributeValueChangeEvent
+      operationId: listenToCheckWorkQualificationAttributeValueChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualificationAttributeValueChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/checkWorkQualificationStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity CheckWorkQualificationStateChangeEvent
+      description: Example of a client listener for receiving the notification CheckWorkQualificationStateChangeEvent
+      operationId: listenToCheckWorkQualificationStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualificationStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/checkWorkQualificationDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity CheckWorkQualificationDeleteEvent
+      description: Example of a client listener for receiving the notification CheckWorkQualificationDeleteEvent
+      operationId: listenToCheckWorkQualificationDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualificationDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/checkWorkQualificationInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity CheckWorkQualificationInformationRequiredEvent
+      description: Example of a client listener for receiving the notification CheckWorkQualificationInformationRequiredEvent
+      operationId: listenToCheckWorkQualificationInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckWorkQualificationInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/queryWorkQualificationCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity QueryWorkQualificationCreateEvent
+      description: Example of a client listener for receiving the notification QueryWorkQualificationCreateEvent
+      operationId: listenToQueryWorkQualificationCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryWorkQualificationCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/queryWorkQualificationStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity QueryWorkQualificationStateChangeEvent
+      description: Example of a client listener for receiving the notification QueryWorkQualificationStateChangeEvent
+      operationId: listenToQueryWorkQualificationStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryWorkQualificationStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/queryWorkQualificationDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity QueryWorkQualificationDeleteEvent
+      description: Example of a client listener for receiving the notification QueryWorkQualificationDeleteEvent
+      operationId: listenToQueryWorkQualificationDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryWorkQualificationDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    Addressable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+      description: Base schema for adressable entities
+    AgreementRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the agreement
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+    AlternateWorkProposal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of an alternate work proposal
+        alternateWorkDate:
+          type: string
+          description: Alternate date where the work could take place in case the expected date cannot be met.
+          format: date-time
+        alternateWork:
+          $ref: '#/components/schemas/WorkRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Alternate work proposal is used when the requested unit of work is not valid as specified in the request. An alternate proposal could be a distinct workSpecification close to the requested one or the same specification as requested but with a different parameters.
+    Any:
+      type: object
+    AppointmentRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the referred appointment
+        href:
+          type: string
+          description: The reference of the appointment
+        description:
+          type: string
+          description: An explanatory text regarding the appointment made with a party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation
+      description: Refers an appointment, such as a Customer presentation or internal meeting or site visit
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this particular attachment
+          example: 4aafacbd-11ff-4dc8-b445-305f2215715f
+        href:
+          type: string
+          description: URI for this Attachment
+          format: uri
+          example: http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f
+        attachmentType:
+          type: string
+          description: Attachment type such as video, picture
+          example: video
+        content:
+          type: string
+          description: The actual contents of the attachment object, if embedded, encoded as base64
+          format: base64
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+          example: Photograph of the Product
+        mimeType:
+          type: string
+          description: Attachment mime type such as extension file for video, picture and document
+        name:
+          type: string
+          description: The name of the attachment
+        url:
+          type: string
+          description: Uniform Resource Locator, is a web page address (a subset of URI)
+          format: uri
+          example: http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f
+        size:
+          $ref: '#/components/schemas/Quantity'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Complements the description of an element (for instance a product) through video, pictures...
+    AttachmentRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique-Identifier for this attachment
+        href:
+          type: string
+          description: URL serving as reference for the attachment resource
+          format: uri
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+        name:
+          type: string
+          description: Name of the related entity.
+        url:
+          type: string
+          description: Link to the attachment media/content
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+    AttachmentRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this particular attachment
+          example: 4aafacbd-11ff-4dc8-b445-305f2215715f
+        href:
+          type: string
+          description: URI for this Attachment
+          format: uri
+          example: http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f
+        attachmentType:
+          type: string
+          description: Attachment type such as video, picture
+          example: video
+        content:
+          type: string
+          description: The actual contents of the attachment object, if embedded, encoded as base64
+          format: base64
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+          example: Photograph of the Product
+        mimeType:
+          type: string
+          description: Attachment mime type such as extension file for video, picture and document
+        name:
+          type: string
+          description: The name of the attachment
+        url:
+          type: string
+          description: Uniform Resource Locator, is a web page address (a subset of URI)
+          format: uri
+          example: http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f
+        size:
+          $ref: '#/components/schemas/Quantity'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+    BillingAccountRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the billing account
+        href:
+          type: string
+          description: Reference of the billing account
+        name:
+          type: string
+          description: Name of the billing account
+        ratingType:
+          type: string
+          description: Indicates whether the account follows a specific payment option such as prepaid or postpaid
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CharacteristicRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Another Characteristic that is related to the current Characteristic;
+    CheckWorkQualification:
+      required:
+        - workQualificationItem
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        checkWorkQualificationDate:
+          type: string
+          description: Date when the workQualification was submitted
+          format: date-time
+        description:
+          type: string
+          description: Description of the qualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to qualification completion
+          format: date-time
+        estimatedResponseDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request.
+          format: date-time
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification response expires
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        provideAlternative:
+          type: boolean
+          description: When the value is TRUE means that alternative solutions should be provided
+          default: false
+        provideUnavailabilityReason:
+          type: boolean
+          description: When the value is TRUE means that unavailability reason are expected for non available units of work.
+          default: false
+        qualificationResult:
+          type: string
+          description: 'Qualification result for this workQualification. It could be:  qualified (all qualification item are qualified), alternate (At least one item alternate and no item with  unqualified), unqualified (At least one item unqualified)'
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        workQualificationItem:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckWorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: CheckWorkQualification is used to validate specific units of work
+    CheckWorkQualification_Create:
+      required:
+        - workQualificationItem
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the qualification
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        provideAlternative:
+          type: boolean
+          description: When the value is TRUE means that alternative solutions should be provided
+          default: false
+        provideUnavailabilityReason:
+          type: boolean
+          description: When the value is TRUE means that unavailability reason are expected for non available units of work.
+          default: false
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        workQualificationItem:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckWorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        CheckWorkQualification is used to validate specific units of work
+        Skipped properties: id,href,state,effectiveQualificationDate,qualificationResult,expirationDate,checkWorkQualificationDate,estimatedResponseDate,workQualificationItem.alternateWorkProposal,workQualificationItem.state,workQualificationItem.qualificationResult
+    CheckWorkQualification_Update:
+      required:
+        - workQualificationItem
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the qualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to qualification completion
+          format: date-time
+        estimatedResponseDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request.
+          format: date-time
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification response expires
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        provideAlternative:
+          type: boolean
+          description: When the value is TRUE means that alternative solutions should be provided
+          default: false
+        provideUnavailabilityReason:
+          type: boolean
+          description: When the value is TRUE means that unavailability reason are expected for non available units of work.
+          default: false
+        qualificationResult:
+          type: string
+          description: 'Qualification result for this workQualification. It could be:  qualified (all qualification item are qualified), alternate (At least one item alternate and no item with  unqualified), unqualified (At least one item unqualified)'
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        workQualificationItem:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckWorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        CheckWorkQualification is used to validate specific units of work
+        Skipped properties: id,href,checkWorkQualificationDate
+    CheckWorkQualificationItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the Work Qualification Item
+        expectedWorkDate:
+          type: string
+          description: The date when the work is expected to take place
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification item response expires
+          format: date-time
+        qualificationResult:
+          type: string
+          description: 'Qualification result for workQualification item. It could be: - qualified (requested unit of work is valid), - unqualified (requested unit of work not valid and not alternative available), - alternate (requested unit of work not valid but alternate proposal available)'
+        state:
+          type: string
+          description: State of the qualification item (acknowledged, inProgress, terminatedWithError, done)
+        alternateWorkProposal:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlternateWorkProposal'
+        eligibilityUnavailabilityReason:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityUnavailabilityReason'
+        qualificationItemRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkQualificationItemRelationship'
+        qualificationRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkQualificationRelationship'
+        terminationError:
+          type: array
+          description: If qualificationItem has not been done properly this lists the error(s) that caused termination of the qualification.
+          items:
+            $ref: '#/components/schemas/TerminationError'
+        work:
+          $ref: '#/components/schemas/WorkRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A WorkQualificationItem relates to a specific unit of work being checked in a qualification operation.
+    ContactMedium:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        mediumType:
+          type: string
+          description: 'Type of the contact medium, such as: email address, telephone number, postal address'
+        preferred:
+          type: boolean
+          description: If true, indicates that is the preferred contact medium
+        characteristic:
+          $ref: '#/components/schemas/MediumCharacteristic'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Indicates the contact medium that could be used to contact the party.
+    EligibilityUnavailabilityReason:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        code:
+          type: string
+          description: Unavailability reason code.
+        label:
+          type: string
+          description: Unavailability reason label.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Reason for eligibility result if the productOfferingQualification result is no (meaning the productOffering or productSpec is not available).
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base entity schema for use in TMForum Open-APIs
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    Extensible:
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base Extensible schema for use in TMForum Open-APIs
+    ExternalReference:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        externalReferenceType:
+          type: string
+          description: Type of the external reference
+        name:
+          type: string
+          description: External reference name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: External reference of the individual or reference in other system
+    MediumCharacteristic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        city:
+          type: string
+          description: The city
+        contactType:
+          type: string
+          description: 'The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation…'
+        country:
+          type: string
+          description: The country
+        emailAddress:
+          type: string
+          description: Full email address in standard format
+        faxNumber:
+          type: string
+          description: The fax number of the contact
+        phoneNumber:
+          type: string
+          description: The primary phone number of the contact
+        postCode:
+          type: string
+          description: Postcode
+        socialNetworkId:
+          type: string
+          description: Identifier as a member of a social network
+        stateOrProvince:
+          type: string
+          description: State or province
+        street1:
+          type: string
+          description: Describes the street
+        street2:
+          type: string
+          description: Complementary street description
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)
+    Money:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+          format: float
+      description: A base / value business entity used to represent money
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the note within its containing entity
+          example: ''
+        author:
+          type: string
+          description: Author of the note
+          example: ''
+        date:
+          type: string
+          description: Date of the note
+          format: date-time
+        text:
+          type: string
+          description: Text of the note
+          example: ''
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Extra information about a given entity
+    Party:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the organization
+        href:
+          type: string
+          description: Hyperlink to access the organization
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        creditRating:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartyCreditProfile'
+        externalReference:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        taxExemptionCertificate:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxExemptionCertificate'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Generic Party structure used to define commonalities between sub concepts of Individual and Organization.
+    PartyCreditProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        creditAgencyName:
+          type: string
+          description: Name of the credit agency giving the score
+        creditAgencyType:
+          type: string
+          description: Type of the credit agency giving the score
+        ratingReference:
+          type: string
+          description: Reference corresponding to the credit rating
+        ratingScore:
+          type: integer
+          description: A measure of a party’s creditworthiness calculated on the basis of a combination of factors such as their income and credit history
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: An individual might be evaluated for its worthiness and this evaluation might be based on a credit rating given by a credit agency.
+    PartyRef:
+      required:
+        - '@referredType'
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    PartyRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the organization
+        href:
+          type: string
+          description: Hyperlink to access the organization
+        name:
+          type: string
+          description: Name of the related entity.
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        creditRating:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartyCreditProfile'
+        externalReference:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        taxExemptionCertificate:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxExemptionCertificate'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Place reference. Place defines the places where the products are sold or delivered.
+    PlaceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+    PlaceRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+    Price:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        percentage:
+          type: number
+          description: Percentage to apply for ProdOfferPriceAlteration
+          format: float
+        taxRate:
+          type: number
+          description: Tax rate
+          format: float
+        dutyFreeAmount:
+          $ref: '#/components/schemas/Money'
+        taxIncludedAmount:
+          $ref: '#/components/schemas/Money'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+    PriceAlteration:
+      required:
+        - price
+        - priceType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        applicationDuration:
+          type: integer
+          description: Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)
+        description:
+          type: string
+          description: A narrative that explains in detail the semantics of this order item price alteration
+        name:
+          type: string
+          description: Name of the order item price alteration
+        priceType:
+          type: string
+          description: A category that describes the price such as recurring, one time and usage.
+        priority:
+          type: integer
+          description: Priority level for applying this alteration among all the defined alterations on the order item price
+        recurringChargePeriod:
+          type: string
+          description: Could be month, week...
+        unitOfMeasure:
+          type: string
+          description: Could be minutes, GB...
+        price:
+          $ref: '#/components/schemas/Price'
+        productOfferingPrice:
+          $ref: '#/components/schemas/ProductOfferingPriceRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Is an amount, usually of money, that modifies the price charged for an order item.
+    PriceType:
+      type: string
+      description: 'Describes the type of price (ex: oneTime, recurring, etc)'
+      enum:
+        - recurring
+        - oneTime
+        - usage
+    ProductOfferingPriceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased
+    Quantity:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Numeric value in a given unit
+          format: float
+          default: 1
+        units:
+          type: string
+          description: Unit
+      description: An amount in a given unit
+    QueryWorkQualification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: Description of the qualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to qualification completion
+          format: date-time
+        estimatedResponseDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request.
+          format: date-time
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification response expires
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        queryWorkQualificationDate:
+          type: string
+          description: Date when the workQualification was submitted
+          format: date-time
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        searchCriteria:
+          $ref: '#/components/schemas/WorkQualificationItem'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        workQualificationItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: QueryWorkQualification is used to retrieve a list of units of work that are valid in the context of the interaction
+    QueryWorkQualification_Create:
+      required:
+        - searchCriteria
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the qualification
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        searchCriteria:
+          $ref: '#/components/schemas/WorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        QueryWorkQualification is used to retrieve a list of units of work that are valid in the context of the interaction
+        Skipped properties: id,href,workQualificationItem,state,effectiveQualificationDate,expirationDate,estimatedResponseDate,queryWorkQualificationDate
+    QueryWorkQualification_Update:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the qualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to qualification completion
+          format: date-time
+        estimatedResponseDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request.
+          format: date-time
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification response expires
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        searchCriteria:
+          $ref: '#/components/schemas/WorkQualificationItem'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        workQualificationItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkQualificationItem'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        QueryWorkQualification is used to retrieve a list of units of work that are valid in the context of the interaction
+        Skipped properties: id,href,queryWorkQualificationDate
+    RelatedParty:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+          description: Role played by the related party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+    RelatedPlaceRefOrValue:
+      required:
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        role:
+          type: string
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+    RelatedWorkOrderItem:
+      required:
+        - orderItemId
+        - workOrderId
+      type: object
+      properties:
+        orderItemAction:
+          type: string
+          description: "Action of the order item for this unit of work\r\n"
+        orderItemId:
+          type: string
+          description: Identifier of the work order item where the unit of work was managed
+        role:
+          type: string
+          description: "Role of the work order item for this unitof work\r\n"
+        workOrderHref:
+          type: string
+          description: Reference of the related entity.
+        workOrderId:
+          type: string
+          description: Unique identifier of a related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: RelatedWorkOrderItem (WorkOrder item). The work order item which triggered this unit of work's creation/change/termination.
+    TaskStateType:
+      type: string
+      description: Possible values for the state of a task
+      enum:
+        - accepted
+        - terminatedWithError
+        - inProgress
+        - done
+    TaxDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the tax.
+        jurisdictionLevel:
+          type: string
+          description: Level of the jurisdiction that levies the tax
+          example: Country
+        jurisdictionName:
+          type: string
+          description: Name of the jurisdiction that levies the tax
+          example: USA
+        name:
+          type: string
+          description: Tax name.
+        taxType:
+          type: string
+          description: Type of the tax.
+          example: VAT
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. There are many different types of tax (Federal Tax levied by the US Government, State Tax levied by the State of California,…).
+    TaxExemptionCertificate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the tax exemption within list of the exemptions
+        certificateNumber:
+          type: string
+          description: Identifier of a document that shows proof of exemption from taxes for the taxing jurisdiction
+        issuingJurisdiction:
+          type: string
+          description: Name of the jurisdiction that issued the exemption
+          example: USA
+        reason:
+          type: string
+          description: Reason for the tax exemption
+        attachment:
+          $ref: '#/components/schemas/AttachmentRefOrValue'
+        taxDefinition:
+          type: array
+          description: A list of taxes that are covered by the exemption, e.g. City Tax, State Tax. The definition would include the exemption (e.g. for a rate exemption 0% would be a full exemption, 5% could be a partial exemption if the actual rate was 10%).
+          items:
+            $ref: '#/components/schemas/TaxDefinition'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A tax exemption certificate represents a tax exemption granted to a party (individual or organization) by a tax jurisdiction which may be a city, state, country,... An exemption has a certificate identifier (received from the jurisdiction that levied the tax) and a validity period. An exemption is per tax types and determines for each type of tax what portion of the tax is exempted (partial by percentage or complete) via the tax definition.
+    TerminationError:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the termination error
+        value:
+          type: string
+          description: 'Text to describe the termination error - for example: Unable to proceed to qualification because incomplete information provided'
+      description: This indicates an error that caused a qualificationItem to be terminated.
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    TimeSlot:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the TimeSlot
+        href:
+          type: string
+          description: Reference of the TimeSlot
+        relatedParty:
+          $ref: '#/components/schemas/RelatedParty'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    Work:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        completionDate:
+          type: string
+          description: Date when the order was completed
+          format: date-time
+        description:
+          type: string
+          description: Is the description of the work unit. It could be the same as the description of the work specification.
+        expectedCompletionDate:
+          type: string
+          description: Date when the requester expects the work to be completed
+          format: date-time
+        name:
+          type: string
+          description: Name of the work unit. It could be the same as the name of the work specification.
+        orderDate:
+          type: string
+          description: Date at which the work order which triggered this unit of work's creation/change/termination was created.
+          format: date-time
+        percentageComplete:
+          type: number
+          format: float
+        workPriority:
+          type: string
+        workType:
+          type: string
+        actualDuration:
+          $ref: '#/components/schemas/Quantity'
+        agreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        appointment:
+          $ref: '#/components/schemas/AppointmentRef'
+        currentDuration:
+          $ref: '#/components/schemas/Quantity'
+        deliveryTimeSlot:
+          $ref: '#/components/schemas/TimePeriod'
+        note:
+          $ref: '#/components/schemas/Note'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        plannedDuration:
+          $ref: '#/components/schemas/Quantity'
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        scheduledDuration:
+          $ref: '#/components/schemas/Quantity'
+        state:
+          $ref: '#/components/schemas/WorkStateType'
+        work:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRefOrValue'
+        workCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        workOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedWorkOrderItem'
+        workPrice:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkPrice'
+        workRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRelationship'
+        workSpecification:
+          $ref: '#/components/schemas/WorkSpecificationRef'
+        workforceEmployeeAssignment:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkforceEmployeeAssignment'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    WorkEligibilityUnavailabilityReason:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unavailability reason code
+        label:
+          type: string
+          description: Unavailability reason label
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Reason for eligibility result if the WorkQualification result is no (meaning the Unit of Work is not valid)
+    WorkPrice:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A narrative that explains in detail the semantics of this shipment price.
+        name:
+          type: string
+          description: A short descriptive name such as "Subscription price".
+        recurringChargePeriod:
+          type: string
+          description: Could be month, week...
+        unitOfMeasure:
+          type: string
+          description: Could be minutes, GB...
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        price:
+          $ref: '#/components/schemas/Price'
+        priceAlteration:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceAlteration'
+        priceType:
+          $ref: '#/components/schemas/PriceType'
+        productOfferingPrice:
+          $ref: '#/components/schemas/ProductOfferingPriceRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: An amount, usually of money, that represents the actual price paid by the Customer for this item or this order.
+    WorkQualification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: Description of the qualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to qualification completion
+          format: date-time
+        estimatedResponseDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request.
+          format: date-time
+        expectedQualificationDate:
+          type: string
+          description: A date (DateTime). Deadline date when the requester expected a qualification answer.
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification response expires
+          format: date-time
+        externalId:
+          type: string
+          description: Identifier provided by the requester
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        place:
+          $ref: '#/components/schemas/PlaceRefOrValue'
+        relatedParty:
+          type: array
+          description: A list of related party references, defines party or party role linked to this request.
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    WorkQualificationItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the Work Qualification Item
+        expectedWorkDate:
+          type: string
+          description: The date when the work is expected to take place
+          format: date-time
+        expirationDate:
+          type: string
+          description: Date when the qualification item response expires
+          format: date-time
+        eligibilityUnavailabilityReason:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityUnavailabilityReason'
+        work:
+          $ref: '#/components/schemas/WorkRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A WorkQualificationItem relates to a specific unit of work being checked in a qualification operation.
+    WorkQualificationItemRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the workQualificationItem (from the same workQualification).
+        relationshipType:
+          type: string
+          description: 'Type of relationship (ex: reliesOn, connectedTo, etc...)'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Structure used to describe relationship between WorkQualification items from the same WorkQualification .
+    WorkQualificationRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the target qualification pointed to by this relationship
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Structure used to describe relationship between WorkQualification item from the same WorkQualification.
+    WorkRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Unit of Work reference
+    WorkRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        completionDate:
+          type: string
+          description: Date when the order was completed
+          format: date-time
+        description:
+          type: string
+          description: Is the description of the work unit. It could be the same as the description of the work specification.
+        expectedCompletionDate:
+          type: string
+          description: Date when the requester expects the work to be completed
+          format: date-time
+        name:
+          type: string
+          description: Name of the related entity.
+        orderDate:
+          type: string
+          description: Date at which the work order which triggered this unit of work's creation/change/termination was created.
+          format: date-time
+        percentageComplete:
+          type: number
+          format: float
+        workPriority:
+          type: string
+        workType:
+          type: string
+        actualDuration:
+          $ref: '#/components/schemas/Quantity'
+        agreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        appointment:
+          $ref: '#/components/schemas/AppointmentRef'
+        currentDuration:
+          $ref: '#/components/schemas/Quantity'
+        deliveryTimeSlot:
+          $ref: '#/components/schemas/TimePeriod'
+        note:
+          $ref: '#/components/schemas/Note'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        plannedDuration:
+          $ref: '#/components/schemas/Quantity'
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        scheduledDuration:
+          $ref: '#/components/schemas/Quantity'
+        state:
+          $ref: '#/components/schemas/WorkStateType'
+        work:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRefOrValue'
+        workCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        workOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedWorkOrderItem'
+        workPrice:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkPrice'
+        workRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRelationship'
+        workSpecification:
+          $ref: '#/components/schemas/WorkSpecificationRef'
+        workforceEmployeeAssignment:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkforceEmployeeAssignment'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A Unit of Work defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the work entity and not the related WorkRefOrValue class itself
+    WorkRelationship:
+      required:
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+        work:
+          $ref: '#/components/schemas/WorkRefOrValue'
+        workRelationshipCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    WorkSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Work specification reference
+    WorkStateType:
+      type: string
+      description: ''
+      enum:
+        - acknowledged
+        - rejected
+        - pending
+        - held
+        - inProgress
+        - cancelled
+        - completed
+        - failed
+        - partial
+    WorkforceEmployeeAssignment:
+      required:
+        - description
+        - id
+        - skillType
+        - workforceEmployee
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        skillType:
+          type: string
+          description: 'Ex: primarySkill, secondarySkill'
+        state:
+          $ref: '#/components/schemas/WorkforceEmployeeAssignmentStateType'
+        timeSlot:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSlot'
+        workforceEmployee:
+          $ref: '#/components/schemas/PartyRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Represents an assignment of a particular WorforceEmployeeRole for a particular unit of work in a specific timeframe. For example, assignment of a person in a network engineer role to a trouble shooting unit of work for at least 2 hours. The assignment is associated with a TimeSlot.
+    WorkforceEmployeeAssignmentStateType:
+      type: string
+      description: ''
+      enum:
+        - acknowledged
+        - rejected
+        - pending
+        - held
+        - inProgress
+        - cancelled
+        - completed
+        - failed
+        - partial
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    CheckWorkQualificationCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CheckWorkQualificationCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    CheckWorkQualificationCreateEventPayload:
+      type: object
+      properties:
+        checkWorkQualification:
+          $ref: '#/components/schemas/CheckWorkQualification'
+      description: The event data structure
+    CheckWorkQualificationAttributeValueChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/CheckWorkQualificationAttributeValueChangeEventPayload'
+      description: The notification data structure
+    CheckWorkQualificationAttributeValueChangeEventPayload:
+      type: object
+      properties:
+        checkWorkQualification:
+          $ref: '#/components/schemas/CheckWorkQualification'
+      description: The event data structure
+    CheckWorkQualificationStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CheckWorkQualificationStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    CheckWorkQualificationStateChangeEventPayload:
+      type: object
+      properties:
+        checkWorkQualification:
+          $ref: '#/components/schemas/CheckWorkQualification'
+      description: The event data structure
+    CheckWorkQualificationDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CheckWorkQualificationDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    CheckWorkQualificationDeleteEventPayload:
+      type: object
+      properties:
+        checkWorkQualification:
+          $ref: '#/components/schemas/CheckWorkQualification'
+      description: The event data structure
+    CheckWorkQualificationInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/CheckWorkQualificationInformationRequiredEventPayload'
+      description: The notification data structure
+    CheckWorkQualificationInformationRequiredEventPayload:
+      type: object
+      properties:
+        checkWorkQualification:
+          $ref: '#/components/schemas/CheckWorkQualification'
+      description: The event data structure
+    QueryWorkQualificationCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/QueryWorkQualificationCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    QueryWorkQualificationCreateEventPayload:
+      type: object
+      properties:
+        queryWorkQualification:
+          $ref: '#/components/schemas/QueryWorkQualification'
+      description: The event data structure
+    QueryWorkQualificationStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/QueryWorkQualificationStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    QueryWorkQualificationStateChangeEventPayload:
+      type: object
+      properties:
+        queryWorkQualification:
+          $ref: '#/components/schemas/QueryWorkQualification'
+      description: The event data structure
+    QueryWorkQualificationDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/QueryWorkQualificationDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    QueryWorkQualificationDeleteEventPayload:
+      type: object
+      properties:
+        queryWorkQualification:
+          $ref: '#/components/schemas/QueryWorkQualification'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

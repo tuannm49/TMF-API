@@ -1,0 +1,545 @@
+openapi: 3.0.1
+info:
+  title: VNPT API User
+  description: |-
+    ## VNPT API Reference : VNPT 005 - User 
+
+    ### Release : 1.1.0
+
+    Description about User
+
+    ### Resources
+    - User
+
+    User API performs the following operations :
+    - Retrieve an User
+    - Retrieve a collection of Users according to given criteria
+    - Create a new User
+    - Update an existing User
+    - Delete an existing User
+  version: 1.1.0
+servers:
+  - url: https://serverRoot/vnpt-api/user/v1/
+tags:
+  - name: user
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      summary: List or find User objects
+      description: This operation list or find User entities
+      operationId: listUser
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - user
+      summary: Creates a User
+      description: This operation creates a User entity.
+      operationId: createApplication
+      requestBody:
+        description: The User to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Retrieves a User by ID
+      description: This operation retrieves a User entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveUser
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the User
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - user
+      summary: Updates partially a User
+      description: This operation updates partially a User entity.
+      operationId: patchUser
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the User
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The User to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - user
+      summary: Delete a User
+      description: This operation delete a User entity.
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the User
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        name:
+          type: string
+          description: Name of User
+        userName:
+          type: string
+          description: user name
+        password:
+          type: string
+          description: Password
+        isActive:
+          type: boolean
+          description: A “true” value specifies user active
+        email:
+          type: string
+          description: Email
+        organization:
+          $ref: '#/components/schemas/OrganizationRef'
+        dataOwnerOrganization:
+          $ref: '#/components/schemas/OrganizationRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Last update
+          format: date-time
+    User_Create:
+      required:
+        - name
+        - userName
+        - password
+        - organization
+        - dataOwnerOrganization
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of User
+        userName:
+          type: string
+          description: user name
+        password:
+          type: string
+          description: Password
+        email:
+          type: string
+          description: Email
+        isActive:
+          type: boolean
+          description: A “true” value specifies user active
+        organization:
+          $ref: '#/components/schemas/OrganizationRef'
+        dataOwnerOrganization:
+          $ref: '#/components/schemas/OrganizationRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+      description: |-
+        Resource represents a single zone independen with other.
+        Skipped properties: id,href
+    User_Update:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of User
+        password:
+          type: string
+          description: Password
+        email:
+          type: string
+          description: Email
+        isActive:
+          type: boolean
+          description: A “true” value specifies user active
+        organization:
+          $ref: '#/components/schemas/OrganizationRef'
+        dataOwnerOrganization:
+          $ref: '#/components/schemas/OrganizationRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+      description: |-
+        Individual represents a single zone independence with other.
+        Skipped properties: id,href
+    OrganizationRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a OrganizationRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the User
+        orgName:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    GroupRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a GroupRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the User
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    RoleRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a GroupRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the User
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

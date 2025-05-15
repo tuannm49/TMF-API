@@ -43,11 +43,11 @@ public class MongoRepository<T> implements GenericRepository<T> {
     }
 
     @Override
-    public void create(T entity) throws BadUsageException {
+    public T create(T entity) throws BadUsageException {
         if (entity == null) {
             throw new BadUsageException(ExceptionType.BAD_USAGE_FORMAT, "Entity cannot be null");
         }
-        mongoTemplate.insert(entity);
+        return mongoTemplate.insert(entity);
     }
 
     @Override

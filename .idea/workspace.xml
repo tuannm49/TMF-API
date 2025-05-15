@@ -1,7 +1,365 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="383d3599-51f7-46bc-8f34-4348afb1ee5c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/ShipmentManagementAPI.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/ShipmentTrackingMngtAPI.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/ShippingOrderManagementAPI.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/StockManagementAPI.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF622-ProductOrdering-v5.0.0-postman.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF622-ProductOrdering-v5.0.0.oas.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF723-Policy_Management-v5.0.0.oas.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF723_Policy_v4.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/accountManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/agreementManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/alarmManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/appointmentManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/billingManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/cDRTransactionManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/closedLoopManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/communicationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/customer360Management.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/customerManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/digitalldentityManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/documentManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/dunningCaseManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/entityCatalogManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/eventManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/federatedIdentityManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/geographicAddressManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/geographicLocation.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/geographicSiteManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/intentManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/metadataCatalogManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/openGatewayOperateManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/openapi.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/partnerManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/partyInteractionManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/partyManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/partyPrivacyManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/partyRoleManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/paymentMethodManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/performanceManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/policyManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/processFlowManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productCatalogManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productConfigurationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productInventoryManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productOfferingQualification.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productOrderingManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/productTestManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/promotionManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/quoteManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/recommendationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/resourceCatalogManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/resourceInventoryManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/resourceOrderManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/resourcePoolkManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/resourceUsageManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/revenueSharingAlgorithmManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/revenueSharingModelManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/riskManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/salesManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceActivationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceActivationandConfigurationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceCatalogManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceInventoryManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceOrderingManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceProblemManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceQualificationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceTestManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/serviceUsageManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/shoppingCartManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/troubleTicketManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/usageManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/userRolesPermissionManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptAddress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptApiResource.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptApiResource.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptApplication.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptApplication.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptOrganization.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptOrganization.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptPlace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptRole.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptRole.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptTenant.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptTenant.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptUser.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptUser.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptUserGroup.v1.1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/vnptUserGroup.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/warrantyManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/workManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/workOrderManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/workQualificationManagement.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/com/example/codegen/CodeGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/com/example/codegen/DirectoryScanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/com/example/codegen/PathProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/com/example/codegen/SchemaProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/database/DbmsDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/database/MongoDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/utils/YamlConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/ProductItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/UserRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/MongoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/MongoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/MysqlRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/DbmsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/service/GenericService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/service/GenericService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/config/MongoConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/config/MySqlConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/Identifiable.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/service/AbstractService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/service/MongoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/service/MysqlService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/application-mongo.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/application-mysql.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/config/MongoConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/config/MySqlConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/controller/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/model/Identifiable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/model/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/repository/GenericRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/repository/JpaGenericRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/repository/MongoGenericRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/com/example/service/GenericService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/METASCHEMA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/VALIDATIONSCHEMA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/dereference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/normalize-args.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/options.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/parse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/parsers/binary.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/parsers/json.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/parsers/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/parsers/yaml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/pointer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/ref.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/refs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/resolve-external.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/resolvers/file.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/resolvers/http.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/util/plugins.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/util/url.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/json-schema-ref-parser/lib/util/yaml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/utilities.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181204T215154Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181211T180543Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181211T183630Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181211T184730Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181211T200650Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181212T135614Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181212T141158Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181212T143653Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181213T120357Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181213T145328Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181213T162433Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181217T174241Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181220T101714Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20181220T225449Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190107T133054Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190108T150121Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190108T214751Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190108T220212Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190110T153731Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190110T172147Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190110T220048Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190114T065303Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190114T141713Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190114T202004Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190114T202732Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190116T093850Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190124T194542Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190130T143723Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190205T100848Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190205T101022Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190205T101655Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190206T141932Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190219T154802Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190220T133302Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190220T133837Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190220T134000Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190220T150015Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190225T155815Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190301T145058Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190306T162305Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190312T101423Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190407T191229Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190407T212953Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190415T110150Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190415T145323Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190416T134356Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190416T150811Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190416T152913Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T124331Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T124534Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T125126Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T125204Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T132625Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T132650Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190417T134002Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190502T132458Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190502T132905Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T142338Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T142733Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T142855Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T143514Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T145911Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T200500Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190506T203937Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190507T140952Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190507T141325Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190507T145904Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190509T103356Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190509T103759Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190509T141851Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190509T204655Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190509T205313Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190522T190314Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190524T142715Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190527T114455Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190529T103430Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190529T104400Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20190704T144515Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20191204T084208Z.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas-candidates/.circleci/validation_results/validation-20191204T084319Z.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/SchemaProcessor.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/com/example/commons/repository/DbmsRepository.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2wzWDtsuSnT1a0lpCHPwxMoIXxf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "Application.CodeGenerator.executor": "Run",
+    "Application.DirectoryScanner.executor": "Run",
+    "Maven.TMF_CODE_GEN [compile].executor": "Run",
+    "Maven.TMF_CODE_GEN [test].executor": "Run",
+    "Maven.TMF_DEMO [compile].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Volumes/Data/work/ERP/ODA/Code/TMF-API/TMF_CODE_GEN/openApi",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TMF_CODE_GEN/openApi" />
+      <recent name="$PROJECT_DIR$/TMF_DEMO" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TMF_CODE_GEN/openApi" />
+      <recent name="$PROJECT_DIR$/TMF_CODE_GEN" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CodeGenerator">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.Application" />
+      <module name="TMF_DEMO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CodeGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.codegen.CodeGenerator" />
+      <module name="TMF_CODE_GEN" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DirectoryScanner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.codegen.DirectoryScanner" />
+      <module name="TMF_CODE_GEN" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.codegen.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CodeGenerator" />
+        <item itemvalue="Application.DirectoryScanner" />
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="383d3599-51f7-46bc-8f34-4348afb1ee5c" name="Changes" comment="" />
+      <created>1747044766887</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747044766887</updated>
+    </task>
+    <servers />
   </component>
 </project>

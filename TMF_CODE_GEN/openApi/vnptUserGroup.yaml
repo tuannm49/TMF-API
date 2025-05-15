@@ -1,0 +1,504 @@
+openapi: 3.0.1
+info:
+  title: VNPT API User Group
+  description: |-
+    ## VNPT API Reference : VNPT 006 - User Group 
+
+    ### Release : 1.0 
+
+    Desciption about User Group
+
+    ### Resources
+    - User Group
+
+    User Group API performs the following operations :
+    - Retrieve an User Group
+    - Retrieve a collection of User Groups according to given criteria
+    - Create a new User Group
+    - Update an existing User Group
+    - Delete an existing User Group
+  version: 1.0.0
+servers:
+  - url: https://serverRoot/vnpt-api/user-group/v1/
+tags:
+  - name: UserGroup
+paths:
+  /user-group:
+    get:
+      tags:
+        - UserGroup
+      summary: List or find User Group objects
+      description: This operation list or find User Group entities
+      operationId: listUserGroup
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - UserGroup
+      summary: Creates a UserGroup
+      description: This operation creates a UserGroup entity.
+      operationId: createApplication
+      requestBody:
+        description: The UserGroup to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroup_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user-group/{id}:
+    get:
+      tags:
+        - UserGroup
+      summary: Retrieves a UserGroup by ID
+      description: This operation retrieves a UserGroup entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveUserGroup
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the UserGroup
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - UserGroup
+      summary: Updates partially a UserGroup
+      description: This operation updates partially a UserGroup entity.
+      operationId: patchUser
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the UserGroup
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The UserGroup to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroup_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - UserGroup
+      summary: Delete a UserGroup
+      description: This operation delete a UserGroup entity.
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the UserGroup
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    UserGroup:
+      type: object
+      properties:
+        id:
+          example: '128'
+          type: string
+          description: unique identifier
+        href:
+          example: 'https://serverRoot/tmf-api/party/v4/apiresource/128'
+          type: string
+          description: Hyperlink reference
+          format: uri
+        '@type':
+          example: 'UserGroup'
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        name:
+          example: 'Nguyen Van A'
+          type: string
+          description: Name of UserGroup
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Date of create
+          format: date-time
+    UserGroup_Create:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          example: 'Nguyen Van A'
+          type: string
+          description: Name of User
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+      description: |-
+        Resource represents a single zone independen with other.
+        Skipped properties: id,href
+    UserGroup_Update:
+      type: object
+      properties:
+        name:
+          example: 'Nguyen Van A'
+          type: string
+          description: Name of User
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleRef'
+      description: |-
+        Individual represents a single zone independen with other.
+        Skipped properties: id,href
+    UserRef:
+      type: object
+      description: >-
+        Representation of a UserRef
+      properties:
+        id:
+          example: '1'
+          type: string
+          description: Unique Identifier of the User
+        name:
+          example: 'Admin'
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+        '@type':
+          example: 'UserRef'
+          type: string
+          description: The name of the scope structure
+    RoleRef:
+      type: object
+      description: >-
+        Representation of a RoleRef
+      properties:
+        id:
+          example: '1'
+          type: string
+          description: Unique Identifier of the Role
+        name:
+          example: 'Admin'
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+        '@type':
+          example: 'RoleRef'
+          type: string
+          description: The name of the scope structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

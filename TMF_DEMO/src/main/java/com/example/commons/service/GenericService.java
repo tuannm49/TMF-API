@@ -1,8 +1,19 @@
 package com.example.commons.service;
 
+import com.example.commons.database.DbmsDatabase;
+import com.example.commons.database.MongoDatabase;
 import com.example.commons.exceptions.BadUsageException;
 import com.example.commons.exceptions.UnknownResourceException;
+import com.example.commons.repository.DbmsRepository;
 import com.example.commons.repository.GenericRepository;
+import com.example.commons.repository.MongoRepository;
+import com.example.model.Product;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,8 +26,9 @@ import java.util.Map;
  */
 public class GenericService<T> {
 
-    private final GenericRepository<T> repository;
-    private final Class<T> entityClass;
+    private GenericRepository<T> repository;
+    private Class<T> entityClass;
+    private final String dbType;
 
     /**
      * Constructor for GenericService.
@@ -24,10 +36,18 @@ public class GenericService<T> {
      * @param repository  the GenericRepository instance
      * @param entityClass the class of the entity
      */
-    public GenericService(GenericRepository<T> repository, Class<T> entityClass) {
-        this.repository = repository;
+    public GenericService(String dbType,Class<T> entityClass) {
+        this.dbType = dbType;
         this.entityClass = entityClass;
+        if("mysql".equals(dbType)){
+            EntityManagerFactory entityManagerFactory =  DbmsDatabase.entityManagerFactory();
+            repository = (GenericRepository<T>) new DbmsRepository<>(entityManagerFactory.createEntityManager(),entityClass);
+        }else{
+            repository = (GenericRepository<T>) new MongoRepository<>(MongoDatabase.mongoTemplate(),entityClass);
+        }
     }
+
+
 
     /**
      * Creates multiple entities.
@@ -46,8 +66,8 @@ public class GenericService<T> {
      * @param entity the entity to create
      * @throws BadUsageException if the operation fails due to invalid usage
      */
-    public void create(T entity) throws BadUsageException {
-        repository.create(entity);
+    public T create(T entity) throws BadUsageException {
+        return repository.create(entity);
     }
 
     /**

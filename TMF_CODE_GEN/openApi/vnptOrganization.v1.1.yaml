@@ -1,0 +1,484 @@
+openapi: 3.0.1
+info:
+  title: VNPT API Organization
+  description: |-
+    ## VNPT API Reference : VNPT 004 - Organization 
+
+    ### Release : 1.1.0
+
+    Description about Organization
+
+    ### Resources
+    - Organization
+
+    Organization API performs the following operations :
+    - Retrieve an Organization
+    - Retrieve a collection of Organizations according to given criteria
+    - Create a new Organization
+    - Update an existing Organization
+    - Delete an existing Organization
+  version: 1.1.0
+servers:
+  - url: https://serverRoot/vnpt-api/org/v1/
+tags:
+  - name: org
+paths:
+  /organization:
+    get:
+      tags:
+        - org
+      summary: List or find Organization objects
+      description: This operation list or find Organization entities
+      operationId: listOrganization
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - org
+      summary: Creates a Organization
+      description: This operation creates a Organization entity.
+      operationId: createApplication
+      requestBody:
+        description: The Organization to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /organization/{id}:
+    get:
+      tags:
+        - org
+      summary: Retrieves a Organization by ID
+      description: This operation retrieves a Organization entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveOrganization
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Organization
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - org
+      summary: Updates partially a Organization
+      description: This operation updates partially a Organization entity.
+      operationId: patchOrganization
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Organization
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Organization to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - org
+      summary: Delete a Organization
+      description: This operation delete a Organization entity.
+      operationId: deleteOrganization
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Organization
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        orgName:
+          example: 'ERP'
+          type: string
+          description: Name of Resource. Ex (ERP)
+        description:
+          type: string
+          description: Desciption about ERP
+        tenant:
+          $ref: '#/components/schemas/TenantRef'
+        orgParent:
+          $ref: '#/components/schemas/OrganizationRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Last update
+          format: date-time
+    Organization_Create:
+      required:
+        - orgName
+        - tenant
+      type: object
+      properties:
+        orgName:
+          example: 'ERP'
+          type: string
+          description: Name of Resource. Ex (ERP)
+        description:
+          type: string
+          description: Desciption about ERP
+        tenant:
+          $ref: '#/components/schemas/TenantRef'
+        orgParent:
+          $ref: '#/components/schemas/OrganizationRef'
+      description: |-
+        Resource represents a single zone independent with other.
+        Skipped properties: id,href
+    Organization_Update:
+      type: object
+      properties:
+        orgName:
+          example: 'ERP'
+          type: string
+          description: Name of Resource. Ex (ERP)
+        description:
+          type: string
+          description: Desciption about ERP
+        tenant:
+          $ref: '#/components/schemas/TenantRef'
+        orgParent:
+          $ref: '#/components/schemas/OrganizationRef'
+      description: |-
+        Individual represents a single zone independent with other.
+        Skipped properties: id,href
+    OrganizationRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a OrganizationRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Organization
+        orgName:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    TenantRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a Tenant
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Tenant
+        domainName:
+          type: string
+          description: Name of the role to identify it with a meaningful identification
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

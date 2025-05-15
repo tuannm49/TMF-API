@@ -27,7 +27,7 @@ public interface GenericRepository<T> {
      * @param entity the entity to create
      * @throws BadUsageException if the operation fails due to invalid usage
      */
-    void create(T entity) throws BadUsageException;
+    T create(T entity) throws BadUsageException;
 
     /**
      * Updates an existing entity.

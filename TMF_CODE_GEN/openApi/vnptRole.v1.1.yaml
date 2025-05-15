@@ -1,0 +1,554 @@
+openapi: 3.0.1
+info:
+  title: VNPT API Role
+  description: |-
+    ## VNPT API Reference : VNPT 007 - Role 
+
+    ### Release : 1.1.0
+
+    Description about Role
+
+    ### Resources
+    - Role
+
+    Role API performs the following operations :
+    - Retrieve an Role
+    - Retrieve a collection of Roles according to given criteria
+    - Create a new Role
+    - Update an existing Role
+    - Delete an existing Role
+  version: 1.1.0
+servers:
+  - url: https://serverRoot/vnpt-api/role/v1/
+tags:
+  - name: Role
+paths:
+  /role:
+    get:
+      tags:
+        - Role
+      summary: List or find Role objects
+      description: This operation list or find Role entities
+      operationId: listRole
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Role
+      summary: Creates a Role
+      description: This operation creates a Role entity.
+      operationId: createRole
+      requestBody:
+        description: The Role to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /role/{id}:
+    get:
+      tags:
+        - Role
+      summary: Retrieves a Role by ID
+      description: This operation retrieves a Role entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveRole
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Role
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Role
+      summary: Updates partially a Role
+      description: This operation updates partially a Role entity.
+      operationId: patchRole
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Role
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Role to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Role
+      summary: Delete a Role
+      description: This operation delete a Role entity.
+      operationId: deleteRole
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Role
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        name:
+          type: string
+          description: Name of Role
+        roleType:
+          type: string
+          description: Name of roleType
+        assignedApplication:
+          $ref: '#/components/schemas/ApplicationRef'
+        apiResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiResourceRef'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Last update
+          format: date-time
+    Role_Create:
+      required:
+        - name
+        - roleType
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of User
+        roleType:
+          type: string
+          description: Name of roleType
+        assignedApplication:
+          $ref: '#/components/schemas/ApplicationRef'
+        apiResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiResourceRef'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+      description: |-
+        Resource represents a single zone independen with other.
+        Skipped properties: id,href
+    Role_Update:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of Role
+        roleType:
+          type: string
+          description: Name of roleType
+        assignedApplication:
+          $ref: '#/components/schemas/ApplicationRef'
+        apiResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiResourceRef'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRef'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+      description: |-
+        Individual represents a single zone independent with other.
+        Skipped properties: id,href
+    UserRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a UserRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the User
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    GroupRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a GroupRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Group
+        name:
+          type: string
+          description: Name of the Group to identify it with a meaningful identification
+    ApiResourceRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ApiResourceRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the ApiResourceRef
+        name:
+          type: string
+          description: Name of the ApiResourceRef to identify it with a meaningful identification
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScopeRef'
+    ScopeRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ScopeRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the ScopeRef
+        name:
+          type: string
+          description: Name of the ScopeRef to identify it with a meaningful identification
+    ApplicationRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ApplicationRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Group
+        name:
+          type: string
+          description: Name of the Group to identify it with a meaningful identification
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

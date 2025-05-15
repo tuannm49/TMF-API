@@ -1,0 +1,2113 @@
+openapi: 3.0.1
+info:
+  title: Product Offering Qualification
+  description: |+
+    **TMF API Reference : TMF 679 - Product Offering Qualification**
+
+    **Release : 19.0 - June 2019**
+
+    Product Offering Qualification API provides Product Offering commercial eligibility. This API allows to
+    • request a specific productOffering eligibility 
+    • look for productOffering eligibles (ot not) from a product category
+    • look for productOffering eligibles (or not) from a productspec description.
+    Because the API allows describing product from the inventory, it is also possible to use it to retrieve productOffering available to complete existing product.
+
+    **Product  Offering Qualification resource**
+    A Task-based resouce to manage the qualification request. It has a status to monitor progress.
+
+    Product Offering Qualification API performs the following operations on product offerring qualification (POQ):
+    - Retrieval of a POQ or a collection of POQ depending on filter criteria
+    - Partial update of a POQ (including updating rules and for administration purpose)
+    - Creation of a POQ (including default values and creation rules and for administration purpose)
+    - Deletion of a POQ  (for administration purposes)
+    - Notification of events on POQ.
+
+    Copyright © TM Forum 2019. All Rights Reserved
+
+  version: 99.0.0
+servers:
+  - url: https://serverRoot/tmf-api/productOfferingQualification/v4/
+tags:
+  - name: productOfferingQualification
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /productOfferingQualification:
+    get:
+      tags:
+        - productOfferingQualification
+      summary: List or find ProductOfferingQualification objects
+      description: This operation list or find ProductOfferingQualification entities
+      operationId: listProductOfferingQualification
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductOfferingQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - productOfferingQualification
+      summary: Creates a ProductOfferingQualification
+      description: This operation creates a ProductOfferingQualification entity.
+      operationId: createProductOfferingQualification
+      requestBody:
+        description: The ProductOfferingQualification to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualification_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductOfferingQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: productOfferingQualification
+  /productOfferingQualification/{id}:
+    get:
+      tags:
+        - productOfferingQualification
+      summary: Retrieves a ProductOfferingQualification by ID
+      description: This operation retrieves a ProductOfferingQualification entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveProductOfferingQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ProductOfferingQualification
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductOfferingQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - productOfferingQualification
+      summary: Deletes a ProductOfferingQualification
+      description: This operation deletes a ProductOfferingQualification entity.
+      operationId: deleteProductOfferingQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ProductOfferingQualification
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - productOfferingQualification
+      summary: Updates partially a ProductOfferingQualification
+      description: This operation updates partially a ProductOfferingQualification entity.
+      operationId: patchProductOfferingQualification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ProductOfferingQualification
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The ProductOfferingQualification to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualification_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductOfferingQualification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: productOfferingQualification
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/productOfferingQualificationCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity ProductOfferingQualificationCreateEvent
+      description: Example of a client listener for receiving the notification ProductOfferingQualificationCreateEvent
+      operationId: listenToProductOfferingQualificationCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualificationCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/productOfferingQualificationAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity ProductOfferingQualificationAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification ProductOfferingQualificationAttributeValueChangeEvent
+      operationId: listenToProductOfferingQualificationAttributeValueChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualificationAttributeValueChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/productOfferingQualificationStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity ProductOfferingQualificationStateChangeEvent
+      description: Example of a client listener for receiving the notification ProductOfferingQualificationStateChangeEvent
+      operationId: listenToProductOfferingQualificationStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualificationStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/productOfferingQualificationDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity ProductOfferingQualificationDeleteEvent
+      description: Example of a client listener for receiving the notification ProductOfferingQualificationDeleteEvent
+      operationId: listenToProductOfferingQualificationDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualificationDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/productOfferingQualificationInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity ProductOfferingQualificationInformationRequiredEvent
+      description: Example of a client listener for receiving the notification ProductOfferingQualificationInformationRequiredEvent
+      operationId: listenToProductOfferingQualificationInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductOfferingQualificationInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    Addressable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Base schema for adressable entities
+    AlternateProductOfferingProposal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of a alternate product offering proposal
+        alternateActivationDate:
+          type: string
+          description: Alternate activation date in case seller is not able to meet requested expected activation date.
+          format: date-time
+        alternateProduct:
+          $ref: '#/components/schemas/ProductRefOrValue'
+        alternateProductOffering:
+          $ref: '#/components/schemas/ProductOfferingRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Alternate product Offering proposal is used when the requested product offering is not available with characteristic and date asked for. An alternate proposal could be a distinct product offering or product Spec close to requested one or same as requested but with a different activation date.
+    Any:
+      type: object
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CharacteristicRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Another Characteristic that is related to the current Characteristic;
+    ContactMedium:
+      type: object
+      properties:
+        mediumType:
+          type: string
+          description: 'Type of the contact medium, such as: email address, telephone number, postal address'
+        characteristic:
+          $ref: '#/components/schemas/MediumCharacteristic'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Indicates the contact medium that could be used to contact the party.
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    Extensible:
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Base Extensible schema for use in TMForum Open-APIs
+    MEFMediumCharacteristicExtension:
+      type: object
+      properties:
+        phoneNumberExtension:
+          type: string
+          description: The phone number extension of the contact
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Describes the contact medium characteristics extension for the MEF
+    MEFProductExtension:
+      type: object
+      properties:
+        buyerProductId:
+          type: string
+          description: Buyer identifier of the product
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A product is realized as one or more service(s) and / or resource(s).
+    MEFProductOfferingQualificationExtension:
+      type: object
+      properties:
+        projectId:
+          type: string
+          description: This value MAY be assigned by the Buyer/Seller to identify a project the serviceability request is associated with.
+        stateChange:
+          type: array
+          description: State change for the POQ
+          items:
+            $ref: '#/components/schemas/StateChange'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Holds the MEF POQ extension
+    MEFProductOfferingQualificationItemExtension:
+      type: object
+      properties:
+        guaranteedUntilDate:
+          type: string
+          description: Date when the requester look for productOfferingQualification activation
+          format: date-time
+        serviceConfidenceReason:
+          type: string
+          description: A description of the reason a particular color is being provided. This may include a specific standard reason codes and descriptions.
+        installationInterval:
+          $ref: '#/components/schemas/TimePeriod'
+        product:
+          $ref: '#/components/schemas/ProductRefOrValue'
+        relatedParty:
+          type: array
+          description: Party playing a role for this qualification (as requester for example)
+          items:
+            $ref: '#/components/schemas/RelatedPartyRefOrValue'
+        serviceabilityConfidence:
+          $ref: '#/components/schemas/ServiceabilityColor'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    MediumCharacteristic:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: Full email address in standard format
+        phoneNumber:
+          type: string
+          description: The primary phone number of the contact
+        phoneNumberExtension:
+          type: string
+          description: The phone number extension of the contact
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)
+    Party:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the organization
+        href:
+          type: string
+          description: Hyperlink to access the organization
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Generic Party structure used to define commonalities between sub concepts of Individual and Organization.
+    PartyRef:
+      required:
+        - '@referredType'
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Place reference. Place defines the places where the products are sold or delivered.
+    PlaceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the product
+        href:
+          type: string
+          description: Reference of the product
+        buyerProductId:
+          type: string
+          description: Buyer identifier of the product
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        productCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        productRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRelationship'
+        productSpecification:
+          $ref: '#/components/schemas/ProductSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A product is realized as one or more service(s) and / or resource(s).
+    ProductActionType:
+      type: string
+      description: action to be performed on the product
+      enum:
+        - add
+        - modify
+        - delete
+        - noChange
+    ProductOfferingQualification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the productOfferingQualification resource
+        href:
+          type: string
+          description: Hyperlink to access the productOfferingQualification
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to productOfferingQualification completion
+          format: date-time
+        expectedPOQCompletionDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request
+          format: date-time
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        projectId:
+          type: string
+          description: This value MAY be assigned by the Buyer/Seller to identify a project the serviceability request is associated with.
+        provideAlternative:
+          type: boolean
+          description: An indicator which when the value is "true" means that alternative solutions should be provided
+        requestedPOQCompletionDate:
+          type: string
+          description: Deadline date when the requester expected a qualification answer
+          format: date-time
+        productOfferingQualificationItem:
+          type: array
+          description: Qualification item for a product or a category
+          items:
+            $ref: '#/components/schemas/ProductOfferingQualificationItem'
+        relatedParty:
+          type: array
+          description: Party playing a role for this qualification (as requester for example)
+          items:
+            $ref: '#/components/schemas/RelatedPartyRefOrValue'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        stateChange:
+          type: array
+          description: State change for the POQ
+          items:
+            $ref: '#/components/schemas/StateChange'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: ProductOfferingQualification is used to perform a commercial eligibility. It allows to retrieve a list of productOffering that are commercially available in the context of the interaction (defined be place, channel, party, product).
+    ProductOfferingQualification_Create:
+      type: object
+      properties:
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        projectId:
+          type: string
+          description: This value MAY be assigned by the Buyer/Seller to identify a project the serviceability request is associated with.
+        provideAlternative:
+          type: boolean
+          description: An indicator which when the value is "true" means that alternative solutions should be provided
+        requestedPOQCompletionDate:
+          type: string
+          description: Deadline date when the requester expected a qualification answer
+          format: date-time
+        productOfferingQualificationItem:
+          type: array
+          description: Qualification item for a product or a category
+          items:
+            $ref: '#/components/schemas/ProductOfferingQualificationItem'
+        relatedParty:
+          type: array
+          description: Party playing a role for this qualification (as requester for example)
+          items:
+            $ref: '#/components/schemas/RelatedPartyRefOrValue'
+        stateChange:
+          type: array
+          description: State change for the POQ
+          items:
+            $ref: '#/components/schemas/StateChange'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: |-
+        ProductOfferingQualification is used to perform a commercial eligibility. It allows to retrieve a list of productOffering that are commercially available in the context of the interaction (defined be place, channel, party, product).
+        Skipped properties: id,href,state,expectedPOQCompletionDate,effectiveQualificationDate,expirationDate,productOfferingQualificationDate,qualificationResult,productOfferingQualificationItem.state,productOfferingQualificationItem.qualificationItemResult,productOfferingQualificationItem.alternateProductOfferingProposal
+    ProductOfferingQualification_Update:
+      type: object
+      properties:
+        effectiveQualificationDate:
+          type: string
+          description: Effective date to productOfferingQualification completion
+          format: date-time
+        expectedPOQCompletionDate:
+          type: string
+          description: Date when the requester expect to provide an answer for the qualification request
+          format: date-time
+        instantSyncQualification:
+          type: boolean
+          description: An indicator which when the value is "true" means that requester expects to get qualifcation result immediately in the response. If the indicator is true then the response code of 200 indicates the operation is successful otherwise a task is created with a response 201.
+        projectId:
+          type: string
+          description: This value MAY be assigned by the Buyer/Seller to identify a project the serviceability request is associated with.
+        provideAlternative:
+          type: boolean
+          description: An indicator which when the value is "true" means that alternative solutions should be provided
+        requestedPOQCompletionDate:
+          type: string
+          description: Deadline date when the requester expected a qualification answer
+          format: date-time
+        productOfferingQualificationItem:
+          type: array
+          description: Qualification item for a product or a category
+          items:
+            $ref: '#/components/schemas/ProductOfferingQualificationItem'
+        relatedParty:
+          type: array
+          description: Party playing a role for this qualification (as requester for example)
+          items:
+            $ref: '#/components/schemas/RelatedPartyRefOrValue'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        stateChange:
+          type: array
+          description: State change for the POQ
+          items:
+            $ref: '#/components/schemas/StateChange'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: |-
+        ProductOfferingQualification is used to perform a commercial eligibility. It allows to retrieve a list of productOffering that are commercially available in the context of the interaction (defined be place, channel, party, product).
+        Skipped properties: id,href
+    ProductOfferingQualificationItem:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the productOfferingQualification item
+        expectedActivationDate:
+          type: string
+          description: Date when the requester look for productOfferingQualification activation
+          format: date-time
+        guaranteedUntilDate:
+          type: string
+          description: Date when the requester look for productOfferingQualification activation
+          format: date-time
+        serviceConfidenceReason:
+          type: string
+          description: A description of the reason a particular color is being provided. This may include a specific standard reason codes and descriptions.
+        action:
+          $ref: '#/components/schemas/ProductActionType'
+        alternateProductOfferingProposal:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlternateProductOfferingProposal'
+        installationInterval:
+          $ref: '#/components/schemas/TimePeriod'
+        product:
+          $ref: '#/components/schemas/ProductRefOrValue'
+        productOffering:
+          $ref: '#/components/schemas/ProductOfferingRef'
+        qualificationItemRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/QualificationItemRelationship'
+        relatedParty:
+          type: array
+          description: Party playing a role for this qualification (as requester for example)
+          items:
+            $ref: '#/components/schemas/RelatedPartyRefOrValue'
+        serviceabilityConfidence:
+          $ref: '#/components/schemas/ServiceabilityColor'
+        state:
+          $ref: '#/components/schemas/TaskStateType'
+        terminationError:
+          type: array
+          items:
+            $ref: '#/components/schemas/TerminationError'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+    ProductOfferingRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+    ProductRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    ProductRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the product
+        href:
+          type: string
+          description: Reference of the product
+        buyerProductId:
+          type: string
+          description: Buyer identifier of the product
+        name:
+          type: string
+          description: Name of the related entity.
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        productCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        productRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRelationship'
+        productSpecification:
+          $ref: '#/components/schemas/ProductSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the product entity and not the RelatedProductRefOrValue class itself
+    ProductRelationship:
+      required:
+        - product
+        - relationshipType
+      type: object
+      properties:
+        relationshipType:
+          type: string
+          description: Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+        product:
+          $ref: '#/components/schemas/ProductRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+    ProductSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: Version of the product specification
+        targetProductSchema:
+          $ref: '#/components/schemas/TargetProductSchema'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: 'Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.'
+    QualificationItemRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the ProductOfferingQualificationItem (from the same ProductOfferingQualificationItem).
+        relationshipType:
+          type: string
+          description: 'Type of relationship (ex: reliesOn, connectedTo, etc...)'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Structure used to describe relationship between productOfferingQualification item from the same ProductOfferingQualification.
+    RelatedPartyRefOrValue:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference. A related party defines party or party role linked to a specific entity.
+    RelatedPlaceRefOrValue:
+      required:
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        role:
+          type: string
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+    ServiceabilityColor:
+      type: string
+      description: string
+      enum:
+        - green
+        - yellow
+        - red
+    StateChange:
+      type: object
+      properties:
+        changeDate:
+          type: string
+          description: The date and time the State changed.
+          format: date-time
+        changeReason:
+          type: string
+          description: The reason why the State changed.
+        state:
+          type: string
+          description: The State of the entity
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+          example: ResourceSpecification
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+          example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+          example: LogicalResourceSpecification
+      description: Holds the State notification reasons and associated date the State changed, populated by the server
+    TargetProductSchema:
+      required:
+        - '@schemaLocation'
+        - '@type'
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: This field provides a link to the schema describing the target product
+          format: uri
+        '@type':
+          type: string
+          description: Class type of the target product
+      description: The reference object to the schema and type of target product which is described by product specification
+    TaskStateType:
+      type: string
+      description: Possible values for the state of a task
+      enum:
+        - accepted
+        - terminatedWithError
+        - inProgress
+        - done
+    TerminationError:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the termination error
+        value:
+          type: string
+          description: 'Text to describe the termination error - for example: Unable to proceed to qualification because incomplete information provided'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: This indicates an error that caused a qualificationItem to be terminated.
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    ProductOfferingQualificationCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/ProductOfferingQualificationCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    ProductOfferingQualificationCreateEventPayload:
+      type: object
+      properties:
+        productOfferingQualification:
+          $ref: '#/components/schemas/ProductOfferingQualification'
+      description: The event data structure
+    ProductOfferingQualificationAttributeValueChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/ProductOfferingQualificationAttributeValueChangeEventPayload'
+      description: The notification data structure
+    ProductOfferingQualificationAttributeValueChangeEventPayload:
+      type: object
+      properties:
+        productOfferingQualification:
+          $ref: '#/components/schemas/ProductOfferingQualification'
+      description: The event data structure
+    ProductOfferingQualificationStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/ProductOfferingQualificationStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    ProductOfferingQualificationStateChangeEventPayload:
+      type: object
+      properties:
+        productOfferingQualification:
+          $ref: '#/components/schemas/ProductOfferingQualification'
+      description: The event data structure
+    ProductOfferingQualificationDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/ProductOfferingQualificationDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    ProductOfferingQualificationDeleteEventPayload:
+      type: object
+      properties:
+        productOfferingQualification:
+          $ref: '#/components/schemas/ProductOfferingQualification'
+      description: The event data structure
+    ProductOfferingQualificationInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/ProductOfferingQualificationInformationRequiredEventPayload'
+      description: The notification data structure
+    ProductOfferingQualificationInformationRequiredEventPayload:
+      type: object
+      properties:
+        productOfferingQualification:
+          $ref: '#/components/schemas/ProductOfferingQualification'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

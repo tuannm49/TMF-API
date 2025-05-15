@@ -1,44 +1,38 @@
 package com.example.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Entity
 @Document(collection = "products")
 @Getter
 @Setter
-public class Product implements Identifiable{
+public class Product implements BaseEntity {
     @Id
-    @org.springframework.data.annotation.Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private String id;
     private String productName;
     private double price;
 
-    // Getter và Setter thủ công để đảm bảo tương thích
-    public String getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+    private List<ProductItem> productItems;
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    @OneToOne
+//    @Embedded
+//    @AttributeOverride(name = "id", column = @Column(name = "user_ref_id"))
+//    @AttributeOverride(name = "name", column = @Column(name = "user_ref_name"))
+    private UserRef userRef;
 }

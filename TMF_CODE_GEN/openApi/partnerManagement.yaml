@@ -1,0 +1,2191 @@
+openapi: 3.0.1
+info:
+  title: Partnership Management
+  description: This is Swagger UI environment generated for the TMF Partnership Management specification
+  version: '4.0'
+servers:
+  - url: https://serverRoot/tmf-api/partnershipManagement/v4/
+tags:
+  - name: partnershipSpecification
+  - name: partnership
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /partnershipSpecification:
+    get:
+      tags:
+        - partnershipSpecification
+      summary: List or find PartnershipSpecification objects
+      description: This operation list or find PartnershipSpecification entities
+      operationId: listPartnershipSpecification
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnershipSpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - partnershipSpecification
+      summary: Creates a PartnershipSpecification
+      description: This operation creates a PartnershipSpecification entity.
+      operationId: createPartnershipSpecification
+      requestBody:
+        description: The PartnershipSpecification to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipSpecification_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnershipSpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: partnershipSpecification
+  /partnershipSpecification/{id}:
+    get:
+      tags:
+        - partnershipSpecification
+      summary: Retrieves a PartnershipSpecification by ID
+      description: This operation retrieves a PartnershipSpecification entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePartnershipSpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PartnershipSpecification
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnershipSpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - partnershipSpecification
+      summary: Deletes a PartnershipSpecification
+      description: This operation deletes a PartnershipSpecification entity.
+      operationId: deletePartnershipSpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PartnershipSpecification
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - partnershipSpecification
+      summary: Updates partially a PartnershipSpecification
+      description: This operation updates partially a PartnershipSpecification entity.
+      operationId: patchPartnershipSpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PartnershipSpecification
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The PartnershipSpecification to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipSpecification_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnershipSpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: partnershipSpecification
+  /partnership:
+    get:
+      tags:
+        - partnership
+      summary: List or find Partnership objects
+      description: This operation list or find Partnership entities
+      operationId: listPartnership
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Partnership'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - partnership
+      summary: Creates a Partnership
+      description: This operation creates a Partnership entity.
+      operationId: createPartnership
+      requestBody:
+        description: The Partnership to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partnership_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partnership'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: partnership
+  /partnership/{id}:
+    get:
+      tags:
+        - partnership
+      summary: Retrieves a Partnership by ID
+      description: This operation retrieves a Partnership entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePartnership
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Partnership
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partnership'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - partnership
+      summary: Deletes a Partnership
+      description: This operation deletes a Partnership entity.
+      operationId: deletePartnership
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Partnership
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - partnership
+      summary: Updates partially a Partnership
+      description: This operation updates partially a Partnership entity.
+      operationId: patchPartnership
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Partnership
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Partnership to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partnership_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partnership'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: partnership
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/partnershipCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipCreateEvent
+      description: Example of a client listener for receiving the notification PartnershipCreateEvent
+      operationId: listenToPartnershipCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/partnershipChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipChangeEvent
+      description: Example of a client listener for receiving the notification PartnershipChangeEvent
+      operationId: listenToPartnershipChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/partnershipDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipDeleteEvent
+      description: Example of a client listener for receiving the notification PartnershipDeleteEvent
+      operationId: listenToPartnershipDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/partnershipSpecificationCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipSpecificationCreateEvent
+      description: Example of a client listener for receiving the notification PartnershipSpecificationCreateEvent
+      operationId: listenToPartnershipSpecificationCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipSpecificationCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/partnershipSpecificationChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipSpecificationChangeEvent
+      description: Example of a client listener for receiving the notification PartnershipSpecificationChangeEvent
+      operationId: listenToPartnershipSpecificationChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipSpecificationChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/partnershipSpecificationDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PartnershipSpecificationDeleteEvent
+      description: Example of a client listener for receiving the notification PartnershipSpecificationDeleteEvent
+      operationId: listenToPartnershipSpecificationDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnershipSpecificationDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    AccountRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the account
+        href:
+          type: string
+          description: Reference of the account
+        description:
+          type: string
+          description: Detailed description of the account
+        name:
+          type: string
+          description: Name of the account
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Account reference. A account may be a party account or a financial account.
+    AgreementRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+        href:
+          type: string
+          description: Reference of the related entity.
+        name:
+          type: string
+          description: Name of the agreement
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+    AgreementSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+        href:
+          type: string
+          description: Reference of the related entity.
+        description:
+          type: string
+          description: A narrative that explains in detail what the agreement specification is about.
+        name:
+          type: string
+          description: Name of the agreement specification
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: AgreementSpecification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.
+    Any:
+      type: object
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    ContactMedium:
+      type: object
+      properties:
+        mediumType:
+          type: string
+          description: 'Type of the contact medium, such as: email address, telephone number, postal address'
+        preferred:
+          type: boolean
+          description: If true, indicates that is the preferred contact medium
+        characteristic:
+          $ref: '#/components/schemas/MediumCharacteristic'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Indicates the contact medium that could be used to contact the party.
+    CreditProfile:
+      type: object
+      properties:
+        creditProfileDate:
+          type: string
+          description: The date the profile was established
+          format: date-time
+        creditRiskRating:
+          type: integer
+          description: This is an integer whose value is used to rate the risk
+        creditScore:
+          type: integer
+          description: A measure of a person or organizations creditworthiness calculated on the basis of a combination of factors such as their income and credit history
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+        href:
+          type: string
+          description: Reference of the related entity.
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    MediumCharacteristic:
+      type: object
+      properties:
+        city:
+          type: string
+          description: The city
+        contactType:
+          type: string
+          description: 'The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation…'
+        country:
+          type: string
+          description: The country
+        emailAddress:
+          type: string
+          description: Full email address in standard format
+        faxNumber:
+          type: string
+          description: The fax number of the contact
+        phoneNumber:
+          type: string
+          description: The primary phone number of the contact
+        postCode:
+          type: string
+          description: Postcode
+        socialNetworkId:
+          type: string
+          description: Identifier as a member of a social network
+        stateOrProvince:
+          type: string
+          description: State or province
+        street1:
+          type: string
+          description: Describes the street
+        street2:
+          type: string
+          description: Complementary street description
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)
+    Partner:
+      required:
+        - engagedParty
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for Partners
+        href:
+          type: string
+          description: Url used to reference the partner.
+        name:
+          type: string
+          description: A word, term, or phrase by which the Partner is known and distinguished from other Partners.
+        status:
+          type: string
+          description: Used to track the lifecycle status of the partner.
+        statusReason:
+          type: string
+          description: A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.
+        account:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountRef'
+        agreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        characteristic:
+          type: array
+          description: Describes the characteristic of a partner.
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        creditProfile:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditProfile'
+        engagedParty:
+          $ref: '#/components/schemas/RelatedParty'
+        paymentMethod:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodRef'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A party playing a given role in the partnership
+    Partnership:
+      required:
+        - name
+        - specification
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the partnership
+        href:
+          type: string
+          description: The reference url for this partnership
+        description:
+          type: string
+          description: An explanatory text regarding this partnership
+        name:
+          type: string
+          description: An identifying name for the partnership.
+        partner:
+          type: array
+          description: The list of partners of the partnership, where a partner represents a party playing a given role. Hence a partner structure includes primarily a reference to the engaged party and a role name matching necessarily the name of one of the role specifications defined in the specification of the partnership.
+          items:
+            $ref: '#/components/schemas/Partner'
+        specification:
+          $ref: '#/components/schemas/PartnershipSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A partnership represents a formalized collaboration between various parties, each party playing a role in the partnership. The parties playing a role in the partnership represented by the Partner entity. The structure of a partnership is specified by a PartnershipSpecification which contain all the information for the setup of the partnership, including the list of identified roles and the agreement that should apply.
+    Partnership_Create:
+      required:
+        - name
+        - specification
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text regarding this partnership
+        name:
+          type: string
+          description: An identifying name for the partnership.
+        partner:
+          type: array
+          description: The list of partners of the partnership, where a partner represents a party playing a given role. Hence a partner structure includes primarily a reference to the engaged party and a role name matching necessarily the name of one of the role specifications defined in the specification of the partnership.
+          items:
+            $ref: '#/components/schemas/Partner'
+        specification:
+          $ref: '#/components/schemas/PartnershipSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A partnership represents a formalized collaboration between various parties, each party playing a role in the partnership. The parties playing a role in the partnership represented by the Partner entity. The structure of a partnership is specified by a PartnershipSpecification which contain all the information for the setup of the partnership, including the list of identified roles and the agreement that should apply.
+        Skipped properties: id,href
+    Partnership_Update:
+      required:
+        - name
+        - specification
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text regarding this partnership
+        name:
+          type: string
+          description: An identifying name for the partnership.
+        partner:
+          type: array
+          description: The list of partners of the partnership, where a partner represents a party playing a given role. Hence a partner structure includes primarily a reference to the engaged party and a role name matching necessarily the name of one of the role specifications defined in the specification of the partnership.
+          items:
+            $ref: '#/components/schemas/Partner'
+        specification:
+          $ref: '#/components/schemas/PartnershipSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A partnership represents a formalized collaboration between various parties, each party playing a role in the partnership. The parties playing a role in the partnership represented by the Partner entity. The structure of a partnership is specified by a PartnershipSpecification which contain all the information for the setup of the partnership, including the list of identified roles and the agreement that should apply.
+        Skipped properties: id,href
+    PartnershipRoleSpecification:
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text documenting the role specification
+        name:
+          type: string
+          description: The name of the role specification. This name uniquely identifies the role specification within the partnership
+        requiresBilling:
+          type: boolean
+          description: Indicates whether billing operations will be associated to parties playing the role
+        requiresSettlement:
+          type: boolean
+          description: Indicates whether settlement operations will be associated to parties playing the role
+        agreementSpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A PartnershipRoleSpecification represents a specification of a role defined in the context of a given type of partnership (PartnershipSpecification), such as Buyer, Seller.
+    PartnershipSpecification:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the partnership specification
+        href:
+          type: string
+          description: The reference url for this partnership specification
+        description:
+          type: string
+          description: An explanatory text regarding this partnership specification
+        name:
+          type: string
+          description: An identifying name for the partnership specification.
+        roleSpecification:
+          type: array
+          description: The list of roles specifications a engaged party will be able to play for this kind of partnership
+          items:
+            $ref: '#/components/schemas/PartnershipRoleSpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A partnership specification contains all the information for the setup of a partnership of a given kind. This includes the list of identified role types for the partnership with the corresponding agreement specifications.
+    PartnershipSpecification_Create:
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text regarding this partnership specification
+        name:
+          type: string
+          description: An identifying name for the partnership specification.
+        roleSpecification:
+          type: array
+          description: The list of roles specifications a engaged party will be able to play for this kind of partnership
+          items:
+            $ref: '#/components/schemas/PartnershipRoleSpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A partnership specification contains all the information for the setup of a partnership of a given kind. This includes the list of identified role types for the partnership with the corresponding agreement specifications.
+        Skipped properties: id,href
+    PartnershipSpecification_Update:
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text regarding this partnership specification
+        name:
+          type: string
+          description: An identifying name for the partnership specification.
+        roleSpecification:
+          type: array
+          description: The list of roles specifications a engaged party will be able to play for this kind of partnership
+          items:
+            $ref: '#/components/schemas/PartnershipRoleSpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A partnership specification contains all the information for the setup of a partnership of a given kind. This includes the list of identified role types for the partnership with the corresponding agreement specifications.
+        Skipped properties: id,href
+    PartnershipSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the partnership specification
+        href:
+          type: string
+          description: Reference url for the partnership specification
+        name:
+          type: string
+          description: Name of the partnership specification
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: PartnershipSpecification reference. A partnership specification contains all the information for the setup of a partnership of a given kind. This includes the list of identified role types for the partnership with the corresponding agreement specifications.
+    PaymentMethodRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the payment mean
+        href:
+          type: string
+          description: Reference of the payment mean
+        name:
+          type: string
+          description: Name of the payment mean
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct debit).
+    RelatedParty:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+        href:
+          type: string
+          description: Reference of the related entity.
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+          description: Role played by the related party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+    RoleSpecification:
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: An explanatory text documenting the role specification
+        name:
+          type: string
+          description: The name of the role specification. This name uniquely identifies the role specification
+        agreementSpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A RoleSpecification represents a specification of a role.
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+          format: date-time
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    PartnershipCreateEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipCreateEventPayload'
+      description: The notification data structure
+    PartnershipCreateEventPayload:
+      type: object
+      properties:
+        partnership:
+          $ref: '#/components/schemas/Partnership'
+      description: The event data structure
+    PartnershipChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipChangeEventPayload'
+      description: The notification data structure
+    PartnershipChangeEventPayload:
+      type: object
+      properties:
+        partnership:
+          $ref: '#/components/schemas/Partnership'
+      description: The event data structure
+    PartnershipDeleteEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipDeleteEventPayload'
+      description: The notification data structure
+    PartnershipDeleteEventPayload:
+      type: object
+      properties:
+        partnership:
+          $ref: '#/components/schemas/Partnership'
+      description: The event data structure
+    PartnershipSpecificationCreateEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipSpecificationCreateEventPayload'
+      description: The notification data structure
+    PartnershipSpecificationCreateEventPayload:
+      type: object
+      properties:
+        partnershipSpecification:
+          $ref: '#/components/schemas/PartnershipSpecification'
+      description: The event data structure
+    PartnershipSpecificationChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipSpecificationChangeEventPayload'
+      description: The notification data structure
+    PartnershipSpecificationChangeEventPayload:
+      type: object
+      properties:
+        partnershipSpecification:
+          $ref: '#/components/schemas/PartnershipSpecification'
+      description: The event data structure
+    PartnershipSpecificationDeleteEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        description:
+          type: string
+          description: An explanatory of the event.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        eventType:
+          type: string
+          description: The type of the notification.
+        domain:
+          type: string
+          description: The domain of the event.
+        priority:
+          type: string
+          description: A priority.
+        href:
+          type: string
+          description: Reference of the resource involved in the event
+        id:
+          type: string
+          description: Identifier of the resource involved in the event
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        event:
+          $ref: '#/components/schemas/PartnershipSpecificationDeleteEventPayload'
+      description: The notification data structure
+    PartnershipSpecificationDeleteEventPayload:
+      type: object
+      properties:
+        partnershipSpecification:
+          $ref: '#/components/schemas/PartnershipSpecification'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

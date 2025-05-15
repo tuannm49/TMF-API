@@ -1,9 +1,9 @@
 package com.example.controller;
 
+import com.example.commons.exceptions.BadUsageException;
 import com.example.commons.exceptions.UnknownResourceException;
 import com.example.model.Product;
 import com.example.commons.service.GenericService;
-import com.example.service.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -12,26 +12,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final AbstractService abstractService;
 
-    private GenericService<Product> productService;
+    private GenericService<Product> service;
     @Autowired
-    public ProductController(AbstractService abstractService) {
-        this.abstractService = abstractService;
-        this.productService = this.abstractService.getProductService();
+    public ProductController() {
+        service = new GenericService<>("mongo",Product.class);
+//        productService = new GenericService<>("mysql",Product.class);
     }
 
     @PostMapping
-    public Product createProduct(@RequestParam String id, @RequestParam String productName, @RequestParam double price) throws UnknownResourceException {
-        Product productDTO = new Product();
-        productDTO.setId(id);
-        productDTO.setProductName(productName);
-        productDTO.setPrice(price);
-        return productService.update(productDTO);
+    public Product createProduct(@RequestBody Product product) throws UnknownResourceException, BadUsageException {
+        return service.create(product);
     }
 
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable String id) throws UnknownResourceException {
-        return productService.findById(id);
+        return service.findById(id);
     }
 }

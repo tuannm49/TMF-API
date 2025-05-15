@@ -1,0 +1,4775 @@
+openapi: 3.0.1
+info:
+  title: Policy
+  description: |-
+    ## TMF API Reference: TMF723 - Policy API
+
+    ### Version 4.0. - April 2022 
+
+     Policy  API goal is to provide the ability to manage Policy rule and its components: policyEvent, policyCondition and policyAction.
+
+     API Operations provided for these resources are POST, PATCH, GET and DELETE.
+
+     Event definition are also provided for these 4 resources.
+  version: 4.0.0
+servers:
+  - url: https://serverRoot/tmf-api/policy/v4/
+tags:
+  - name: policyRule
+  - name: policyEvent
+  - name: policyCondition
+  - name: policyAction
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /policyRule:
+    get:
+      tags:
+        - policyRule
+      summary: List or find PolicyRule objects
+      description: This operation list or find PolicyRule entities
+      operationId: listPolicyRule
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PolicyRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - policyRule
+      summary: Creates a PolicyRule
+      description: This operation creates a PolicyRule entity.
+      operationId: createPolicyRule
+      requestBody:
+        description: The PolicyRule to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRule_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyRule
+  /policyRule/{id}:
+    get:
+      tags:
+        - policyRule
+      summary: Retrieves a PolicyRule by ID
+      description: This operation retrieves a PolicyRule entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePolicyRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyRule
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - policyRule
+      summary: Deletes a PolicyRule
+      description: This operation deletes a PolicyRule entity.
+      operationId: deletePolicyRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyRule
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - policyRule
+      summary: Updates partially a PolicyRule
+      description: This operation updates partially a PolicyRule entity.
+      operationId: patchPolicyRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyRule
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The PolicyRule to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRule_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyRule
+  /policyEvent:
+    get:
+      tags:
+        - policyEvent
+      summary: List or find PolicyEvent objects
+      description: This operation list or find PolicyEvent entities
+      operationId: listPolicyEvent
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PolicyEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - policyEvent
+      summary: Creates a PolicyEvent
+      description: This operation creates a PolicyEvent entity.
+      operationId: createPolicyEvent
+      requestBody:
+        description: The PolicyEvent to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEvent_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyEvent
+  /policyEvent/{id}:
+    get:
+      tags:
+        - policyEvent
+      summary: Retrieves a PolicyEvent by ID
+      description: This operation retrieves a PolicyEvent entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePolicyEvent
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyEvent
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - policyEvent
+      summary: Deletes a PolicyEvent
+      description: This operation deletes a PolicyEvent entity.
+      operationId: deletePolicyEvent
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyEvent
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - policyEvent
+      summary: Updates partially a PolicyEvent
+      description: This operation updates partially a PolicyEvent entity.
+      operationId: patchPolicyEvent
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyEvent
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The PolicyEvent to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEvent_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyEvent
+  /policyCondition:
+    get:
+      tags:
+        - policyCondition
+      summary: List or find PolicyCondition objects
+      description: This operation list or find PolicyCondition entities
+      operationId: listPolicyCondition
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PolicyCondition'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - policyCondition
+      summary: Creates a PolicyCondition
+      description: This operation creates a PolicyCondition entity.
+      operationId: createPolicyCondition
+      requestBody:
+        description: The PolicyCondition to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCondition_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyCondition'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyCondition
+  /policyCondition/{id}:
+    get:
+      tags:
+        - policyCondition
+      summary: Retrieves a PolicyCondition by ID
+      description: This operation retrieves a PolicyCondition entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePolicyCondition
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyCondition
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyCondition'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - policyCondition
+      summary: Deletes a PolicyCondition
+      description: This operation deletes a PolicyCondition entity.
+      operationId: deletePolicyCondition
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyCondition
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - policyCondition
+      summary: Updates partially a PolicyCondition
+      description: This operation updates partially a PolicyCondition entity.
+      operationId: patchPolicyCondition
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyCondition
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The PolicyCondition to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCondition_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyCondition'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyCondition
+  /policyAction:
+    get:
+      tags:
+        - policyAction
+      summary: List or find PolicyAction objects
+      description: This operation list or find PolicyAction entities
+      operationId: listPolicyAction
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PolicyAction'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - policyAction
+      summary: Creates a PolicyAction
+      description: This operation creates a PolicyAction entity.
+      operationId: createPolicyAction
+      requestBody:
+        description: The PolicyAction to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyAction_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyAction'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyAction
+  /policyAction/{id}:
+    get:
+      tags:
+        - policyAction
+      summary: Retrieves a PolicyAction by ID
+      description: This operation retrieves a PolicyAction entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrievePolicyAction
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyAction
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyAction'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - policyAction
+      summary: Deletes a PolicyAction
+      description: This operation deletes a PolicyAction entity.
+      operationId: deletePolicyAction
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyAction
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - policyAction
+      summary: Updates partially a PolicyAction
+      description: This operation updates partially a PolicyAction entity.
+      operationId: patchPolicyAction
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the PolicyAction
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The PolicyAction to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyAction_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyAction'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: policyAction
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/policyRuleCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyRuleCreateEvent
+      description: Example of a client listener for receiving the notification PolicyRuleCreateEvent
+      operationId: listenToPolicyRuleCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRuleCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyRuleInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyRuleInformationRequiredEvent
+      description: Example of a client listener for receiving the notification PolicyRuleInformationRequiredEvent
+      operationId: listenToPolicyRuleInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRuleInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyRuleStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyRuleStateChangeEvent
+      description: Example of a client listener for receiving the notification PolicyRuleStateChangeEvent
+      operationId: listenToPolicyRuleStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRuleStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyRuleDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyRuleDeleteEvent
+      description: Example of a client listener for receiving the notification PolicyRuleDeleteEvent
+      operationId: listenToPolicyRuleDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRuleDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyRuleAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyRuleAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification PolicyRuleAttributeValueChangeEvent
+      operationId: listenToPolicyRuleAttributeValueChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRuleAttributeValueChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyEventCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyEventCreateEvent
+      description: Example of a client listener for receiving the notification PolicyEventCreateEvent
+      operationId: listenToPolicyEventCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEventCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyEventInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyEventInformationRequiredEvent
+      description: Example of a client listener for receiving the notification PolicyEventInformationRequiredEvent
+      operationId: listenToPolicyEventInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEventInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyEventDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyEventDeleteEvent
+      description: Example of a client listener for receiving the notification PolicyEventDeleteEvent
+      operationId: listenToPolicyEventDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEventDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyConditionCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyConditionCreateEvent
+      description: Example of a client listener for receiving the notification PolicyConditionCreateEvent
+      operationId: listenToPolicyConditionCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyConditionCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyConditionInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyConditionInformationRequiredEvent
+      description: Example of a client listener for receiving the notification PolicyConditionInformationRequiredEvent
+      operationId: listenToPolicyConditionInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyConditionInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyConditionDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyConditionDeleteEvent
+      description: Example of a client listener for receiving the notification PolicyConditionDeleteEvent
+      operationId: listenToPolicyConditionDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyConditionDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyActionCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyActionCreateEvent
+      description: Example of a client listener for receiving the notification PolicyActionCreateEvent
+      operationId: listenToPolicyActionCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyActionCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyActionInformationRequiredEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyActionInformationRequiredEvent
+      description: Example of a client listener for receiving the notification PolicyActionInformationRequiredEvent
+      operationId: listenToPolicyActionInformationRequiredEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyActionInformationRequiredEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/policyActionDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity PolicyActionDeleteEvent
+      description: Example of a client listener for receiving the notification PolicyActionDeleteEvent
+      operationId: listenToPolicyActionDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyActionDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    Addressable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Base schema for adressable entities
+    AffectedService:
+      type: object
+      properties:
+        id:
+          type: string
+        href:
+          type: string
+          description: Provides the identifier of the service affected by the alarm
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    Alarm:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identifier of the alarm, determined by the alarm owning system
+        href:
+          type: string
+          description: A reference to the alarm.
+        ackState:
+          type: string
+          description: Provides the Acknowledgement State of the alarm
+        ackSystemId:
+          type: string
+          description: Provides the name of the system that last changed the ackState of an alarm, i.e. acknowledged or unacknowledged the alarm.
+        ackUserId:
+          type: string
+          description: Provides the id of the user who has last changed the ack state of the alarm, i.e. acknowledged or unacknowledged the alarm.
+        alarmChangedTime:
+          type: string
+          description: Indicates the last date and time when the alarm is changed on the alarm-owning system. Any change to the alarm whether coming from the alarmed resource, or triggered by a change from the client is changing this time.
+          format: date-time
+        alarmClearedTime:
+          type: string
+          description: 'Indicates the time (as a date + time) at which the alarm is cleared at the source. '
+          format: date-time
+        alarmDetails:
+          type: string
+          description: Contains further information on the alarm.
+        alarmEscalation:
+          type: boolean
+          description: 'Indicates if this alarm has been escalated or not. '
+        alarmRaisedTime:
+          type: string
+          description: Indicates the time (as a date + time) at which the alarm occurred at its source.
+          format: date-time
+        alarmReportingTime:
+          type: string
+          description: |-
+            Indicates the time (as a date + time) at which the alarm was reported by the owning OSS. It might be different from the alarmRaisedTime. For instance, if the alarm list is maintained by an EMS, the alarmRaisedtime would be the time the alarm
+              was detected by the NE, while the alarmReportingTime would be the time this alarm was stored in the alarm list of the EMS.
+          format: date-time
+        alarmType:
+          type: string
+          description: "Categorize the alarm. Should be one of the values defined in X.733 8.1.1 or 3GPP TS 32.111-2 Annex A:\n\tCommunications Alarm\n\tProcessing Error Alarm\n\tEnvironmental Alarm\n\tQuality of Service Alarm\n\tEquipment Alarm\n\tIntegrity Violation\n\tOperational Violation\n\tPhysical Violation\n\tSecurity Service or Mechanism Violation\n\tTime Domain Violation"
+        alarmedObjectType:
+          type: string
+          description: The type (class) of the managed object associated with the event.
+        clearSystemId:
+          type: string
+          description: 'Provides the id of the system where the user who invoked the alarmCleared operation is located. '
+        clearUserId:
+          type: string
+          description: Provides the id of the user who invoked the alarmCleared operation
+        externalAlarmId:
+          type: string
+          description: An identifier of the alarm in the source system.
+        isRootCause:
+          type: boolean
+          description: 'Indicates whether the alarm is a root cause alarm.. '
+        perceivedSeverity:
+          type: string
+          description: |-
+            Lists the possible severities that can be allocated to an Alarm. The values are consistent with ITU-T Recommendation X.733.
+            Once an alarm has been cleared, its perceived severity is set to 'cleared' and can no longer be set.
+        plannedOutageIndicator:
+          type: string
+          description: 'Indicates that the Managed Object (related to this alarm) is in planned outage (in planned maintenance, or out-of-service). '
+        probableCause:
+          type: string
+          description: Provides the probable cause of the alarm. The values are consistent with ITU-T Recommendation X.733 or 3GPP TS 32.111-2 Annex B.
+        proposedRepairedActions:
+          type: string
+          description: Indicates proposed repair actions, if known to the system emitting the alarm.
+        reportingSystemId:
+          type: string
+          description: Reporting system identity.
+        serviceAffecting:
+          type: boolean
+          description: Indicates whether the alarm affects service or not.
+        sourceSystemId:
+          type: string
+          description: Source system identity.
+        specificProblem:
+          type: string
+          description: Provides more specific information about the alarm.
+        state:
+          type: string
+          description: Defines the alarm state during its life cycle
+        affectedService:
+          type: array
+          items:
+            $ref: '#/components/schemas/AffectedService'
+        alarmedObject:
+          $ref: '#/components/schemas/AlarmedObject'
+        comment:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        correlatedAlarm:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlarmRef'
+        crossedThresholdInformation:
+          $ref: '#/components/schemas/CrossedThresholdInformation'
+        parentAlarm:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlarmRef'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        '@baseType':
+          type: string
+          description: The base type of this alarm.
+        '@schemaLocation':
+          type: string
+          description: A reference to the schema describing this alarm.
+        '@type':
+          type: string
+          description: The type for this alarm.
+      description: This resource represents an alarm supporting the information model defined in ITU-T X.733.
+    AlarmRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    AlarmedObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the managed object associated with the event.
+        href:
+          type: string
+          description: A reference to the managed object associated with the event.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Identifies the managed object instance associated with the alarm.
+    Any:
+      type: object
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CharacteristicRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Another Characteristic that is related to the current Characteristic;
+    Comment:
+      type: object
+      properties:
+        comment:
+          type: string
+          description: Indicates the text of the comment.
+        systemId:
+          type: string
+          description: Indicates the system identifier on which the client set the comment.
+        time:
+          type: string
+          description: Indicates the time commenting the alarm
+          format: date-time
+        userId:
+          type: string
+          description: Indicates the user commenting the alarm.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Indicates the comments entered on the alarm.
+    CrossedThresholdInformation:
+      type: object
+      properties:
+        direction:
+          type: string
+          description: 'Indicates the threshold crossing direction: up or down.'
+        granularity:
+          type: string
+          description: Indicates the granularity at which the indicator is evaluated for threshold crossing
+        indicatorName:
+          type: string
+          description: Indicates the name of indicator which crossed the threshold.
+        indicatorUnit:
+          type: string
+          description: Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.
+        observedValue:
+          type: string
+          description: Indicates the value of the indicator which crossed the threshold.
+        thresholdCrossingDescription:
+          type: string
+          description: Indicates further information on the threshold crossing alarm.
+        threshold:
+          $ref: '#/components/schemas/ThresholdRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Identifies the details of the threshold that has been crossed.
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    Event:
+      type: object
+      properties:
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        domain:
+          type: string
+          description: The domain of the event.
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        title:
+          type: string
+          description: The title of the event.
+        analyticCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        event:
+          $ref: '#/components/schemas/Any'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        reportingSystem:
+          $ref: '#/components/schemas/EntityRef'
+        source:
+          $ref: '#/components/schemas/EntityRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: event with common attributes.
+    EventRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the event
+        href:
+          type: string
+          description: event reference
+        eventTime:
+          type: string
+          description: Time the event occurred
+          format: date-time
+        eventType:
+          type: string
+          description: Type of the event
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Events linked with service problem
+    Extensible:
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base Extensible schema for use in TMForum Open-APIs
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+        author:
+          type: string
+          description: Author of the note
+        date:
+          type: string
+          description: Date of the note
+          format: date-time
+        text:
+          type: string
+          description: Text of the note
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Extra information about a given entity
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: Place reference. Place defines the places where the products are sold or delivered.
+    PlaceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+    PolicyAction:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A policy action definition.
+    PolicyAction_Create:
+      type: object
+      properties:
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy action definition.
+        Skipped properties: id,href
+    PolicyAction_Update:
+      type: object
+      properties:
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy action definition.
+        Skipped properties: id,href
+    PolicyActionAlarm:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        alarm:
+          $ref: '#/components/schemas/Alarm'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    PolicyActionEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        event:
+          $ref: '#/components/schemas/Event'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    PolicyActionInteger:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy action value
+        value:
+          type: integer
+          description: Value of the Policy action
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Action which value is a integer
+    PolicyActionObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy action value
+        value:
+          type: object
+          properties: {}
+          description: Value of the Policy action
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Action which value is an object
+    PolicyActionOperation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        actionSequence:
+          type: integer
+          description: When several action has to be performed, the sequence is used to prioritize them
+        actionStrategy:
+          type: string
+          description: 'actionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyAction - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        fields:
+          type: string
+          description: field to be considered for the operation
+        filter:
+          type: string
+          description: Filter to access the right field in case of array
+        name:
+          type: string
+          description: Name of the policy action
+        operation:
+          type: string
+          description: operation to be performed like add, remove, replace
+        path:
+          type: string
+          description: path to the field to be added/updated
+        version:
+          type: string
+          description: Policy action version
+        actionCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionRef'
+        actionValue:
+          $ref: '#/components/schemas/PolicyActionValue'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyAction'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    PolicyActionRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A policy action reference.
+    PolicyActionString:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy action value
+        value:
+          type: string
+          description: Value of the Policy action
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Action which value is a string
+    PolicyActionValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy action value
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy action value - use specialization per datatype
+    PolicyCondition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy condition
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy condition
+        policyConditionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyCondition - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        version:
+          type: string
+          description: Policy condition version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyCondition'
+        policyConditionStatement:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionStatement'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A policy condition definition.
+    PolicyCondition_Create:
+      required:
+        - policyConditionStatement
+      type: object
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy condition
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy condition
+        policyConditionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyCondition - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        version:
+          type: string
+          description: Policy condition version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyCondition'
+        policyConditionStatement:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionStatement'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy condition definition.
+        Skipped properties: id,href
+    PolicyCondition_Update:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy condition
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy condition
+        policyConditionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyCondition - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        version:
+          type: string
+          description: Policy condition version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyCondition:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyCondition'
+        policyConditionStatement:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionStatement'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy condition definition.
+        Skipped properties: id,href
+    PolicyConditionInteger:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy condition value
+        value:
+          type: integer
+          description: Value of the PolicyCondition
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Condition which value is a Integer
+    PolicyConditionObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy condition value
+        value:
+          type: object
+          properties: {}
+          description: Value of the PolicyCondition
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Condition which value is an object
+    PolicyConditionRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A policy condition reference.
+    PolicyConditionStatement:
+      required:
+        - opType
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the policy condition statement
+        name:
+          type: string
+          description: Name of the policy condition statement
+        opType:
+          type: string
+          description: Operand to be used between the variable and the value like =, >, =>, <, <=, <>, etc...
+        PolicyConditionValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyConditionValue'
+        PolicyConditionVariable:
+          $ref: '#/components/schemas/PolicyConditionVariable'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A policy condition statement definition.
+    PolicyConditionString:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy condition value
+        value:
+          type: string
+          description: Value of the PolicyCondition
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Condition which value is a string
+    PolicyConditionValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy condition value
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Condition value - use specialization per datatype
+    PolicyConditionVariable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the policy condition variable
+        fields:
+          type: string
+          description: field to be considered for the variable
+        filter:
+          type: string
+          description: Filter to access the right field in case of array
+        path:
+          type: string
+          description: path to the variable
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A Policy Condition variable
+    PolicyDomainRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A policy domain reference.
+    PolicyEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        query:
+          type: string
+          description: Query is used to filter event like for example filtering on specific state for stateChange event.
+        event:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: An event triggering the policy rule execution
+    PolicyEvent_Create:
+      required:
+        - event
+      type: object
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        query:
+          type: string
+          description: Query is used to filter event like for example filtering on specific state for stateChange event.
+        event:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/EventRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        An event triggering the policy rule execution
+        Skipped properties: id,href
+    PolicyEvent_Update:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy action
+        name:
+          type: string
+          description: Name of the policy action
+        query:
+          type: string
+          description: Query is used to filter event like for example filtering on specific state for stateChange event.
+        event:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        An event triggering the policy rule execution
+        Skipped properties: id,href
+    PolicyEventRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A policy event reference.
+    PolicyRule:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy rule
+        executionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyRule - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy rule
+        sequencedAction:
+          type: integer
+          description: 'The sequencedAction attribute is an enumerated integer that defines how the ordering of the PolicyActions associated with this PolicyRule is to be interpreted. Values include: 1 Mandatory, 2 recommended, 3 best effort.'
+        sequencedValue:
+          type: integer
+          description: Policy value sequence value when rules have to be executed in a specific order
+        state:
+          type: string
+          description: State of the policy rule - could be active/inactive
+        version:
+          type: string
+          description: Policy rule version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyActionRef'
+        policyCondition:
+          $ref: '#/components/schemas/PolicyConditionRef'
+        policyDomain:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyDomainRef'
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEventRef'
+        relatedParty:
+          type: array
+          description: A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A policy rule definition.
+    PolicyRule_Create:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the policy rule
+        executionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyRule - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy rule
+        sequencedAction:
+          type: integer
+          description: 'The sequencedAction attribute is an enumerated integer that defines how the ordering of the PolicyActions associated with this PolicyRule is to be interpreted. Values include: 1 Mandatory, 2 recommended, 3 best effort.'
+        sequencedValue:
+          type: integer
+          description: Policy value sequence value when rules have to be executed in a specific order
+        state:
+          type: string
+          description: State of the policy rule - could be active/inactive
+        version:
+          type: string
+          description: Policy rule version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyActionRef'
+        policyCondition:
+          $ref: '#/components/schemas/PolicyConditionRef'
+        policyDomain:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyDomainRef'
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEventRef'
+        relatedParty:
+          type: array
+          description: A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy rule definition.
+        Skipped properties: id,href,creationDate
+    PolicyRule_Update:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+          description: Description of the policy rule
+        executionStrategy:
+          type: string
+          description: 'executionStrategy attribute defines the strategy to be used when executing the sequenced actions aggregated by this PolicyRule - example 1: Do until success, 2: do all, 3: Do until failure, 4: do all without failure or do nothing'
+        isConjustiveNormalForm:
+          type: boolean
+          description: 'This is a Boolean attribute that, if TRUE, defines the condition clause of this rule to be represented in Conjunctive Normal Form (e.g., an AND of ORs). If the value of this attribute is FALSE, then the condition clause will be represented in Disjunctive Normal Form (e.g., an OR of ANDs). '
+        name:
+          type: string
+          description: Name of the policy rule
+        sequencedAction:
+          type: integer
+          description: 'The sequencedAction attribute is an enumerated integer that defines how the ordering of the PolicyActions associated with this PolicyRule is to be interpreted. Values include: 1 Mandatory, 2 recommended, 3 best effort.'
+        sequencedValue:
+          type: integer
+          description: Policy value sequence value when rules have to be executed in a specific order
+        state:
+          type: string
+          description: State of the policy rule - could be active/inactive
+        version:
+          type: string
+          description: Policy rule version
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        policyAction:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyActionRef'
+        policyCondition:
+          $ref: '#/components/schemas/PolicyConditionRef'
+        policyDomain:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyDomainRef'
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEventRef'
+        relatedParty:
+          type: array
+          description: A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: |-
+        A policy rule definition.
+        Skipped properties: id,href
+    RelatedParty:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+          description: Role played by the related party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+    RelatedPlaceRefOrValue:
+      required:
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        role:
+          type: string
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+    ThresholdRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    PolicyRuleCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyRuleCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyRuleCreateEventPayload:
+      type: object
+      properties:
+        policyRule:
+          $ref: '#/components/schemas/PolicyRule'
+      description: The event data structure
+    PolicyRuleInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/PolicyRuleInformationRequiredEventPayload'
+      description: The notification data structure
+    PolicyRuleInformationRequiredEventPayload:
+      type: object
+      properties:
+        policyRule:
+          $ref: '#/components/schemas/PolicyRule'
+      description: The event data structure
+    PolicyRuleStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyRuleStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyRuleStateChangeEventPayload:
+      type: object
+      properties:
+        policyRule:
+          $ref: '#/components/schemas/PolicyRule'
+      description: The event data structure
+    PolicyRuleDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyRuleDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyRuleDeleteEventPayload:
+      type: object
+      properties:
+        policyRule:
+          $ref: '#/components/schemas/PolicyRule'
+      description: The event data structure
+    PolicyRuleAttributeValueChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/PolicyRuleAttributeValueChangeEventPayload'
+      description: The notification data structure
+    PolicyRuleAttributeValueChangeEventPayload:
+      type: object
+      properties:
+        policyRule:
+          $ref: '#/components/schemas/PolicyRule'
+      description: The event data structure
+    PolicyEventCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyEventCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyEventCreateEventPayload:
+      type: object
+      properties:
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEvent'
+      description: The event data structure
+    PolicyEventInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/PolicyEventInformationRequiredEventPayload'
+      description: The notification data structure
+    PolicyEventInformationRequiredEventPayload:
+      type: object
+      properties:
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEvent'
+      description: The event data structure
+    PolicyEventDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyEventDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyEventDeleteEventPayload:
+      type: object
+      properties:
+        policyEvent:
+          $ref: '#/components/schemas/PolicyEvent'
+      description: The event data structure
+    PolicyConditionCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyConditionCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyConditionCreateEventPayload:
+      type: object
+      properties:
+        policyCondition:
+          $ref: '#/components/schemas/PolicyCondition'
+      description: The event data structure
+    PolicyConditionInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/PolicyConditionInformationRequiredEventPayload'
+      description: The notification data structure
+    PolicyConditionInformationRequiredEventPayload:
+      type: object
+      properties:
+        policyCondition:
+          $ref: '#/components/schemas/PolicyCondition'
+      description: The event data structure
+    PolicyConditionDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyConditionDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyConditionDeleteEventPayload:
+      type: object
+      properties:
+        policyCondition:
+          $ref: '#/components/schemas/PolicyCondition'
+      description: The event data structure
+    PolicyActionCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyActionCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyActionCreateEventPayload:
+      type: object
+      properties:
+        policyAction:
+          $ref: '#/components/schemas/PolicyAction'
+      description: The event data structure
+    PolicyActionInformationRequiredEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/PolicyActionInformationRequiredEventPayload'
+      description: The notification data structure
+    PolicyActionInformationRequiredEventPayload:
+      type: object
+      properties:
+        policyAction:
+          $ref: '#/components/schemas/PolicyAction'
+      description: The event data structure
+    PolicyActionDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/PolicyActionDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    PolicyActionDeleteEventPayload:
+      type: object
+      properties:
+        policyAction:
+          $ref: '#/components/schemas/PolicyAction'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

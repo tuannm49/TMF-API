@@ -1,0 +1,4584 @@
+openapi: 3.0.1
+info:
+  title: Warranty Management
+  description: '**TMF API Reference : TMF XXX - Warranty Management**'
+  version: 4.0.0
+servers:
+  - url: https://serverRoot/tmf-api/warrantyManagement/v4/
+tags:
+  - name: warranty
+  - name: warrantySpecification
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /warranty:
+    get:
+      tags:
+        - warranty
+      summary: List or find Warranty objects
+      description: This operation list or find Warranty entities
+      operationId: listWarranty
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Warranty'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - warranty
+      summary: Creates a Warranty
+      description: This operation creates a Warranty entity.
+      operationId: createWarranty
+      requestBody:
+        description: The Warranty to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Warranty_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Warranty'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: warranty
+  /warranty/{id}:
+    get:
+      tags:
+        - warranty
+      summary: Retrieves a Warranty by ID
+      description: This operation retrieves a Warranty entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveWarranty
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Warranty
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Warranty'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - warranty
+      summary: Deletes a Warranty
+      description: This operation deletes a Warranty entity.
+      operationId: deleteWarranty
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Warranty
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - warranty
+      summary: Updates partially a Warranty
+      description: This operation updates partially a Warranty entity.
+      operationId: patchWarranty
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the Warranty
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Warranty to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Warranty_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Warranty'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: warranty
+  /warrantySpecification:
+    get:
+      tags:
+        - warrantySpecification
+      summary: List or find WarrantySpecification objects
+      description: This operation list or find WarrantySpecification entities
+      operationId: listWarrantySpecification
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WarrantySpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - warrantySpecification
+      summary: Creates a WarrantySpecification
+      description: This operation creates a WarrantySpecification entity.
+      operationId: createWarrantySpecification
+      requestBody:
+        description: The WarrantySpecification to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecification_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarrantySpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: warrantySpecification
+  /warrantySpecification/{id}:
+    get:
+      tags:
+        - warrantySpecification
+      summary: Retrieves a WarrantySpecification by ID
+      description: This operation retrieves a WarrantySpecification entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveWarrantySpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the WarrantySpecification
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarrantySpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - warrantySpecification
+      summary: Deletes a WarrantySpecification
+      description: This operation deletes a WarrantySpecification entity.
+      operationId: deleteWarrantySpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the WarrantySpecification
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - warrantySpecification
+      summary: Updates partially a WarrantySpecification
+      description: This operation updates partially a WarrantySpecification entity.
+      operationId: patchWarrantySpecification
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the WarrantySpecification
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The WarrantySpecification to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecification_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarrantySpecification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: warrantySpecification
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/warrantyCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantyCreateEvent
+      description: Example of a client listener for receiving the notification WarrantyCreateEvent
+      operationId: listenToWarrantyCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantyCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantyAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantyAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification WarrantyAttributeValueChangeEvent
+      operationId: listenToWarrantyAttributeValueChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantyAttributeValueChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantyDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantyDeleteEvent
+      description: Example of a client listener for receiving the notification WarrantyDeleteEvent
+      operationId: listenToWarrantyDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantyDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantyStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantyStateChangeEvent
+      description: Example of a client listener for receiving the notification WarrantyStateChangeEvent
+      operationId: listenToWarrantyStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantyStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantySpecificationCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantySpecificationCreateEvent
+      description: Example of a client listener for receiving the notification WarrantySpecificationCreateEvent
+      operationId: listenToWarrantySpecificationCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecificationCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantySpecificationAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantySpecificationAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification WarrantySpecificationAttributeValueChangeEvent
+      operationId: listenToWarrantySpecificationAttributeValueChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecificationAttributeValueChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantySpecificationDeleteEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantySpecificationDeleteEvent
+      description: Example of a client listener for receiving the notification WarrantySpecificationDeleteEvent
+      operationId: listenToWarrantySpecificationDeleteEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecificationDeleteEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/warrantySpecificationStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity WarrantySpecificationStateChangeEvent
+      description: Example of a client listener for receiving the notification WarrantySpecificationStateChangeEvent
+      operationId: listenToWarrantySpecificationStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarrantySpecificationStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    Addressable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+      description: Base schema for adressable entities
+    AgreementItemRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        agreementItemId:
+          type: string
+          description: Identifier of the agreement
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+    AgreementRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the agreement
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
+    AgreementSpecCharacteristic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        configurable:
+          type: boolean
+          description: If true, the Boolean indicates that the characteristic is configurable
+        description:
+          type: string
+          description: A narrative that explains in detail what the characteristic is
+        name:
+          type: string
+          description: Name of the characteristic being specified.
+        valueType:
+          type: string
+          description: A kind of value that the characteristic can take on, such as numeric, text and so forth
+        specCharacteristicValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecCharacteristicValue'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A characteristic quality or distinctive feature of an agreement.
+    AgreementSpecCharacteristicValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        default:
+          type: boolean
+          description: Indicates if the value is the default value for a characteristic
+        unitOfMeasure:
+          type: string
+          description: Unit of measure for the characteristic, such as minutes, gigabytes (GB) and so on.
+        valueFrom:
+          type: string
+          description: The low range value that a characteristic can take on
+        valueTo:
+          type: string
+          description: The upper range value that a characteristic can take on
+        valueType:
+          type: string
+          description: A kind of value that the characteristic can take on, such as numeric, text, and so forth
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A number or text that can be assigned to an agreement specification characteristic.
+    AgreementSpecification:
+      required:
+        - attachment
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the agreement specification
+        href:
+          type: string
+          description: Reference of the agreement specification
+        description:
+          type: string
+          description: A narrative that explains in detail what the agreement specification is about
+        isBundle:
+          type: boolean
+          description: If true, this agreement specification is a grouping of other agreement specifications. The list of bundled agreement specifications is provided by the specificationRelationship property
+        lastUpdate:
+          type: string
+          description: Date and time of the last update
+          format: date-time
+        lifecycleStatus:
+          type: string
+          description: Indicates the current lifecycle status
+        name:
+          type: string
+          description: Name of the agreement specification
+        version:
+          type: string
+          description: Agreement specification version
+        attachment:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        serviceCategory:
+          $ref: '#/components/schemas/CategoryRef'
+        specificationCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecCharacteristic'
+        specificationRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecificationRelationship'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A template of an agreement that can be used when establishing partnerships
+    AgreementSpecificationRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        relationshipType:
+          type: string
+          description: Type of relationship such as, substitution or dependency.
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A relationship between agreement specifications. Typical relationships are substitution and dependency.
+    Any:
+      type: object
+    AssociationSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: reference to an AssociationSpecification object
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this particular attachment
+          example: 4aafacbd-11ff-4dc8-b445-305f2215715f
+        href:
+          type: string
+          description: URI for this Attachment
+          format: uri
+          example: http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f
+        attachmentType:
+          type: string
+          description: Attachment type such as video, picture
+          example: video
+        content:
+          type: string
+          description: The actual contents of the attachment object, if embedded, encoded as base64
+          format: base64
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+          example: Photograph of the Product
+        mimeType:
+          type: string
+          description: Attachment mime type such as extension file for video, picture and document
+        name:
+          type: string
+          description: The name of the attachment
+        url:
+          type: string
+          description: Uniform Resource Locator, is a web page address (a subset of URI)
+          format: uri
+          example: http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f
+        size:
+          $ref: '#/components/schemas/Quantity'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Complements the description of an element (for instance a product) through video, pictures...
+    AttachmentRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique-Identifier for this attachment
+        href:
+          type: string
+          description: URL serving as reference for the attachment resource
+          format: uri
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+        name:
+          type: string
+          description: Name of the related entity.
+        url:
+          type: string
+          description: Link to the attachment media/content
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+    AttachmentRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this particular attachment
+          example: 4aafacbd-11ff-4dc8-b445-305f2215715f
+        href:
+          type: string
+          description: URI for this Attachment
+          format: uri
+          example: http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f
+        attachmentType:
+          type: string
+          description: Attachment type such as video, picture
+          example: video
+        content:
+          type: string
+          description: The actual contents of the attachment object, if embedded, encoded as base64
+          format: base64
+        description:
+          type: string
+          description: A narrative text describing the content of the attachment
+          example: Photograph of the Product
+        mimeType:
+          type: string
+          description: Attachment mime type such as extension file for video, picture and document
+        name:
+          type: string
+          description: The name of the attachment
+        url:
+          type: string
+          description: Uniform Resource Locator, is a web page address (a subset of URI)
+          format: uri
+          example: http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f
+        size:
+          $ref: '#/components/schemas/Quantity'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+    BillingAccountRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the billing account
+        href:
+          type: string
+          description: Reference of the billing account
+        name:
+          type: string
+          description: Name of the billing account
+        ratingType:
+          type: string
+          description: Indicates whether the account follows a specific payment option such as prepaid or postpaid
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+    CategoryRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: Category version
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: The category for grouping recommendations
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CharacteristicRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Another Characteristic that is related to the current Characteristic;
+    CharacteristicSpecification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID for the characteristic
+        configurable:
+          type: boolean
+          description: If true, the Boolean indicates that the target Characteristic is configurable
+        description:
+          type: string
+          description: A narrative that explains the CharacteristicSpecification.
+        extensible:
+          type: boolean
+          description: An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.
+        isUnique:
+          type: boolean
+          description: Specifies if the value of this characteristic is unique across all entities instantiated from the specification that uses this characteristc. For example, consider a ProductSpecification for a set-top box, with a CharacteristicSpecification cardID. Each set-top box must have a different value for cardID, so this isUnique attribute would be set to true for the characteristic.
+        maxCardinality:
+          type: integer
+          description: The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
+        minCardinality:
+          type: integer
+          description: The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.
+        name:
+          type: string
+          description: A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.
+        regex:
+          type: string
+          description: A rule or principle represented in regular expression used to derive the value of a characteristic value.
+        valueType:
+          type: string
+          description: A kind of value that the characteristic can take on, such as numeric, text and so forth
+        charSpecRelationship:
+          type: array
+          description: An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.
+          items:
+            $ref: '#/components/schemas/CharacteristicSpecificationRelationship'
+        characteristicValueSpecification:
+          type: array
+          description: A CharacteristicValueSpecification object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a CharacteristicSpecification object. The values of the attributes in the CharacteristicValueSpecification object describe the values of the attributes that a corresponding Characteristic object can take on.
+          items:
+            $ref: '#/components/schemas/CharacteristicValueSpecification'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@valueSchemaLocation':
+          type: string
+          description: This (optional) field provides a link to the schema describing the value type.
+      description: This class defines a characteristic specification.
+    CharacteristicSpecificationBase:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID for the characteristic
+        configurable:
+          type: boolean
+          description: If true, the Boolean indicates that the target Characteristic is configurable
+        description:
+          type: string
+          description: A narrative that explains the CharacteristicSpecification.
+        extensible:
+          type: boolean
+          description: An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.
+        isUnique:
+          type: boolean
+          description: Specifies if the value of this characteristic is unique across all entities instantiated from the specification that uses this characteristc. For example, consider a ProductSpecification for a set-top box, with a CharacteristicSpecification cardID. Each set-top box must have a different value for cardID, so this isUnique attribute would be set to true for the characteristic.
+        maxCardinality:
+          type: integer
+          description: The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
+        minCardinality:
+          type: integer
+          description: The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.
+        name:
+          type: string
+          description: A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.
+        regex:
+          type: string
+          description: A rule or principle represented in regular expression used to derive the value of a characteristic value.
+        valueType:
+          type: string
+          description: A kind of value that the characteristic can take on, such as numeric, text and so forth
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@valueSchemaLocation':
+          type: string
+          description: This (optional) field provides a link to the schema describing the value type.
+      description: This class defines a characteristic specification.
+    CharacteristicSpecificationRelationship:
+      type: object
+      properties:
+        characteristicSpecificationId:
+          type: string
+          description: Unique identifier of the characteristic within the specification
+        name:
+          type: string
+          description: Name of the target characteristic within the specification
+        parentSpecificationHref:
+          type: string
+          description: Hyperlink reference to the parent specification containing the target characteristic
+          format: uri
+        parentSpecificationId:
+          type: string
+          description: Unique identifier of the parent specification containing the target characteristic
+        relationshipType:
+          type: string
+          description: Type of relationship such as aggregation, migration, substitution, dependency, exclusivity
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.
+    CharacteristicValueSpecification:
+      type: object
+      properties:
+        isDefault:
+          type: boolean
+          description: If true, the Boolean Indicates if the value is the default value for a characteristic
+        rangeInterval:
+          type: string
+          description: An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are "open", "closed", "closedBottom" and "closedTop".
+        regex:
+          type: string
+          description: A regular expression constraint for given value
+        unitOfMeasure:
+          type: string
+          description: A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.
+        valueFrom:
+          type: integer
+          description: The low range value that a characteristic can take on
+        valueTo:
+          type: integer
+          description: The upper range value that a characteristic can take on
+        valueType:
+          type: string
+          description: A kind of value that the characteristic value can take on, such as numeric, text and so forth
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: specification of a value (number or text or an object) that can be assigned to a Characteristic.
+    ConstraintRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: constraint version
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base entity schema for use in TMForum Open-APIs
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    EntityRelationship:
+      required:
+        - entity
+        - relationshipType
+      type: object
+      properties:
+        relationshipType:
+          type: string
+          description: Type of relationship such as containment, substitution, dependency, exclusivity
+        role:
+          type: string
+          description: The association role for this entity
+        associationSpec:
+          $ref: '#/components/schemas/AssociationSpecificationRef'
+        entity:
+          $ref: '#/components/schemas/EntityRef'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A uni-directionmal relationship from this entity to a target entity instance
+    EntitySpecification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: Description of the specification
+        isBundle:
+          type: boolean
+          description: isBundle determines whether specification represents a single specification (false), or a bundle of specifications (true).
+        lastUpdate:
+          type: string
+          description: Date and time of the last update of the specification
+          format: date-time
+        lifecycleStatus:
+          type: string
+          description: Used to indicate the current lifecycle status of this catalog item
+        name:
+          type: string
+          description: Name given to the specification
+        version:
+          type: string
+          description: specification version
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this specification, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        constraint:
+          type: array
+          description: This is a list of constraint references applied to this specification
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        entitySpecRelationship:
+          type: array
+          description: Relationship to another specification
+          items:
+            $ref: '#/components/schemas/EntitySpecificationRelationship'
+        relatedParty:
+          type: array
+          description: Parties who manage or otherwise have an interest in this specification
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        specCharacteristic:
+          type: array
+          description: List of characteristics that the entity can take
+          items:
+            $ref: '#/components/schemas/CharacteristicSpecification'
+        targetEntitySchema:
+          $ref: '#/components/schemas/TargetEntitySchema'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        EntitySpecification is a class that offers characteristics to describe a type of entity. Entities are generic constructs that may be used to describe bespoke business entities that are not effectively covered by the existing SID model.
+        Functionally, the entity specification acts as a template by which entities may be instantiated and described. By sharing the same specification, these entities would therefore share the same set of characteristics.
+        Note: The ‘configurable’ attribute on the specCharacteristics determines if an entity instantiated from the entity specification can override the value of the attribute. When set to false, the entity instance may not define a value that differs from the value in the specification.
+    EntitySpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: EntitySpecification version
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: reference to an EntitySpecification object
+    EntitySpecificationRelationship:
+      required:
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        relationshipType:
+          type: string
+          description: Type of relationship such as migration, substitution, dependency, exclusivity
+        role:
+          type: string
+          description: The association role for this entity specification
+        associationSpec:
+          $ref: '#/components/schemas/AssociationSpecificationRef'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A migration, substitution, dependency or exclusivity relationship between/among entity specifications.
+    Extensible:
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base Extensible schema for use in TMForum Open-APIs
+    Feature:
+      required:
+        - featureCharacteristic
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the feature.
+        isBundle:
+          type: boolean
+          description: True if this is a feature group. Default is false.
+        isEnabled:
+          type: boolean
+          description: True if this feature is enabled. Default is true.
+        name:
+          type: string
+          description: This is the name for the feature.
+        constraint:
+          type: array
+          description: This is a list of feature constraints.
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        featureCharacteristic:
+          minItems: 1
+          type: array
+          description: This is a list of Characteristics for a particular feature.
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        featureRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureRelationship'
+      description: Configuration feature.
+    FeatureRelationship:
+      required:
+        - name
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the target feature.
+        name:
+          type: string
+          description: This is the name of the target feature.
+        relationshipType:
+          type: string
+          description: This is the type of the feature relationship.
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+      description: Configuration feature
+    MEntity:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        context:
+          type: string
+          description: A string used to give a context to the entity
+        description:
+          type: string
+          description: free-text description of the entity
+        endDate:
+          type: string
+          description: A date time( DateTime). The date till the entity is effective
+          format: date-time
+        isBundle:
+          type: boolean
+          description: isBundle determines whether an entity represents a single entity (false), or a bundle of entities(true).
+        isExternal:
+          type: boolean
+          description: isExternal determines whether an entity represents an external entity in the inventory.
+        name:
+          type: string
+          description: A string used to give a name to the entity
+        startDate:
+          type: string
+          description: A date time( DateTime). The date from which the entity is effective
+          format: date-time
+        status:
+          type: string
+          description: The life cycle state of the entity.
+        statusChangeDate:
+          type: string
+          description: A date time( DateTime). The date that the entity status changed
+          format: date-time
+        version:
+          type: string
+          description: A field that identifies the specific version of an instance of an entity.
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this entity, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        entityRelationship:
+          type: array
+          description: A list of entities related to this entity
+          items:
+            $ref: '#/components/schemas/EntityRelationship'
+        entitySpecification:
+          $ref: '#/components/schemas/EntitySpecificationRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: MEntity represents an entity that describes the common set of attributes shared by all concrete entities (e.g. Resource, Service, ..) in the Entity Inventory.
+    Money:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+          format: float
+      description: A base / value business entity used to represent money
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the note within its containing entity
+          example: ''
+        author:
+          type: string
+          description: Author of the note
+          example: ''
+        date:
+          type: string
+          description: Date of the note
+          format: date-time
+        text:
+          type: string
+          description: Text of the note
+          example: ''
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Extra information about a given entity
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Place reference. Place defines the places where the products are sold or delivered.
+    PlaceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+    Price:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        percentage:
+          type: number
+          description: Percentage to apply for ProdOfferPriceAlteration
+          format: float
+        taxRate:
+          type: number
+          description: Tax rate
+          format: float
+        dutyFreeAmount:
+          $ref: '#/components/schemas/Money'
+        taxIncludedAmount:
+          $ref: '#/components/schemas/Money'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
+    PriceAlteration:
+      required:
+        - price
+        - priceType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        applicationDuration:
+          type: integer
+          description: Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)
+        description:
+          type: string
+          description: A narrative that explains in detail the semantics of this order item price alteration
+        name:
+          type: string
+          description: Name of the order item price alteration
+        priceType:
+          type: string
+          description: A category that describes the price such as recurring, one time and usage.
+        priority:
+          type: integer
+          description: Priority level for applying this alteration among all the defined alterations on the order item price
+        recurringChargePeriod:
+          type: string
+          description: Could be month, week...
+        unitOfMeasure:
+          type: string
+          description: Could be minutes, GB...
+        price:
+          $ref: '#/components/schemas/Price'
+        productOfferingPrice:
+          $ref: '#/components/schemas/ProductOfferingPriceRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Is an amount, usually of money, that modifies the price charged for an order item.
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the product
+        href:
+          type: string
+          description: Reference of the product
+        description:
+          type: string
+          description: Is the description of the product. It could be copied from the description of the Product Offering.
+        isBundle:
+          type: boolean
+          description: If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.
+        isCustomerVisible:
+          type: boolean
+          description: If true, the product is visible by the customer.
+        name:
+          type: string
+          description: Name of the product. It could be the same as the name of the product offering
+        orderDate:
+          type: string
+          description: Is the date when the product was ordered
+          format: date-time
+        productSerialNumber:
+          type: string
+          description: Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.
+        startDate:
+          type: string
+          description: Is the date from which the product starts
+          format: date-time
+        terminationDate:
+          type: string
+          description: Is the date when the product was terminated
+          format: date-time
+        agreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementItemRef'
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRefOrValue'
+        productCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        productOffering:
+          $ref: '#/components/schemas/ProductOfferingRef'
+        productOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedProductOrderItem'
+        productPrice:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPrice'
+        productRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRelationship'
+        productSpecification:
+          $ref: '#/components/schemas/ProductSpecificationRef'
+        productTerm:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductTerm'
+        realizingResource:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+        realizingService:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceRef'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        status:
+          $ref: '#/components/schemas/ProductStatusType'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A product offering procured by a customer or other interested party playing a party role. A product is realized as one or more service(s) and / or resource(s).
+    ProductOfferingPriceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased
+    ProductOfferingRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+    ProductPrice:
+      required:
+        - price
+        - priceType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: A narrative that explains in detail the semantics of this product price.
+        name:
+          type: string
+          description: A short descriptive name such as "Subscription price".
+        priceType:
+          type: string
+          description: A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.
+        recurringChargePeriod:
+          type: string
+          description: Could be month, week...
+        unitOfMeasure:
+          type: string
+          description: Could be minutes, GB...
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        price:
+          $ref: '#/components/schemas/Price'
+        productOfferingPrice:
+          $ref: '#/components/schemas/ProductOfferingPriceRef'
+        productPriceAlteration:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceAlteration'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: An amount, usually of money, that represents the actual price paid by a Customer for a purchase, a rent or a lease of a Product. The price is valid for a defined period of time.
+    ProductRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    ProductRefOrValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the product
+        href:
+          type: string
+          description: Reference of the product
+        description:
+          type: string
+          description: Is the description of the product. It could be copied from the description of the Product Offering.
+        isBundle:
+          type: boolean
+          description: If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.
+        isCustomerVisible:
+          type: boolean
+          description: If true, the product is visible by the customer.
+        name:
+          type: string
+          description: Name of the product. It could be the same as the name of the product offering
+        orderDate:
+          type: string
+          description: Is the date when the product was ordered
+          format: date-time
+        productSerialNumber:
+          type: string
+          description: Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.
+        startDate:
+          type: string
+          description: Is the date from which the product starts
+          format: date-time
+        terminationDate:
+          type: string
+          description: Is the date when the product was terminated
+          format: date-time
+        agreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementItemRef'
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRefOrValue'
+        productCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        productOffering:
+          $ref: '#/components/schemas/ProductOfferingRef'
+        productOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedProductOrderItem'
+        productPrice:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPrice'
+        productRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRelationship'
+        productSpecification:
+          $ref: '#/components/schemas/ProductSpecificationRef'
+        productTerm:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductTerm'
+        realizingResource:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+        realizingService:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceRef'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        status:
+          $ref: '#/components/schemas/ProductStatusType'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the product entity and not the RelatedProductRefOrValue class itself
+    ProductRelationship:
+      required:
+        - product
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+        product:
+          $ref: '#/components/schemas/ProductRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+    ProductSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: Version of the product specification
+        targetProductSchema:
+          $ref: '#/components/schemas/TargetProductSchema'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: 'Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.'
+    ProductStatusType:
+      type: string
+      description: Possible values for the status of the product
+      enum:
+        - created
+        - pendingActive
+        - cancelled
+        - active
+        - pendingTerminate
+        - terminated
+        - suspended
+        - aborted
+    ProductTerm:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: Description of the productTerm
+        name:
+          type: string
+          description: Name of the productTerm
+        duration:
+          $ref: '#/components/schemas/Quantity'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Description of a productTerm linked to this product. This represent a commitment with a duration
+    Quantity:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Numeric value in a given unit
+          format: float
+          default: 1
+        units:
+          type: string
+          description: Unit
+      description: An amount in a given unit
+    RelatedParty:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+          description: Role played by the related party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+    RelatedPlaceRefOrValue:
+      required:
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the place
+        href:
+          type: string
+          description: Unique reference of the place
+        name:
+          type: string
+          description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+        role:
+          type: string
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+    RelatedProductOrderItem:
+      required:
+        - orderItemId
+        - productOrderId
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        orderItemAction:
+          type: string
+          description: Action of the order item for this product
+        orderItemId:
+          type: string
+          description: Identifier of the order item where the product was managed
+        productOrderHref:
+          type: string
+          description: Reference of the related entity.
+        productOrderId:
+          type: string
+          description: Unique identifier of a related entity.
+        role:
+          type: string
+          description: role of the product order item for this product
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.
+    Resource:
+      required:
+        - href
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of an instance of the resource. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type.
+        href:
+          type: string
+          description: The URI for the object itself.
+        category:
+          type: string
+          description: Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource
+        description:
+          type: string
+          description: free-text description of the resource
+        endOperatingDate:
+          type: string
+          description: A date time( DateTime). The date till the resource is operating
+          format: date-time
+        name:
+          type: string
+          description: A string used to give a name to the resource
+        resourceVersion:
+          type: string
+          description: A field that identifies the specific version of an instance of a resource.
+        startOperatingDate:
+          type: string
+          description: A date time( DateTime). The date from which the resource is operating
+          format: date-time
+        activationFeature:
+          type: array
+          description: Configuration features
+          items:
+            $ref: '#/components/schemas/Feature'
+        administrativeState:
+          $ref: '#/components/schemas/ResourceAdministrativeStateType'
+        attachment:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        operationalState:
+          $ref: '#/components/schemas/ResourceOperationalStateType'
+        place:
+          $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        resourceCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        resourceRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRelationship'
+        resourceSpecification:
+          $ref: '#/components/schemas/ResourceSpecificationRef'
+        resourceStatus:
+          $ref: '#/components/schemas/ResourceStatusType'
+        usageState:
+          $ref: '#/components/schemas/ResourceUsageStateType'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
+    ResourceAdministrativeStateType:
+      type: string
+      description: ResourceAdministrativeStateType enumerations
+      enum:
+        - locked
+        - unlocked
+        - shutdown
+    ResourceOperationalStateType:
+      type: string
+      description: ResourceOperationalStateType enumerations
+      enum:
+        - enable
+        - disable
+    ResourceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    ResourceRefOrValue:
+      required:
+        - href
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of an instance of the resource. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type.
+        href:
+          type: string
+          description: The URI for the object itself.
+        category:
+          type: string
+          description: Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource
+        description:
+          type: string
+          description: free-text description of the resource
+        endOperatingDate:
+          type: string
+          description: A date time( DateTime). The date till the resource is operating
+          format: date-time
+        name:
+          type: string
+          description: A string used to give a name to the resource
+        resourceVersion:
+          type: string
+          description: A field that identifies the specific version of an instance of a resource.
+        startOperatingDate:
+          type: string
+          description: A date time( DateTime). The date from which the resource is operating
+          format: date-time
+        activationFeature:
+          type: array
+          description: Configuration features
+          items:
+            $ref: '#/components/schemas/Feature'
+        administrativeState:
+          $ref: '#/components/schemas/ResourceAdministrativeStateType'
+        attachment:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        operationalState:
+          $ref: '#/components/schemas/ResourceOperationalStateType'
+        place:
+          $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        resourceCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        resourceRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRelationship'
+        resourceSpecification:
+          $ref: '#/components/schemas/ResourceSpecificationRef'
+        resourceStatus:
+          $ref: '#/components/schemas/ResourceStatusType'
+        usageState:
+          $ref: '#/components/schemas/ResourceUsageStateType'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Resource is an abstract entity that describes the common set of attributes shared by all concrete resources. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Resource entity and not the related ResourceRefOrValue class itself
+    ResourceRelationship:
+      required:
+        - relationshipType
+        - resource
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: 'Type of the resource relationship, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (eg: an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful'
+          example: bundled
+        resource:
+          $ref: '#/components/schemas/ResourceRefOrValue'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Linked resources to the one instantiate, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (e.g. an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+    ResourceSpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        version:
+          type: string
+          description: Resource Specification version
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: |-
+        Resources are physical or non-physical components (or some combination of these) within an enterprise's infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components.
+        A ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification.
+    ResourceStatusType:
+      type: string
+      description: ResourceStatusType enumerations
+      enum:
+        - standby
+        - alarm
+        - available
+        - reserved
+        - unknown
+        - suspended
+    ResourceUsageStateType:
+      type: string
+      description: ResourceUsageStateType enumerations
+      enum:
+        - idle
+        - active
+        - busy
+    ServiceRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Service reference, for when Service is used by other entities
+    TargetEntitySchema:
+      required:
+        - '@schemaLocation'
+        - '@type'
+      type: object
+      properties:
+        '@schemaLocation':
+          type: string
+          description: This field provides a link to the schema describing the target entity
+        '@type':
+          type: string
+          description: Class type of the target entity
+      description: The reference object to the schema and type of target entity which is described by a specification
+    TargetProductSchema:
+      required:
+        - '@schemaLocation'
+        - '@type'
+      type: object
+      properties:
+        '@schemaLocation':
+          type: string
+          description: This field provides a link to the schema describing the target product
+          format: uri
+        '@type':
+          type: string
+          description: Class type of the target product
+      description: The reference object to the schema and type of target product which is described by product specification
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    Warranty:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        context:
+          type: string
+          description: A string used to give a context to the entity
+        description:
+          type: string
+          description: free-text description of the entity
+        endDate:
+          type: string
+          description: A date time( DateTime). The date till the entity is effective
+        isBundle:
+          type: boolean
+          description: isBundle determines whether an entity represents a single entity (false), or a bundle of entities(true).
+        isExternal:
+          type: boolean
+          description: isExternal determines whether an entity represents an external entity in the inventory.
+        name:
+          type: string
+          description: A string used to give a name to the entity
+        startDate:
+          type: string
+          description: A date time( DateTime). The date from which the entity is effective
+        status:
+          type: string
+          description: The life cycle state of the entity.
+        statusChangeDate:
+          type: string
+          description: A date time( DateTime). The date that the entity status changed
+        version:
+          type: string
+          description: A field that identifies the specific version of an instance of an entity.
+        appliesToProduct:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRefOrValue'
+        appliesToResource:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRefOrValue'
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this entity, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        entityRelationship:
+          type: array
+          description: A list of entities related to this entity
+          items:
+            $ref: '#/components/schemas/EntityRelationship'
+        entitySpecification:
+          $ref: '#/components/schemas/EntitySpecificationRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/WarrantyStateType'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warranty:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warranty'
+        warrantyAgreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        warrantyRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantyRelationship'
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    Warranty_Create:
+      required:
+        - name
+      type: object
+      properties:
+        context:
+          type: string
+          description: A string used to give a context to the entity
+        description:
+          type: string
+          description: free-text description of the entity
+        endDate:
+          type: string
+          description: A date time( DateTime). The date till the entity is effective
+        isBundle:
+          type: boolean
+          description: isBundle determines whether an entity represents a single entity (false), or a bundle of entities(true).
+        isExternal:
+          type: boolean
+          description: isExternal determines whether an entity represents an external entity in the inventory.
+        name:
+          type: string
+          description: A string used to give a name to the entity
+        startDate:
+          type: string
+          description: A date time( DateTime). The date from which the entity is effective
+        status:
+          type: string
+          description: The life cycle state of the entity.
+        statusChangeDate:
+          type: string
+          description: A date time( DateTime). The date that the entity status changed
+        version:
+          type: string
+          description: A field that identifies the specific version of an instance of an entity.
+        appliesToProduct:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRefOrValue'
+        appliesToResource:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRefOrValue'
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this entity, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        entityRelationship:
+          type: array
+          description: A list of entities related to this entity
+          items:
+            $ref: '#/components/schemas/EntityRelationship'
+        entitySpecification:
+          $ref: '#/components/schemas/EntitySpecificationRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/WarrantyStateType'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warranty:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warranty'
+        warrantyAgreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        warrantyRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantyRelationship'
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+
+        Skipped properties: id,href
+    Warranty_Update:
+      required:
+        - name
+      type: object
+      properties:
+        context:
+          type: string
+          description: A string used to give a context to the entity
+        description:
+          type: string
+          description: free-text description of the entity
+        endDate:
+          type: string
+          description: A date time( DateTime). The date till the entity is effective
+        isBundle:
+          type: boolean
+          description: isBundle determines whether an entity represents a single entity (false), or a bundle of entities(true).
+        isExternal:
+          type: boolean
+          description: isExternal determines whether an entity represents an external entity in the inventory.
+        name:
+          type: string
+          description: A string used to give a name to the entity
+        startDate:
+          type: string
+          description: A date time( DateTime). The date from which the entity is effective
+        status:
+          type: string
+          description: The life cycle state of the entity.
+        statusChangeDate:
+          type: string
+          description: A date time( DateTime). The date that the entity status changed
+        version:
+          type: string
+          description: A field that identifies the specific version of an instance of an entity.
+        appliesToProduct:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRefOrValue'
+        appliesToResource:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRefOrValue'
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this entity, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        entityRelationship:
+          type: array
+          description: A list of entities related to this entity
+          items:
+            $ref: '#/components/schemas/EntityRelationship'
+        entitySpecification:
+          $ref: '#/components/schemas/EntitySpecificationRef'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        place:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        state:
+          $ref: '#/components/schemas/WarrantyStateType'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warranty:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warranty'
+        warrantyAgreement:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        warrantyRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantyRelationship'
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecificationRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+
+        Skipped properties: id,href
+    WarrantyRelationship:
+      required:
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
+    WarrantySpecification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        description:
+          type: string
+          description: Description of the specification
+        isBundle:
+          type: boolean
+          description: isBundle determines whether specification represents a single specification (false), or a bundle of specifications (true).
+        lastUpdate:
+          type: string
+          description: Date and time of the last update of the specification
+          format: date-time
+        lifecycleStatus:
+          type: string
+          description: Used to indicate the current lifecycle status of this catalog item
+        name:
+          type: string
+          description: Name given to the specification
+        version:
+          type: string
+          description: specification version
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this specification, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        constraint:
+          type: array
+          description: This is a list of constraint references applied to this specification
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        entitySpecRelationship:
+          type: array
+          description: Relationship to another specification
+          items:
+            $ref: '#/components/schemas/EntitySpecificationRelationship'
+        productSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationRef'
+        relatedParty:
+          type: array
+          description: Parties who manage or otherwise have an interest in this specification
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        resourceSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSpecificationRef'
+        specCharacteristic:
+          type: array
+          description: List of characteristics that the entity can take
+          items:
+            $ref: '#/components/schemas/CharacteristicSpecification'
+        targetEntitySchema:
+          $ref: '#/components/schemas/TargetEntitySchema'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warrantyAgreementSpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecification'
+        warrantyDuration:
+          $ref: '#/components/schemas/Quantity'
+        warrantySpecRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecificationRelationship'
+        warrantySpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    WarrantySpecification_Create:
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the specification
+        isBundle:
+          type: boolean
+          description: isBundle determines whether specification represents a single specification (false), or a bundle of specifications (true).
+        lastUpdate:
+          type: string
+          description: Date and time of the last update of the specification
+          format: date-time
+        lifecycleStatus:
+          type: string
+          description: Used to indicate the current lifecycle status of this catalog item
+        name:
+          type: string
+          description: Name given to the specification
+        version:
+          type: string
+          description: specification version
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this specification, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        constraint:
+          type: array
+          description: This is a list of constraint references applied to this specification
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        entitySpecRelationship:
+          type: array
+          description: Relationship to another specification
+          items:
+            $ref: '#/components/schemas/EntitySpecificationRelationship'
+        productSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationRef'
+        relatedParty:
+          type: array
+          description: Parties who manage or otherwise have an interest in this specification
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        resourceSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSpecificationRef'
+        specCharacteristic:
+          type: array
+          description: List of characteristics that the entity can take
+          items:
+            $ref: '#/components/schemas/CharacteristicSpecification'
+        targetEntitySchema:
+          $ref: '#/components/schemas/TargetEntitySchema'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warrantyAgreementSpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecification'
+        warrantyDuration:
+          $ref: '#/components/schemas/Quantity'
+        warrantySpecRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecificationRelationship'
+        warrantySpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+
+        Skipped properties: id,href
+    WarrantySpecification_Update:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the specification
+        isBundle:
+          type: boolean
+          description: isBundle determines whether specification represents a single specification (false), or a bundle of specifications (true).
+        lifecycleStatus:
+          type: string
+          description: Used to indicate the current lifecycle status of this catalog item
+        name:
+          type: string
+          description: Name given to the specification
+        version:
+          type: string
+          description: specification version
+        attachment:
+          type: array
+          description: Attachments that may be of relevance to this specification, such as picture, document, media
+          items:
+            $ref: '#/components/schemas/AttachmentRefOrValue'
+        constraint:
+          type: array
+          description: This is a list of constraint references applied to this specification
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        entitySpecRelationship:
+          type: array
+          description: Relationship to another specification
+          items:
+            $ref: '#/components/schemas/EntitySpecificationRelationship'
+        productSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductSpecificationRef'
+        relatedParty:
+          type: array
+          description: Parties who manage or otherwise have an interest in this specification
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        resourceSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSpecificationRef'
+        specCharacteristic:
+          type: array
+          description: List of characteristics that the entity can take
+          items:
+            $ref: '#/components/schemas/CharacteristicSpecification'
+        targetEntitySchema:
+          $ref: '#/components/schemas/TargetEntitySchema'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        warrantyAgreementSpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementSpecification'
+        warrantyDuration:
+          $ref: '#/components/schemas/Quantity'
+        warrantySpecRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecificationRelationship'
+        warrantySpecification:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarrantySpecification'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+
+        Skipped properties: id,href,lastUpdate
+    WarrantySpecificationRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    WarrantySpecificationRelationship:
+      required:
+        - relationshipType
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: The name given to the target entity specification instance
+        relationshipType:
+          type: string
+          description: Type of relationship such as migration, substitution, dependency, exclusivity
+        role:
+          type: string
+          description: The association role for this entity specification
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A migration, substitution, dependency or exclusivity relationship between/among entity specifications.
+    WarrantyStateType:
+      type: string
+      description: Valid values for the lifecycle state of the service
+      enum:
+        - feasibilityChecked
+        - designed
+        - reserved
+        - inactive
+        - active
+        - terminated
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    WarrantyCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantyCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantyCreateEventPayload:
+      type: object
+      properties:
+        warranty:
+          $ref: '#/components/schemas/Warranty'
+      description: The event data structure
+    WarrantyAttributeValueChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/WarrantyAttributeValueChangeEventPayload'
+      description: The notification data structure
+    WarrantyAttributeValueChangeEventPayload:
+      type: object
+      properties:
+        warranty:
+          $ref: '#/components/schemas/Warranty'
+      description: The event data structure
+    WarrantyDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantyDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantyDeleteEventPayload:
+      type: object
+      properties:
+        warranty:
+          $ref: '#/components/schemas/Warranty'
+      description: The event data structure
+    WarrantyStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantyStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantyStateChangeEventPayload:
+      type: object
+      properties:
+        warranty:
+          $ref: '#/components/schemas/Warranty'
+      description: The event data structure
+    WarrantySpecificationCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantySpecificationCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantySpecificationCreateEventPayload:
+      type: object
+      properties:
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecification'
+      description: The event data structure
+    WarrantySpecificationAttributeValueChangeEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+        fieldPath:
+          type: string
+          description: The path identifying the object field concerned by this notification.
+        event:
+          $ref: '#/components/schemas/WarrantySpecificationAttributeValueChangeEventPayload'
+      description: The notification data structure
+    WarrantySpecificationAttributeValueChangeEventPayload:
+      type: object
+      properties:
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecification'
+      description: The event data structure
+    WarrantySpecificationDeleteEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantySpecificationDeleteEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantySpecificationDeleteEventPayload:
+      type: object
+      properties:
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecification'
+      description: The event data structure
+    WarrantySpecificationStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/WarrantySpecificationStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    WarrantySpecificationStateChangeEventPayload:
+      type: object
+      properties:
+        warrantySpecification:
+          $ref: '#/components/schemas/WarrantySpecification'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

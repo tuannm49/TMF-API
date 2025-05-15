@@ -1,0 +1,2407 @@
+openapi: 3.0.1
+info:
+  title: Dunning Case
+  description: |+
+    **TMF API Reference :  TMF 728 - Dunning Case**
+
+    Version : 4.0.0 - April 2022
+
+    The Dunning Case API provides standardized mechanism for the management of the data entities involved across dunning process. The dunning process is the process of methodically communicating with customers to ensure the collection of accounts receivable, that exists in any services provider compamy.
+
+    This API enables the management (create, read, update and delete) of the data entities involved across process: 
+
+    - **Dunning Scenario resource**: describes a company’s dunning strategy. It must be easily configurable to describe the dunning rules to apply to a case, the order in which applying them, the events that trigger dunning rules evaluation and the actions that must be done.
+    - **Dunning Rule resource**: represents the rules with the events that trigger dunning rules evaluation, the conditions to evaluate and the actions that must be done.
+    - **Dunning Case resource**: represents a type of cases open for a customer. Whenever a customer enters the dunning process, a dunning case is linked to his customer account debt and it contains all details pertaining to the debt, such as dunning case rules, interactions, etc.
+
+    Dunning Case API also allows the subscription and the notification of events on Dunning Cases as they are created or updated.
+
+    Copyright (c)TM Forum 2022. All Rights Reserved.
+
+
+  version: 4.0.0
+servers:
+  - url: https://serverRoot/tmf-api/dunningCase/v4
+tags:
+  - name: dunningScenario
+  - name: dunningRule
+  - name: dunningCase
+  - name: notification listeners (client side)
+  - name: events subscription
+paths:
+  /dunningScenario:
+    get:
+      tags:
+        - dunningScenario
+      summary: List or find DunningScenario objects
+      description: This operation list or find DunningScenario entities
+      operationId: listDunningScenario
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DunningScenario'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - dunningScenario
+      summary: Creates a DunningScenario
+      description: This operation creates a DunningScenario entity.
+      operationId: createDunningScenario
+      requestBody:
+        description: The DunningScenario to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningScenario_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningScenario'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningScenario
+  /dunningScenario/{id}:
+    get:
+      tags:
+        - dunningScenario
+      summary: Retrieves a DunningScenario by ID
+      description: This operation retrieves a DunningScenario entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveDunningScenario
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningScenario
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningScenario'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - dunningScenario
+      summary: Deletes a DunningScenario
+      description: This operation deletes a DunningScenario entity.
+      operationId: deleteDunningScenario
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningScenario
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - dunningScenario
+      summary: Updates partially a DunningScenario
+      description: This operation updates partially a DunningScenario entity.
+      operationId: patchDunningScenario
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningScenario
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The DunningScenario to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningScenario_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningScenario'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningScenario
+  /dunningRule:
+    get:
+      tags:
+        - dunningRule
+      summary: List or find DunningRule objects
+      description: This operation list or find DunningRule entities
+      operationId: listDunningRule
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DunningRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - dunningRule
+      summary: Creates a DunningRule
+      description: This operation creates a DunningRule entity.
+      operationId: createDunningRule
+      requestBody:
+        description: The DunningRule to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningRule_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningRule
+  /dunningRule/{id}:
+    get:
+      tags:
+        - dunningRule
+      summary: Retrieves a DunningRule by ID
+      description: This operation retrieves a DunningRule entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveDunningRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningRule
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - dunningRule
+      summary: Deletes a DunningRule
+      description: This operation deletes a DunningRule entity.
+      operationId: deleteDunningRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningRule
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - dunningRule
+      summary: Updates partially a DunningRule
+      description: This operation updates partially a DunningRule entity.
+      operationId: patchDunningRule
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningRule
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The DunningRule to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningRule_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningRule
+  /dunningCase:
+    get:
+      tags:
+        - dunningCase
+      summary: List or find DunningCase objects
+      description: This operation list or find DunningCase entities
+      operationId: listDunningCase
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DunningCase'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - dunningCase
+      summary: Creates a DunningCase
+      description: This operation creates a DunningCase entity.
+      operationId: createDunningCase
+      requestBody:
+        description: The DunningCase to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningCase_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningCase'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningCase
+  /dunningCase/{id}:
+    get:
+      tags:
+        - dunningCase
+      summary: Retrieves a DunningCase by ID
+      description: This operation retrieves a DunningCase entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveDunningCase
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningCase
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningCase'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - dunningCase
+      summary: Deletes a DunningCase
+      description: This operation deletes a DunningCase entity.
+      operationId: deleteDunningCase
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningCase
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - dunningCase
+      summary: Updates partially a DunningCase
+      description: This operation updates partially a DunningCase entity.
+      operationId: patchDunningCase
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the DunningCase
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The DunningCase to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningCase_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningCase'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: dunningCase
+  /hub:
+    post:
+      tags:
+        - events subscription
+      summary: Register a listener
+      description: Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: registerListener
+      requestBody:
+        description: Data containing the callback endpoint to deliver the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+        required: true
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /hub/{id}:
+    delete:
+      tags:
+        - events subscription
+      summary: Unregister a listener
+      description: Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.
+      operationId: unregisterListener
+      parameters:
+        - name: id
+          in: path
+          description: The id of the registered listener
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /listener/dunningCaseCreateEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity DunningCaseCreateEvent
+      description: Example of a client listener for receiving the notification DunningCaseCreateEvent
+      operationId: listenToDunningCaseCreateEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningCaseCreateEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+  /listener/dunningCaseStateChangeEvent:
+    post:
+      tags:
+        - notification listeners (client side)
+      summary: Client listener for entity DunningCaseStateChangeEvent
+      description: Example of a client listener for receiving the notification DunningCaseStateChangeEvent
+      operationId: listenToDunningCaseStateChangeEvent
+      requestBody:
+        description: The event data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningCaseStateChangeEvent'
+        required: true
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    AccountBalance:
+      required:
+        - amount
+        - balanceType
+        - validFor
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the balance within list of the balances (for entities with list)
+        balanceType:
+          type: string
+          description: 'Type of the balance : deposit balance, disputed balance, loyalty balance, receivable balance...'
+        amount:
+          $ref: '#/components/schemas/Money'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Balances linked to the account
+    Addressable:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+      description: Base schema for adressable entities
+    Any:
+      type: object
+    AppliedBillingTaxRate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        taxCategory:
+          type: string
+          description: A categorization of the tax rate
+        taxRate:
+          type: number
+          description: Applied rate
+          format: float
+        taxAmount:
+          $ref: '#/components/schemas/Money'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: The applied billing tax rate represents taxes applied billing rate it refers to. It is calculated during the billing process.
+    AppliedCustomerBillingRate:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the customer applied billing rate
+        href:
+          type: string
+          description: 'Explanation: Reference of the customer applied billing rate.'
+        appliedBillingRateType:
+          type: string
+          description: 'Type of the applied billing rate : appliedBillingCharge (any kind of charge except taxation charges : recurringCharge, oneTimeCharge, usageCharge),  appliedBillingCredit (any kind of credit : rebate or productAlteration) or appliedPenaltyCharge (penalty charges such as late fees, payment rejection fees,...)'
+        date:
+          type: string
+          description: Creation date of the applied billing rate
+          format: date-time
+        description:
+          type: string
+          description: Additional data to be displayed on the bill for this customer applied billing rate
+        isBilled:
+          type: boolean
+          description: If isBilled = true then bill should be provided, if false then billingAccount should be provided
+        name:
+          type: string
+          description: Name of the customer applied billing rate
+        appliedTax:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedBillingTaxRate'
+        bill:
+          $ref: '#/components/schemas/CustomerBillRef'
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        periodCoverage:
+          $ref: '#/components/schemas/TimePeriod'
+        product:
+          $ref: '#/components/schemas/ProductRef'
+        taxExcludedAmount:
+          $ref: '#/components/schemas/Money'
+        taxIncludedAmount:
+          $ref: '#/components/schemas/Money'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A customer bill displays applied billing rates created before or during the billing process.
+    BillingAccountRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the billing account
+        href:
+          type: string
+          description: Reference of the billing account
+        name:
+          type: string
+          description: Name of the billing account
+        ratingType:
+          type: string
+          description: Indicates whether the account follows a specific payment option such as prepaid or postpaid
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: BillingAccount reference. A BillingAccount is a detailed description of a bill structure.
+    Characteristic:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        value:
+          $ref: '#/components/schemas/Any'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CharacteristicRelationship:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Another Characteristic that is related to the current Characteristic.
+    CustomerBillRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Bill reference.
+    DunningCase:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dunning case
+        href:
+          type: string
+          description: Hyperlink, a reference to the dunning case
+        category:
+          type: string
+          description: A categorization of a Dunning Case. It could be either "HardDunning" or "SoftDunning"
+        creationDate:
+          type: string
+          description: The date on which the dunning case was created
+          format: date-time
+        description:
+          type: string
+          description: A detailed description of the dunning case
+        lastActivityDate:
+          type: string
+          description: The date and time that the dunning case had its latest activity
+          format: date-time
+        lastUpdateDate:
+          type: string
+          description: The date and time that the dunning case was last updated
+          format: date-time
+        status:
+          type: string
+          description: The current status of the dunning case
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        dunningCaseRule:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningCaseRule'
+        dunningScenario:
+          $ref: '#/components/schemas/DunningScenarioRef'
+        finalBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        initialBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: The DunningCase represents a type of cases open for a customer. Whenever a customer enters the dunning process, a dunning case is linked to his customer account debt and it contains all details pertaining to the debt, such as dunning case rules, interactions… The status of a dunning case evolves according to internal or external events (payments made by the customer, payment schedule granted…)
+    DunningCase_Create:
+      required:
+        - billingAccount
+        - dunningCaseRule
+        - dunningScenario
+      type: object
+      properties:
+        category:
+          type: string
+          description: A categorization of a Dunning Case. It could be either "HardDunning" or "SoftDunning"
+        creationDate:
+          type: string
+          description: The date on which the dunning case was created
+          format: date-time
+        description:
+          type: string
+          description: A detailed description of the dunning case
+        lastActivityDate:
+          type: string
+          description: The date and time that the dunning case had its latest activity
+          format: date-time
+        lastUpdateDate:
+          type: string
+          description: The date and time that the dunning case was last updated
+          format: date-time
+        status:
+          type: string
+          description: The current status of the dunning case
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        dunningCaseRule:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningCaseRule'
+        dunningScenario:
+          $ref: '#/components/schemas/DunningScenarioRef'
+        finalBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        initialBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        The DunningCase represents a type of cases open for a customer. Whenever a customer enters the dunning process, a dunning case is linked to his customer account debt and it contains all details pertaining to the debt, such as dunning case rules, interactions… The status of a dunning case evolves according to internal or external events (payments made by the customer, payment schedule granted…)
+        Skipped properties: id,href
+    DunningCase_Update:
+      type: object
+      properties:
+        category:
+          type: string
+          description: A categorization of a Dunning Case. It could be either "HardDunning" or "SoftDunning"
+        creationDate:
+          type: string
+          description: The date on which the dunning case was created
+          format: date-time
+        description:
+          type: string
+          description: A detailed description of the dunning case
+        lastActivityDate:
+          type: string
+          description: The date and time that the dunning case had its latest activity
+          format: date-time
+        lastUpdateDate:
+          type: string
+          description: The date and time that the dunning case was last updated
+          format: date-time
+        status:
+          type: string
+          description: The current status of the dunning case
+        billingAccount:
+          $ref: '#/components/schemas/BillingAccountRef'
+        dunningCaseRule:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningCaseRule'
+        dunningScenario:
+          $ref: '#/components/schemas/DunningScenarioRef'
+        finalBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        initialBalance:
+          $ref: '#/components/schemas/AccountBalance'
+        note:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        The DunningCase represents a type of cases open for a customer. Whenever a customer enters the dunning process, a dunning case is linked to his customer account debt and it contains all details pertaining to the debt, such as dunning case rules, interactions… The status of a dunning case evolves according to internal or external events (payments made by the customer, payment schedule granted…)
+        Skipped properties: id,href
+    DunningCaseRule:
+      required:
+        - action
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dunning case rule
+        action:
+          type: string
+          description: The action this dunning case rule is triggering. Can be either "DunningNotification", "AppliedCustomerFeeCharge", "ProductOrder", "CustomerBill" or "DunningWriteOff"
+        creationDate:
+          type: string
+          description: The date on which the dunning case rule was created
+          format: date-time
+        appliedPenaltyCharge:
+          $ref: '#/components/schemas/AppliedCustomerBillingRate'
+        customerBill:
+          $ref: '#/components/schemas/CustomerBillRef'
+        dunningNotification:
+          type: array
+          description: A communication or joint activity from the Telecommunication Operator to the customer to ask for a CustomerPayment or negotiate a PaymentPlan
+          items:
+            $ref: '#/components/schemas/PartyInteractionRef'
+        dunningRule:
+          $ref: '#/components/schemas/DunningRuleRef'
+        dunningWriteOff:
+          $ref: '#/components/schemas/DunningWriteOff'
+        productOrder:
+          $ref: '#/components/schemas/ProductOrderRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: The Dunning Case Rule represents an action performed by the company (or on its behalf) to recover a debt
+    DunningRule:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dunning rule
+        href:
+          type: string
+          description: Hyperlink, a reference to the dunning rule
+        dunningAction:
+          type: string
+          description: The action to be executed when the dunningEvent occurs if the dunning condition evaluates to true. Can be either "DunningNotification", "AppliedCustomerFeeCharge", "ProductOrder", "CustomerBill" or "DunningWriteOff"
+        dunningCondition:
+          type: string
+          description: A condition to check on the customer account or the customer bill, after a dunning event has been fired, before dunning action is executed. Format is the same as the predicate used for querying resources with attribute filtering. Format for the values and variables of the expression is implementation dependent
+        dunningEvent:
+          type: string
+          description: A string describing the name of the fields of an event that should be monitored for changes. It should be in the same format as the query string used to subscribe to events from an API following hub/notification pattern
+        name:
+          type: string
+          description: Name of the dunning rule
+        dunningRuleCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: 'Represents rules to apply to create a dunning case: the events that trigger dunning rules evaluation, the conditions to evaluate and the actions that must be done'
+    DunningRule_Create:
+      required:
+        - dunningAction
+        - dunningEvent
+      type: object
+      properties:
+        dunningAction:
+          type: string
+          description: The action to be executed when the dunningEvent occurs if the dunning condition evaluates to true. Can be either "DunningNotification", "AppliedCustomerFeeCharge", "ProductOrder", "CustomerBill" or "DunningWriteOff"
+        dunningCondition:
+          type: string
+          description: A condition to check on the customer account or the customer bill, after a dunning event has been fired, before dunning action is executed. Format is the same as the predicate used for querying resources with attribute filtering. Format for the values and variables of the expression is implementation dependent
+        dunningEvent:
+          type: string
+          description: A string describing the name of the fields of an event that should be monitored for changes. It should be in the same format as the query string used to subscribe to events from an API following hub/notification pattern
+        name:
+          type: string
+          description: Name of the dunning rule
+        dunningRuleCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        Represents rules to apply to create a dunning case: the events that trigger dunning rules evaluation, the conditions to evaluate and the actions that must be done
+        Skipped properties: id,href
+    DunningRule_Update:
+      type: object
+      properties:
+        dunningAction:
+          type: string
+          description: The action to be executed when the dunningEvent occurs if the dunning condition evaluates to true. Can be either "DunningNotification", "AppliedCustomerFeeCharge", "ProductOrder", "CustomerBill" or "DunningWriteOff"
+        dunningCondition:
+          type: string
+          description: A condition to check on the customer account or the customer bill, after a dunning event has been fired, before dunning action is executed. Format is the same as the predicate used for querying resources with attribute filtering. Format for the values and variables of the expression is implementation dependent
+        dunningEvent:
+          type: string
+          description: A string describing the name of the fields of an event that should be monitored for changes. It should be in the same format as the query string used to subscribe to events from an API following hub/notification pattern
+        name:
+          type: string
+          description: Name of the dunning rule
+        dunningRuleCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        Represents rules to apply to create a dunning case: the events that trigger dunning rules evaluation, the conditions to evaluate and the actions that must be done
+        Skipped properties: id,href
+    DunningRuleRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the dunning rule
+        href:
+          type: string
+          description: Unique reference of the dunning rule
+        name:
+          type: string
+          description: Name of the dunning rule
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Dunning rule reference.
+    DunningScenario:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dunning scenario
+        href:
+          type: string
+          description: Hyperlink, a reference to the dunning scenario
+        category:
+          type: string
+          description: A categorization of an entry in the list of dunning scenarios such as residentials or low risk
+        description:
+          type: string
+          description: A detailed description of the dunning scenario
+        isDefault:
+          type: boolean
+          description: If true, indicates that the DunningScenario is the one to use by default if no specific DunningScenario is specified for the CustomerAccount
+        name:
+          type: string
+          description: A word or phrase by which a dunning scenario is known and distinguished from other dunning scenarios
+        dunningRule:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningRuleRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: A dunning scenario describes a company’s dunning strategy. It must be easily configurable to describe the dunning rules to apply to a case, the order in which applying them, the events that trigger dunning rules evaluation and the actions that must be done
+    DunningScenario_Create:
+      required:
+        - dunningRule
+        - name
+      type: object
+      properties:
+        category:
+          type: string
+          description: A categorization of an entry in the list of dunning scenarios such as residentials or low risk
+        description:
+          type: string
+          description: A detailed description of the dunning scenario
+        isDefault:
+          type: boolean
+          description: If true, indicates that the DunningScenario is the one to use by default if no specific DunningScenario is specified for the CustomerAccount
+        name:
+          type: string
+          description: A word or phrase by which a dunning scenario is known and distinguished from other dunning scenarios
+        dunningRule:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningRuleRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        A dunning scenario describes a company’s dunning strategy. It must be easily configurable to describe the dunning rules to apply to a case, the order in which applying them, the events that trigger dunning rules evaluation and the actions that must be done
+        Skipped properties: id,href
+    DunningScenario_Update:
+      type: object
+      properties:
+        category:
+          type: string
+          description: A categorization of an entry in the list of dunning scenarios such as residentials or low risk
+        description:
+          type: string
+          description: A detailed description of the dunning scenario
+        isDefault:
+          type: boolean
+          description: If true, indicates that the DunningScenario is the one to use by default if no specific DunningScenario is specified for the CustomerAccount
+        name:
+          type: string
+          description: A word or phrase by which a dunning scenario is known and distinguished from other dunning scenarios
+        dunningRule:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningRuleRef'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: |-
+        A dunning scenario describes a company’s dunning strategy. It must be easily configurable to describe the dunning rules to apply to a case, the order in which applying them, the events that trigger dunning rules evaluation and the actions that must be done
+        Skipped properties: id,href
+    DunningScenarioRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dunning scenario
+        href:
+          type: string
+          description: Hyperlink, a reference to the dunning scenario
+        name:
+          type: string
+          description: A word or phrase by which a dunning scenario is known and distinguished from other dunning scenarios
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: A dunning scenario reference
+    DunningWriteOff:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the write off
+        creationDate:
+          type: string
+          description: The date on which the write off was created
+          format: date-time
+        reason:
+          type: string
+          description: Reason for the write off. Can be Total or Partial
+        status:
+          type: string
+          description: The current status of the write off
+        amount:
+          $ref: '#/components/schemas/Money'
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: The DunningWriteOff corresponds, in a dunning context, to a credit to definitively balance the CustomerAccount before being able to close it
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base entity schema for use in TMForum Open-APIs
+    EntityRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Entity reference schema to be use for all entityRef class.
+    Extensible:
+      type: object
+      properties:
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+      description: Base Extensible schema for use in TMForum Open-APIs
+    Money:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+          format: float
+      description: A base / value business entity used to represent money
+    PartyInteractionRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the party interaction
+        href:
+          type: string
+          description: Hyperlink to access the party interaction
+        reason:
+          type: string
+          description: Reason why the interaction happened
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    ProductOrderRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: ProductOrder (ProductOrder) .The product order which the recommendation is related with.
+    ProductRef:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    RelatedParty:
+      required:
+        - '@referredType'
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        href:
+          type: string
+          description: Hyperlink reference
+          format: uri
+        name:
+          type: string
+          description: Name of the related entity.
+        role:
+          type: string
+          description: Role played by the related party
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: End of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        startDateTime:
+          type: string
+          description: Start of the time period, using IETC-RFC-3339 format
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+    EventSubscription:
+      required:
+        - callback
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    EventSubscriptionInput:
+      required:
+        - callback
+      type: object
+      properties:
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+    DunningCaseCreateEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/DunningCaseCreateEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    DunningCaseCreateEventPayload:
+      type: object
+      properties:
+        dunningCase:
+          $ref: '#/components/schemas/DunningCase'
+      description: The event data structure
+    DunningCaseStateChangeEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/DunningCaseStateChangeEventPayload'
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          description: Time of the event occurrence.
+          format: date-time
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          description: The time the event occured.
+          format: date-time
+      description: The notification data structure
+    DunningCaseStateChangeEventPayload:
+      type: object
+      properties:
+        dunningCase:
+          $ref: '#/components/schemas/DunningCase'
+      description: The event data structure
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

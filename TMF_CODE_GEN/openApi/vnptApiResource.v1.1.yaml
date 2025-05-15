@@ -1,0 +1,858 @@
+openapi: 3.0.1
+info:
+  title: VNPT API ApiResource
+  description: |-
+    ## VNPT API Reference : VNPT 003 - ApiResource 
+
+    ### Release : 1.1.0
+
+    Description about ApiResource
+
+    ### Resources
+    - ApiResource
+
+    ApiResource API performs the following operations :
+    - Retrieve an ApiResource
+    - Retrieve a collection of api resources according to given criteria
+    - Create a new ApiResource
+    - Update an existing ApiResource
+    - Delete an existing ApiResource
+    - Retrieve a scope
+  version: 1.1.0
+servers:
+  - url: https://serverRoot/vnpt-api/apiResource/v1/
+tags:
+  - name: apiResource
+  - name: scope
+paths:
+  /apiResource:
+    get:
+      tags:
+        - apiResource
+      summary: List or find ApiResource objects
+      description: This operation list or find ApiResource entities
+      operationId: listApiResource
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - apiResource
+      summary: Creates a ApiResource
+      description: This operation creates a ApiResource entity.
+      operationId: createApplication
+      requestBody:
+        description: The ApiResource to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResource_Create'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResource_Create'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /apiResource/{id}:
+    get:
+      tags:
+        - apiResource
+      summary: Retrieves a ApiResource by ID
+      description: This operation retrieves a ApiResource entity. Attribute selection is enabled for all first level attributes.
+      operationId: retrieveApiResource
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ApiResource
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to provide in response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - apiResource
+      summary: Updates partially a ApiResource
+      description: This operation updates partially a ApiResource entity.
+      operationId: patchApiResource
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ApiResource
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The ApiResource to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResource_Update'
+        required: true
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - apiResource
+      summary: Delete a ApiResource
+      description: This operation delete a ApiResource entity.
+      operationId: deleteApiResource
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the ApiResource
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /scope:
+    get:
+      operationId: listScope
+      summary: List or find Scope objects
+      description: This operation list or find Scope entities
+      tags:
+        - scope
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          required: false
+          schema:
+            type: string
+        - name: offset
+          description: Requested index for start of resources to be provided in response
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          description: Requested number of resources to be provided in response
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: apiResourceId
+          description: Identifier of the ApiResource
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Scope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createScope
+      summary: Creates a Scope
+      description: This operation creates a Scope entity.
+      tags:
+        - scope
+      requestBody:
+        description: The ApiResource to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scope_Create'
+        required: true
+      parameters:
+        - name: apiResourceId
+          description: Identifier of the ApiResource
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /scope/{id}:
+    get:
+      operationId: retrieveScope
+      summary: Retrieves a Scope by ID
+      description: This operation retrieves a Scope entity. Attribute selection is enabled for all first level attributes.
+      tags:
+        - scope
+      parameters:
+        - name: id
+          description: Identifier of the Scope
+          required: true
+          schema:
+            type: string
+          in: path
+        - name: fields
+          description: Comma-separated properties to provide in response
+          required: false
+          schema:
+            type: string
+          in: query
+        - name: apiResourceId
+          description: Identifier of the ApiResource
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - scope
+      summary: Delete a Scope
+      description: This operation delete a Scope entity.
+      operationId: deleteScope
+      parameters:
+        - name: id
+          description: Identifier of the Scope
+          required: true
+          schema:
+            type: string
+          in: path
+        - name: apiResourceId
+          description: Identifier of the ApiResource
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ApiResource:
+      required:
+        - name
+        - identifier
+        - application
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier
+        name:
+          type: string
+          description: Name of Resource. Ex (EPC)
+        identifier:
+          type: string
+          description: A URL to access Resource (https://myapp.com/home)
+        application:
+          $ref: '#/components/schemas/ApplicationRef'
+        scope:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScopeRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Last update
+          format: date-time
+    ApiResource_Create:
+      required:
+        - name
+        - identifier
+        - application
+      type: object
+      properties:
+        name:
+          type: string
+          description: Use a Resource for your organization. This ResourceName should be unique.
+        identifier:
+          type: string
+          description: Full URL in standard format
+        application:
+          $ref: '#/components/schemas/ApplicationRef'
+      description: |-
+        Resource represents a single zone independen with other.
+        Skipped properties: id,href
+    ApiResource_Update:
+      required:
+        - name
+        - identifier
+        - application
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of Resource. Ex (EPC)
+        identifier:
+          type: string
+          description: A URL to access Resource (https://myapp.com/home)
+        application:
+          $ref: '#/components/schemas/ApplicationRef'
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScopeRef'
+      description: |-
+        Individual represents a single zone independen with other.
+        Skipped properties: id,href
+    ApiResourceRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ApiResourceRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Scope
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    ApplicationRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ApplicationRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Scope
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+    ScopeRef:
+      required:
+        - id
+      type: object
+      description: >-
+        Representation of a ScopeRef
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Scope
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+        displayName:
+          type: string
+          description: displayName
+    Scope:
+      required:
+        - name
+        - ApiResource
+      type: object
+      description: >-
+        Representation of a Scope
+      properties:
+        id:
+          type: string
+          description: Unique Identifier of the Scope
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+        displayName:
+          type: string
+          description: displayName
+        description:
+          type: string
+          description: description
+        apiResource:
+          $ref: '#/components/schemas/ApiResourceRef'
+        createdDate:
+          type: string
+          description: Date of create
+          format: date-time
+        updatedDate:
+          type: string
+          description: Last update
+          format: date-time
+    Scope_Create:
+      required:
+        - name
+        - displayName
+      type: object
+      description: >-
+        Representation of a Scope
+      properties:
+        name:
+          type: string
+          description: Name of the scope to identify it with a meaningful identification
+        displayName:
+          type: string
+          description: displayName
+        description:
+          type: string
+          description: description
+    Error:
+      required:
+        - code
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+        referenceError:
+          type: string
+          description: URI of documentation describing the error.
+          format: uri
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class.
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          format: uri
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+x-original-swagger-version: '2.0'

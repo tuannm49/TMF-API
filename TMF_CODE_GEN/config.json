@@ -1,0 +1,12 @@
+[
+  {
+    "openApiFileName": "TMF_CODE_GEN/TMF723_Policy_v4.yaml",
+    "entities": [
+      {
+        "schemaName": "PolicyRule",
+        "outputDir": "tmf/model/production",
+        "packageName": "com.example.production"
+      }
+    ]
+  }
+]
