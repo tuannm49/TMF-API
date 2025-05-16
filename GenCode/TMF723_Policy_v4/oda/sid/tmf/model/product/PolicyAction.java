@@ -9,15 +9,29 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 import java.time.OffsetDateTime;
 import java.util.List;
-import oda.sid.tmf.model.product.BaseEntity;
 
 @Entity
 @Data
+@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PolicyAction extends BaseEntity implements java.io.Serializable {
+public class PolicyAction implements java.io.Serializable {
+    @Id
+    private String id;
+    private String href;
+    private Integer actionSequence;
+    private String actionStrategy;
+    private OffsetDateTime creationDate;
+    private String description;
+    private String name;
+    private String version;
+    @OneToMany
+    @JoinColumn(name = "PolicyAction_id")
+    @JsonManagedReference
+    private List<PolicyConditionRef> actionCondition;
     @OneToMany
     @JoinColumn(name = "PolicyAction_id")
     @JsonManagedReference
@@ -26,19 +40,14 @@ public class PolicyAction extends BaseEntity implements java.io.Serializable {
     @JoinColumn(name = "PolicyAction_id")
     @JsonManagedReference
     private List<PolicyAction> policyAction;
-    @OneToMany
-    @JoinColumn(name = "PolicyAction_id")
-    @JsonManagedReference
-    private List<PolicyConditionRef> actionCondition;
-    private String actionStrategy;
     @ManyToOne
     @JoinColumn(name = "validFor_id")
     @JsonBackReference
     private TimePeriod validFor;
-    private String name;
-    private String description;
-    private String href;
-    private Integer actionSequence;
-    private OffsetDateTime creationDate;
-    private String version;
+    @JsonProperty("@baseType")
+    private String baseType;
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
+    @JsonProperty("@type")
+    private String type;
 }

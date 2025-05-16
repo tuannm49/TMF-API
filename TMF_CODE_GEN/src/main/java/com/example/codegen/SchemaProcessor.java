@@ -2,6 +2,7 @@ package com.example.codegen;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -120,6 +121,7 @@ public class SchemaProcessor {
             sb.append("import com.fasterxml.jackson.annotation.JsonProperty;\n");
             sb.append("import com.fasterxml.jackson.annotation.JsonManagedReference;\n");
             sb.append("import com.fasterxml.jackson.annotation.JsonBackReference;\n");
+            sb.append("import org.springframework.data.mongodb.core.mapping.Document;\n");
             sb.append("import lombok.Data;\n");
             if (hasDateTime(properties)) {
                 sb.append("import java.time.OffsetDateTime;\n");
@@ -135,6 +137,7 @@ public class SchemaProcessor {
             // Class annotations
             sb.append("@Entity\n");
             sb.append("@Data\n");
+            sb.append("@Document\n");
             sb.append("@JsonInclude(JsonInclude.Include.NON_NULL)\n");
             sb.append("public class ").append(className);
             if (baseClass != null) {

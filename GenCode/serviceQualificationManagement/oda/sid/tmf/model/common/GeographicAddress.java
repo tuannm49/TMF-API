@@ -1,0 +1,51 @@
+package oda.sid.tmf.model.common;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Data;
+import java.util.List;
+import oda.sid.tmf.model.common.Place;
+
+@Entity
+@Data
+@Document
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class GeographicAddress extends Place implements java.io.Serializable {
+    private String country;
+    private String streetType;
+    @ManyToOne
+    @JoinColumn(name = "geographicLocation_id")
+    @JsonBackReference
+    private GeographicLocationRefOrValue geographicLocation;
+    private String city;
+    private String streetNr;
+    private String locality;
+    private String postcode;
+    private String geographicAddressType;
+    private String streetNrLast;
+    private String streetNrSuffix;
+    private String streetName;
+    private String stateOrProvince;
+    @OneToMany
+    @JoinColumn(name = "GeographicAddress_id")
+    @JsonManagedReference
+    private List<StandardIdentifier> countryCode;
+    private String streetNrLastSuffix;
+    @OneToMany
+    @JoinColumn(name = "GeographicAddress_id")
+    @JsonManagedReference
+    private List<ExternalIdentifier> externalIdentifier;
+    private String streetSuffix;
+    @OneToMany
+    @JoinColumn(name = "GeographicAddress_id")
+    @JsonManagedReference
+    private List<GeographicSubAddress> geographicSubAddress;
+}

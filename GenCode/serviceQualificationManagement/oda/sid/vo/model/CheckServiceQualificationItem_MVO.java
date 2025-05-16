@@ -1,0 +1,44 @@
+package oda.sid.vo.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Data;
+import java.util.List;
+import oda.sid.vo.model.ServiceQualificationItem_MVO;
+
+@Entity
+@Data
+@Document
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class CheckServiceQualificationItem_MVO extends ServiceQualificationItem_MVO implements java.io.Serializable {
+    @OneToMany
+    @JoinColumn(name = "CheckServiceQualificationItem_MVO_id")
+    @JsonManagedReference
+    private List<TerminationError> terminationError;
+    @OneToMany
+    @JoinColumn(name = "CheckServiceQualificationItem_MVO_id")
+    @JsonManagedReference
+    private List<ServiceQualificationItemRelationship> qualificationItemRelationship;
+    private String qualificationResult;
+    @OneToMany
+    @JoinColumn(name = "CheckServiceQualificationItem_MVO_id")
+    @JsonManagedReference
+    private List<AlternateServiceProposal_MVO> alternateServiceProposal;
+    @OneToMany
+    @JoinColumn(name = "CheckServiceQualificationItem_MVO_id")
+    @JsonManagedReference
+    private List<ServiceQualificationRelationship> qualificationRelationship;
+    @OneToMany
+    @JoinColumn(name = "CheckServiceQualificationItem_MVO_id")
+    @JsonManagedReference
+    private List<EligibilityResultReason_MVO> eligibilityResultReason;
+    private String state;
+}
