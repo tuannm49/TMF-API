@@ -18,7 +18,7 @@ public class CodeGenerator {
     private final String outputDirDefault = "oda/sid/tmf/model/others/";
     private final String packageNameDefault = "oda.sid.tmf.model.others";
     private final String directoryMapFile = "TMF_CODE_GEN/directory_structure.json";
-    private final String directoryPath = "TMF_CODE_GEN/openApi";
+    private final String directoryPath = "TMF_CODE_GEN/openApiTest";
     private final String ignoreSchemaFile = "TMF_CODE_GEN/config.json";
     public CodeGenerator() {
     }
