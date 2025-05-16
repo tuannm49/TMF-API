@@ -1,6 +1,5 @@
 package com.example.codegen;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
@@ -16,12 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class CodeGenerator {
-    private final String outputDirDefault = "tmf/model/trash/";
-    private final String packageNameDefault = "com.example.trash";
-    private final String configFile;
-    private final String directoryPath = "TMF_CODE_GEN/openApi";
-    public CodeGenerator(String configFile) {
-        this.configFile = configFile;
+    private final String outputDirDefault = "oda/sid/tmf/model/trash/";
+    private final String packageNameDefault = "oda.sid.tmf.model.trash";
+    private final String directoryMapFile = "TMF_CODE_GEN/directory_structure.json";
+    private final String directoryPath = "TMF_CODE_GEN/openApiTest";
+    private final String ignoreSchemaFile = "TMF_CODE_GEN/config.json";
+    public CodeGenerator() {
     }
 
     public void generate() throws IOException {
@@ -29,7 +28,11 @@ public class CodeGenerator {
         ObjectMapper mapper = new ObjectMapper();
 //        List<Map<String, Object>> config = mapper.readValue(new File(configFile), new TypeReference<>() {});
         Map<String, String[]> directoryMap = mapper.readValue(
-                new File(configFile),
+                new File(directoryMapFile),
+                mapper.getTypeFactory().constructMapType(Map.class, String.class, String[].class)
+        );
+        Map<String, String[]> ignoreSchema = mapper.readValue(
+                new File(ignoreSchemaFile),
                 mapper.getTypeFactory().constructMapType(Map.class, String.class, String[].class)
         );
         // Đọc file OpenAPI
@@ -38,25 +41,29 @@ public class CodeGenerator {
         List<String> lstFile = getFilesInDirectory(directoryPath);
 
         for(String openApiFile: lstFile){
+            String apiDirGen =  "GenCode/"+openApiFile.replace(".yaml","");
             OpenAPI openAPI = new OpenAPIV3Parser().read(directoryPath+"/"+openApiFile, null, options);
             // Sinh entity classes
-            SchemaProcessor schemaProcessor = new SchemaProcessor(openAPI);
+            SchemaProcessor schemaProcessor = new SchemaProcessor(openAPI,apiDirGen,directoryMap,ignoreSchema);
             Map<String,Schema> lstSch = openAPI.getComponents().getSchemas();
             for (Map.Entry<String, Schema> schemaEntry : lstSch.entrySet()) {
                 String category = findCategoryByFileName(directoryMap,schemaEntry.getKey());
-                if(category!=null){
-                    String schemaName = schemaEntry.getKey();
-                    String outputDir = outputDirDefault.replace("trash",category);
-                    String packageName = packageNameDefault.replace("trash",category);
-                    String fileName = toCamelCase(schemaName, true) + ".java";
-                    Files.createDirectories(Paths.get(outputDir));
-                    schemaProcessor.processSchema(schemaName, fileName, outputDir, packageName);
-                }else {
-                    String schemaName = schemaEntry.getKey();
-                    String fileName = toCamelCase(schemaName, true) + ".java";
-                    Files.createDirectories(Paths.get(outputDirDefault));
-                    schemaProcessor.processSchema(schemaName, fileName, outputDirDefault, packageNameDefault);
+                if(!findIgnoreByFileName(ignoreSchema,schemaEntry.getKey())){
+                    if(category!=null){
+                        String schemaName = schemaEntry.getKey();
+                        String outputDir = apiDirGen+"/"+category.replace(".","/");
+                        String packageName = category;
+                        String fileName = toCamelCase(schemaName, true) + ".java";
+                        Files.createDirectories(Paths.get(outputDir));
+                        schemaProcessor.processSchema(schemaName, fileName, outputDir, packageName);
+                    }else {
+                        String schemaName = schemaEntry.getKey();
+                        String fileName = toCamelCase(schemaName, true) + ".java";
+                        Files.createDirectories(Paths.get(apiDirGen+"/"+outputDirDefault));
+                        schemaProcessor.processSchema(schemaName, fileName, apiDirGen+"/"+outputDirDefault, packageNameDefault);
+                    }
                 }
+
             }
         }
 
@@ -85,17 +92,35 @@ public class CodeGenerator {
         }
         return fileNames;
     }
+    public static boolean findIgnoreByFileName(Map<String, String[]> ignoreMap, String fileName) {
+        String[] ignoreSchema = ignoreMap.get("ignoreSchema");
+        for (String file : ignoreSchema) {
+            String regex = file.replace("*", ".*");
+            // Kiểm tra xem fileName khớp với regex
+            if (fileName.matches(regex)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public static String findCategoryByFileName(Map<String, String[]> directoryMap, String fileName) {
         // Duyệt qua từng danh mục trong Map
         for (Map.Entry<String, String[]> entry : directoryMap.entrySet()) {
             String category = entry.getKey();
             String[] files = entry.getValue();
 
+            // Chuyển pattern thành regex: thay * bằng .*
+
             // Kiểm tra xem fileName có trong danh sách files không
             for (String file : files) {
-                if (file.equals(fileName)) {
+                String regex = file.replace("*", ".*");
+                // Kiểm tra xem fileName khớp với regex
+                if (fileName.matches(regex)) {
                     return category;
                 }
+//                if (file.equals(fileName)) {
+//                    return category;
+//                }
             }
         }
 
@@ -126,8 +151,7 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) throws IOException {
-        String configFile = "TMF_CODE_GEN/directory_structure.json";
-        CodeGenerator generator = new CodeGenerator(configFile);
+        CodeGenerator generator = new CodeGenerator();
         generator.generate();
         System.out.println("Code generation completed!");
     }
