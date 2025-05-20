@@ -1,64 +1,52 @@
 package oda.sid.tmf.model.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
-import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PolicyRule implements java.io.Serializable {
-    @Id
-    private String id;
-    private String href;
-    private OffsetDateTime creationDate;
-    private String description;
-    private String executionStrategy;
-    private Boolean isConjustiveNormalForm;
-    private String name;
-    private Integer sequencedAction;
-    private Integer sequencedValue;
-    private String state;
-    private String version;
-    @OneToMany
+public class PolicyRule extends BaseEntity implements java.io.Serializable {
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyRule_id")
-    @JsonManagedReference
     private List<Note> note;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyRule_id")
-    @JsonManagedReference
     private List<PolicyActionRef> policyAction;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "policyCondition_id")
-    @JsonBackReference
     private PolicyConditionRef policyCondition;
-    @OneToMany
+    private Boolean isConjustiveNormalForm;
+    private String description;
+    private Integer sequencedAction;
+    private Date creationDate;
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyRule_id")
-    @JsonManagedReference
-    private List<PolicyDomainRef> policyDomain;
-    @ManyToOne
-    @JoinColumn(name = "policyEvent_id")
-    @JsonBackReference
-    private PolicyEventRef policyEvent;
-    @OneToMany
-    @JoinColumn(name = "PolicyRule_id")
-    @JsonManagedReference
     private List<RelatedParty> relatedParty;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
-    @JsonProperty("@type")
-    private String type;
+    private String version;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "policyEvent_id")
+    private PolicyEventRef policyEvent;
+    private Integer sequencedValue;
+    private String name;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "PolicyRule_id")
+    private List<PolicyDomainRef> policyDomain;
+    private String executionStrategy;
+    private String href;
+    private String state;
 }

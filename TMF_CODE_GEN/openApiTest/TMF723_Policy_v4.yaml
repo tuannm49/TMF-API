@@ -2386,6 +2386,37 @@ paths:
       x-codegen-request-body-name: data
 components:
   schemas:
+    Note:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseEntity'
+        - type: object
+          properties:
+            author:
+              type: string
+              description: Hyperlink reference
+            date:
+              type: string
+              format: date-time
+      description: A policy rule definition.
+    Alarm:
+      type: object
+      properties:
+        state:
+          type: string
+        'alarmType':
+          type: string
+        'perceivedSeverity':
+          type: string
+        'probableCause':
+          type: string
+        'alarmedObject':
+          type: object
+          properties:
+            id:
+              type: string
+            href:
+              type: string
     BaseEntity:
       type: object
       properties:

@@ -1,50 +1,42 @@
 package oda.sid.vo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
-import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PolicyCondition_Update implements java.io.Serializable {
-    private OffsetDateTime creationDate;
-    private String description;
+public class PolicyCondition_Update extends BaseEntity implements java.io.Serializable {
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "PolicyCondition_Update_id")
+    private List<Note> note;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "PolicyCondition_Update_id")
+    private List<PolicyConditionStatement> policyConditionStatement;
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
+    private TimePeriod validFor;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "PolicyCondition_Update_id")
+    private List<PolicyCondition> policyCondition;
     private Boolean isConjustiveNormalForm;
     private String name;
+    private String description;
+    private Date creationDate;
     private String policyConditionStrategy;
     private String version;
-    @OneToMany
-    @JoinColumn(name = "PolicyCondition_Update_id")
-    @JsonManagedReference
-    private List<Note> note;
-    @OneToMany
-    @JoinColumn(name = "PolicyCondition_Update_id")
-    @JsonManagedReference
-    private List<PolicyCondition> policyCondition;
-    @OneToMany
-    @JoinColumn(name = "PolicyCondition_Update_id")
-    @JsonManagedReference
-    private List<PolicyConditionStatement> policyConditionStatement;
-    @ManyToOne
-    @JoinColumn(name = "validFor_id")
-    @JsonBackReference
-    private TimePeriod validFor;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
-    @JsonProperty("@type")
-    private String type;
 }

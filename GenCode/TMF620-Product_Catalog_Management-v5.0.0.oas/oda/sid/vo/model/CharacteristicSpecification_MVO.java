@@ -1,27 +1,28 @@
 package oda.sid.vo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
-import oda.sid.vo.model.Extensible;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CharacteristicSpecification_MVO extends Extensible implements java.io.Serializable {
-    @ManyToOne
-    @JoinColumn(name = "validFor_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     @JsonProperty("@valueSchemaLocation")
     private String valueSchemaLocation;
@@ -31,15 +32,16 @@ public class CharacteristicSpecification_MVO extends Extensible implements java.
     private Integer minCardinality;
     private String regex;
     private String valueType;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CharacteristicSpecification_MVO_id")
-    @JsonManagedReference
     private List<CharacteristicSpecificationRelationship_MVO> charSpecRelationship;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CharacteristicSpecification_MVO_id")
-    @JsonManagedReference
     private List<CharacteristicValueSpecification_MVO> characteristicValueSpecification;
     private String name;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private Boolean extensible;
     private Boolean configurable;

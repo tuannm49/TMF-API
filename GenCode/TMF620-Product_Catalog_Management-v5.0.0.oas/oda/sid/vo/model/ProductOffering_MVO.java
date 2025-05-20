@@ -1,18 +1,20 @@
 package oda.sid.vo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
-import oda.sid.vo.model.Entity_MVO;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
@@ -20,94 +22,73 @@ import oda.sid.vo.model.Entity_MVO;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOffering_MVO extends Entity_MVO implements java.io.Serializable {
     private Boolean isBundle;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "productSpecification_id")
-    @JsonBackReference
     private ProductSpecificationRef_MVO productSpecification;
     private String lifecycleStatus;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "serviceCandidate_id")
-    @JsonBackReference
     private ServiceCandidateRef_MVO serviceCandidate;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ChannelRef_MVO> channel;
     private String description;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<CharacteristicSpecification_MVO> productOfferingCharacteristic;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ProductOfferingPriceRefOrValue_MVO> productOfferingPrice;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "resourceCandidate_id")
-    @JsonBackReference
     private ResourceCandidateRef_MVO resourceCandidate;
     private String statusReason;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<BundledProductOffering_MVO> bundledProductOffering;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<AttachmentRefOrValue_MVO> attachment;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ExternalIdentifier_MVO> externalIdentifier;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<PlaceRef_MVO> place;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ProductOfferingTerm_MVO> productOfferingTerm;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<MarketSegmentRef_MVO> marketSegment;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<PolicyRef_MVO> policy;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ProductSpecificationCharacteristicValueUse_MVO> prodSpecCharValueUse;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<AgreementRef_MVO> agreement;
-    @ManyToOne
-    @JoinColumn(name = "validFor_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private Boolean isSellable;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<AllowedProductAction_MVO> allowedAction;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "serviceLevelAgreement_id")
-    @JsonBackReference
     private SLARef_MVO serviceLevelAgreement;
     private String version;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<ProductOfferingRelationship_MVO> productOfferingRelationship;
     private String name;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<BundledGroupProductOffering_MVO> bundledGroupProductOffering;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOffering_MVO_id")
-    @JsonManagedReference
     private List<CategoryRef_MVO> category;
 }

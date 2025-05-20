@@ -1,17 +1,20 @@
 package oda.sid.tmf.model.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
@@ -21,13 +24,11 @@ public class PolicyConditionStatement implements java.io.Serializable {
     private String description;
     private String name;
     private String opType;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyConditionStatement_id")
-    @JsonManagedReference
     private List<PolicyConditionValue> PolicyConditionValue;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyConditionVariable_id")
-    @JsonBackReference
     private PolicyConditionVariable PolicyConditionVariable;
     @JsonProperty("@baseType")
     private String baseType;

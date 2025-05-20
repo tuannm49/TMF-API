@@ -1,19 +1,20 @@
 package oda.sid.vo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
-import java.time.OffsetDateTime;
 import java.util.List;
-import oda.sid.vo.model.Entity_FVO;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
@@ -21,61 +22,49 @@ import oda.sid.vo.model.Entity_FVO;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOfferingPrice_FVO extends Entity_FVO implements java.io.Serializable {
     private Boolean isBundle;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<ProductSpecificationCharacteristicValueUse_FVO> prodSpecCharValueUse;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<ProductOfferingPriceRelationship_FVO> popRelationship;
-    @ManyToOne
-    @JoinColumn(name = "unitOfMeasure_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Quantity unitOfMeasure;
     private String lifecycleStatus;
-    @ManyToOne
-    @JoinColumn(name = "validFor_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String priceType;
     private String description;
     private String recurringChargePeriodType;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<TaxItem_FVO> tax;
     private Integer recurringChargePeriodLength;
     private String version;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<PricingLogicAlgorithm_FVO> pricingLogicAlgorithm;
-    @ManyToOne
-    @JoinColumn(name = "price_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Money price;
-    private Object percentage;
-    private OffsetDateTime lastUpdate;
+    private Integer percentage;
+    private Date lastUpdate;
     private String name;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<ExternalIdentifier_FVO> externalIdentifier;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<PlaceRef_FVO> place;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<BundledProductOfferingPriceRelationship_FVO> bundledPopRelationship;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<ProductOfferingTerm_FVO> productOfferingTerm;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_FVO_id")
-    @JsonManagedReference
     private List<PolicyRef_FVO> policy;
 }

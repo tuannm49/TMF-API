@@ -1,5 +1,12 @@
 {
   "ignoreSchema": [
-    "*HUB*","*Event*","*Import*","*Export*"
+    "*HUB*","*Event*","*Import*","*Export*","JsonPatch*","Boolean*","Float*","Integer*","MapArray*","MapCharacteristic*",
+    "Number*","ObjectArray*","ObjectCharacteristic*","String*","Error*","JobStateType"
+  ],
+  "Embeddable": [
+    "TimePeriod","Duration","Money","Quantity","TargetProductSchema"
+  ],
+  "MappedSuperclass": [
+    "Entity","EntityRef","BaseEntity","BaseEntityRef","Extensible","Addressable"
   ]
 }

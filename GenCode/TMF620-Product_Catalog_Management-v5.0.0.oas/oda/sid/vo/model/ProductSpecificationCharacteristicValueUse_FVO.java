@@ -1,18 +1,20 @@
 package oda.sid.vo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
-import oda.sid.vo.model.Extensible_FVO;
+import java.util.Date;
+import oda.sid.tmf.model.others.*;
+import oda.sid.tmf.model.common.*;
+import oda.sid.tmf.model.customer.*;
+import oda.sid.tmf.model.party.*;
+import oda.sid.tmf.model.product.*;
+import oda.sid.tmf.model.resource.*;
+import oda.sid.tmf.model.sale.*;
+import oda.sid.tmf.model.service.*;
 
 @Entity
 @Data
@@ -20,21 +22,21 @@ import oda.sid.vo.model.Extensible_FVO;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductSpecificationCharacteristicValueUse_FVO extends Extensible_FVO implements java.io.Serializable {
     private Integer minCardinality;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "productSpecification_id")
-    @JsonBackReference
     private ProductSpecificationRef_FVO productSpecification;
-    @ManyToOne
-    @JoinColumn(name = "validFor_id")
-    @JsonBackReference
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String valueType;
     private String name;
     private String description;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductSpecificationCharacteristicValueUse_FVO_id")
-    @JsonManagedReference
     private List<CharacteristicValueSpecification_FVO> productSpecCharacteristicValue;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private Integer maxCardinality;
 }
