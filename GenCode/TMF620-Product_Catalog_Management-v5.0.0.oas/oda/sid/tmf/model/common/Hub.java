@@ -15,16 +15,12 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Hub extends BaseEntity implements java.io.Serializable {
+public class Hub extends AbstractEntity implements java.io.Serializable {
     private String callback;
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
     private String query;
 }

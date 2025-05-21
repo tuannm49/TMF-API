@@ -1,12 +1,19 @@
 {
   "ignoreSchema": [
     "*HUB*","*Event*","*Import*","*Export*","JsonPatch*","Boolean*","Float*","Integer*","MapArray*","MapCharacteristic*",
-    "Number*","ObjectArray*","ObjectCharacteristic*","String*","Error*","JobStateType"
+    "Number*","ObjectArray*","ObjectCharacteristic*","String*","Error*","JobStateType","Entity","EntityRef","TimePeriod",
+    "RelatedParty","Quantity","Money","Duration","Attachment","Extensible"
   ],
   "Embeddable": [
     "TimePeriod","Duration","Money","Quantity","TargetProductSchema"
   ],
   "MappedSuperclass": [
-    "Entity","EntityRef","BaseEntity","BaseEntityRef","Extensible","Addressable"
+    "Entity","EntityRef","AbstractEntity","AbstractEntityRef","Extensible","Addressable"
+  ],
+  "AbstractCatalogEntity": [
+    "Category","ProductOffering","ProductSpecification","ResourceCandidate","ResourceSpecification","ServiceCandidate","ServiceSpecification"
+  ],
+  "Ref": [
+    "ProductOfferingRelationship","ProductOfferingPriceRelationship","BundledProductOfferingPriceRelationship"
   ]
 }

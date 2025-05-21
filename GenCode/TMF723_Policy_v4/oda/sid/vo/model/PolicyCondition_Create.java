@@ -15,10 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PolicyCondition_Create extends BaseEntity implements java.io.Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -34,9 +34,6 @@ public class PolicyCondition_Create extends BaseEntity implements java.io.Serial
     @JoinColumn(name = "PolicyCondition_Create_id")
     private List<PolicyCondition> policyCondition;
     private Boolean isConjustiveNormalForm;
-    private String name;
-    private String description;
     private Date creationDate;
     private String policyConditionStrategy;
-    private String version;
 }

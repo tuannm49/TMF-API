@@ -15,24 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MarketSegmentRef_FVO implements java.io.Serializable {
-    @JsonProperty("@referredType")
-    private String referredType;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@type")
-    private String type;
-    private String name;
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
-    private String href;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
 }

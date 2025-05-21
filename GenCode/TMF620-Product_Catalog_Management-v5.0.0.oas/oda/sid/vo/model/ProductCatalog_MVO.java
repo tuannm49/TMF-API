@@ -15,13 +15,16 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductCatalog_MVO extends Catalog_MVO implements java.io.Serializable {
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductCatalog_MVO_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_category", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<CategoryRef_MVO> category;
 }

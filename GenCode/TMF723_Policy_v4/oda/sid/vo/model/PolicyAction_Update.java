@@ -15,10 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PolicyAction_Update extends BaseEntity implements java.io.Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -27,16 +27,16 @@ public class PolicyAction_Update extends BaseEntity implements java.io.Serializa
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PolicyAction_Update_id")
     private List<PolicyAction> policyAction;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "PolicyAction_Update_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_actionCondition", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<PolicyConditionRef> actionCondition;
     private String actionStrategy;
     @Embedded
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
-    private String name;
-    private String description;
     private Integer actionSequence;
     private Date creationDate;
-    private String version;
 }

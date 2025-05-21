@@ -15,20 +15,15 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BundledGroupProductOffering_FVO extends Extensible_FVO implements java.io.Serializable {
-    private String name;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "BundledGroupProductOffering_FVO_id")
     private List<BundledGroupProductOffering_FVO> bundledGroupProductOffering;
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "BundledGroupProductOffering_FVO_id")
     private List<BundledProductOffering_FVO> bundledProductOffering;

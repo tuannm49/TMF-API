@@ -15,22 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PolicyRef_FVO extends EntityRef_FVO implements java.io.Serializable {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
-    private String href;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
-    private String version;
-    @JsonProperty("@type")
-    private String type;
 }

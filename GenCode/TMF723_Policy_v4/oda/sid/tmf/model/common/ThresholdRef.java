@@ -15,24 +15,13 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
-@Entity
+@Embeddable
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ThresholdRef implements java.io.Serializable {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
-    private String href;
-    private String name;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
-    @JsonProperty("@type")
-    private String type;
-    @JsonProperty("@referredType")
-    private String referredType;
+public class ThresholdRef extends AbstractEntityRef implements java.io.Serializable {
+    @Override
+    public void fetchEntity(Class theClass, int depth) {
+    }
 }

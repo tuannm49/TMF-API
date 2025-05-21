@@ -15,17 +15,20 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AllowedProductAction extends Extensible implements java.io.Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "AllowedProductAction_id")
+    private String id;    @ElementCollection
+    @CollectionTable(name = "ProductOffering_channel", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<ChannelRef> channel;
     @Embedded
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})

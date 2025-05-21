@@ -15,17 +15,13 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RelatedPartyRefOrPartyRoleRef_MVO extends Extensible implements java.io.Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "partyOrPartyRole_id")
-    private PartyRefOrPartyRoleRef_MVO partyOrPartyRole;
-    private String role;
-}
+    private String id;}

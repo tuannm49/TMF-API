@@ -15,14 +15,13 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
-@Entity
+@Embeddable
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductSpecificationRef_MVO extends BaseEntityRef implements java.io.Serializable {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "targetProductSchema_id")
-    private TargetProductSchema_MVO targetProductSchema;
-    private String version;
+public class ProductSpecificationRef_MVO extends AbstractEntityRef implements java.io.Serializable {
+    @Override
+    public void fetchEntity(Class theClass, int depth) {
+    }
 }

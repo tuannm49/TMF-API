@@ -15,18 +15,20 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
-@Entity
+@Embeddable
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductSpecificationRelationship_MVO extends BaseEntityRef implements java.io.Serializable {
+public class ProductSpecificationRelationship_MVO extends AbstractEntityRef implements java.io.Serializable {
     private String relationshipType;
     @Embedded
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
-    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductSpecificationRelationship_MVO_id")
     private List<CharacteristicSpecification_MVO> characteristic;
+    @Override
+    public void fetchEntity(Class theClass, int depth) {
+    }
 }

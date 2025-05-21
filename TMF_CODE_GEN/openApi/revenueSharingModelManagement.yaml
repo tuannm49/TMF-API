@@ -1078,7 +1078,7 @@ components:
             or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModel
@@ -1165,10 +1165,10 @@ components:
             party rev sharing model involvement
           properties:
             name:
-              description: The name of party revenue sharing model involvement price
+              description: The name of party revenue sharing entity involvement price
               type: string
             description:
-              description: The description of party revenue sharing model involvement price
+              description: The description of party revenue sharing entity involvement price
               type: string
             productOfferingPrice:
               $ref: '#/components/schemas/ProductOfferingPriceRef'
@@ -1189,10 +1189,10 @@ components:
             party rev sharing model involvement
           properties:
             name:
-              description: The name of party revenue sharing model involvement price
+              description: The name of party revenue sharing entity involvement price
               type: string
             description:
-              description: The description of party revenue sharing model involvement price
+              description: The description of party revenue sharing entity involvement price
               type: string
             productOfferingPrice:
               $ref: '#/components/schemas/ProductOfferingPriceRef_FVO'
@@ -1213,10 +1213,10 @@ components:
             party rev sharing model involvement
           properties:
             name:
-              description: The name of party revenue sharing model involvement price
+              description: The name of party revenue sharing entity involvement price
               type: string
             description:
-              description: The description of party revenue sharing model involvement price
+              description: The description of party revenue sharing entity involvement price
               type: string
             productOfferingPrice:
               $ref: '#/components/schemas/ProductOfferingPriceRef_MVO'
@@ -1237,7 +1237,7 @@ components:
             one or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModelItem
@@ -1272,10 +1272,10 @@ components:
             associated offering(s).
           properties:
             name:
-              description: The name of party revenue sharing model involvement
+              description: The name of party revenue sharing entity involvement
               type: string
             description:
-              description: The description of party revenue sharing model involvement
+              description: The description of party revenue sharing entity involvement
               type: string
             productOffering:
               type: array
@@ -1305,10 +1305,10 @@ components:
             associated offering(s).
           properties:
             name:
-              description: The name of party revenue sharing model involvement
+              description: The name of party revenue sharing entity involvement
               type: string
             description:
-              description: The description of party revenue sharing model involvement
+              description: The description of party revenue sharing entity involvement
               type: string
             productOffering:
               type: array
@@ -1338,10 +1338,10 @@ components:
             associated offering(s).
           properties:
             name:
-              description: The name of party revenue sharing model involvement
+              description: The name of party revenue sharing entity involvement
               type: string
             description:
-              description: The description of party revenue sharing model involvement
+              description: The description of party revenue sharing entity involvement
               type: string
             productOffering:
               type: array
@@ -1370,7 +1370,7 @@ components:
             one or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModelItem
@@ -1404,7 +1404,7 @@ components:
             one or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModelItem
@@ -1456,7 +1456,7 @@ components:
             or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModel
@@ -1494,7 +1494,7 @@ components:
             or more other parties
           properties:
             name:
-              description: The name of party revenue sharing model
+              description: The name of party revenue sharing entity
               type: string
             description:
               description: The description of PartyRevSharingModel
@@ -2639,7 +2639,7 @@ components:
             targetProductSchema:
               '@type': ProductSpecification
               '@schemaLocation': 'https://mycsp.com:8080/tmf-api/schemas/Product/ProductSpecification.schema.json'
-      description: Here's an example of a request for retrieving a specific party revenue sharing model.
+      description: Here's an example of a request for retrieving a specific party revenue sharing entity.
     PartyRevSharingModel_create_application_json_example_request:
       value:
         '@type': PartyRevSharingModel

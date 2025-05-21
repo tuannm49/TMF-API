@@ -15,10 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BundledProductOffering_FVO extends ProductOfferingRef_FVO implements java.io.Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

@@ -15,13 +15,12 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CharacteristicSpecificationRelationship_FVO extends Extensible_FVO implements java.io.Serializable {
-    private String name;
     private String characteristicSpecificationId;
     private String relationshipType;
     private String parentSpecificationHref;

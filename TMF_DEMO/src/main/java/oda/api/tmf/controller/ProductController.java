@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import oda.api.tmf.commons.exceptions.BadUsageException;
 import oda.api.tmf.commons.exceptions.UnknownResourceException;
-import oda.api.tmf.model.Product;
 import oda.api.tmf.commons.service.GenericService;
 import oda.sid.tmf.model.product.ProductOffering;
 import org.springframework.beans.factory.annotation.Autowired;

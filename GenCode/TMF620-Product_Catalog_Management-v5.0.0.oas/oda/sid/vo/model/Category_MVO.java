@@ -15,27 +15,39 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Category_MVO extends Entity_MVO implements java.io.Serializable {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "parent_id")
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="id", column=@Column(name = "parent_id")),
+            @AttributeOverride(name="name", column=@Column(name = "parent_name")),
+            @AttributeOverride(name="version", column=@Column(name = "parent_version")),
+            @AttributeOverride(name="href", column=@Column(name = "parent_href")),
+            @AttributeOverride(name="type", column=@Column(name = "parent_type")),
+            @AttributeOverride(name="baseType", column=@Column(name = "parent_baseType")),
+            @AttributeOverride(name="referredType", column=@Column(name = "parent_referredType")),
+            @AttributeOverride(name="schemaLocation", column=@Column(name = "parent_schemaLocation"))
+    })
     private CategoryRef_MVO parent;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Category_MVO_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_subCategory", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<CategoryRef_MVO> subCategory;
     private Boolean isRoot;
     private String lifecycleStatus;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Category_MVO_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_productOffering", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<ProductOfferingRef_MVO> productOffering;
     @Embedded
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
-    private String name;
-    private String description;
-    private String version;
 }

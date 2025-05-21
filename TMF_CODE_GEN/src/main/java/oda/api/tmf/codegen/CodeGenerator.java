@@ -2,7 +2,11 @@ package oda.api.tmf.codegen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.Content;
+import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.parser.core.models.ParseOptions;
 
@@ -10,9 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeGenerator {
     private final String outputDirDefault = "oda/sid/tmf/model/others/";
@@ -45,31 +47,67 @@ public class CodeGenerator {
             OpenAPI openAPI = new OpenAPIV3Parser().read(directoryPath+"/"+openApiFile, null, options);
             // Sinh entity classes
             SchemaProcessor schemaProcessor = new SchemaProcessor(openAPI,apiDirGen,directoryMap,configMap);
-            Map<String,Schema> lstSch = openAPI.getComponents().getSchemas();
-            for (Map.Entry<String, Schema> schemaEntry : lstSch.entrySet()) {
-                String category = findCategoryByFileName(directoryMap,schemaEntry.getKey());
-                if(!findIgnoreByFileName(configMap,schemaEntry.getKey())){
+            openAPI.getComponents().getSchemas().forEach((schemaName,Schema)->{
+                String category = findCategoryByFileName(directoryMap,schemaName);
+                if(schemaName.equals("ExternalIdentifier")){
+                    System.out.println("");
+                }
+                if(!findIgnoreByFileName(configMap,schemaName)){
                     if(category!=null){
-                        String schemaName = schemaEntry.getKey();
                         String outputDir = apiDirGen+"/"+category.replace(".","/");
                         String packageName = category;
                         String fileName = toCamelCase(schemaName, true) + ".java";
-                        Files.createDirectories(Paths.get(outputDir));
-                        schemaProcessor.processSchema(schemaName, fileName, outputDir, packageName);
+                        try {
+                            Files.createDirectories(Paths.get(outputDir));
+                            schemaProcessor.processSchema(schemaName, fileName, outputDir, packageName);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }else {
-                        String schemaName = schemaEntry.getKey();
                         String fileName = toCamelCase(schemaName, true) + ".java";
-                        Files.createDirectories(Paths.get(apiDirGen+"/"+outputDirDefault));
-                        schemaProcessor.processSchema(schemaName, fileName, apiDirGen+"/"+outputDirDefault, packageNameDefault);
+                        try {
+                            Files.createDirectories(Paths.get(apiDirGen+"/"+outputDirDefault));
+                            schemaProcessor.processSchema(schemaName, fileName, apiDirGen+"/"+outputDirDefault, packageNameDefault);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }
+            });
 
-            }
         }
 
 
     }
+    private static Set<String> checkOperationSchemas(OpenAPI openAPI ) {
+        Set<String> schemaSet = new HashSet<>();
+        openAPI.getPaths().forEach((path, pathItem) -> {
+            Operation operation = pathItem.getPatch();
+            if (operation != null) {
+                ApiResponses responses = operation.getResponses();
+                if (responses != null) {
+                    responses.forEach((status, response) -> {
+                        Content content = response.getContent();
+                        if (content != null) {
+                            MediaType mediaType = content.get("application/json");
+                            if (mediaType != null && mediaType.getSchema() != null) {
+                                String schemaRef = mediaType.getSchema().get$ref();
+                                if (schemaRef != null) {
+                                    String schemaName = schemaRef.replace("#/components/schemas/", "");
+                                    if(!"Error".equals(schemaName))
+                                        schemaSet.add(schemaName);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
 
+        });
+        return schemaSet;
+
+    }
     public static List<String> getFilesInDirectory(String directoryPath) {
         List<String> fileNames = new ArrayList<>();
         try {
@@ -138,8 +176,8 @@ public class CodeGenerator {
         return null;
     }
     private String toCamelCase(String name, boolean capitalizeFirst) {
-        if("Entity".equals(name)) return "BaseEntity";
-        if("EntityRef".equals(name)) return "BaseEntityRef";
+        if("Entity".equals(name)) return "AbstractEntity";
+        if("EntityRef".equals(name)) return "AbstractEntityRef";
         return name;
     }
 

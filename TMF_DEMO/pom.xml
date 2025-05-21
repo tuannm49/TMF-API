@@ -27,6 +27,34 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.18.0</version> <!-- Hoặc phiên bản mới nhất -->
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.25.1</version>
+        </dependency>
+        <!-- JAXB API -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <!-- JAXB Implementation -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.9</version>
+        </dependency>
+        <!-- Optional: JAXB Core -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

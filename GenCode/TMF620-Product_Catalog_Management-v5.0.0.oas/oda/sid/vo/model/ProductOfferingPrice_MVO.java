@@ -15,10 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Serializable {
     private Boolean isBundle;
@@ -36,13 +36,11 @@ public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Seri
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String priceType;
-    private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_MVO_id")
     private List<TaxItem_MVO> tax;
     private Integer recurringChargePeriodLength;
-    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_MVO_id")
     private List<PricingLogicAlgorithm_MVO> pricingLogicAlgorithm;
@@ -50,12 +48,14 @@ public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Seri
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Money price;
     private Integer percentage;
-    private String name;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_MVO_id")
     private List<ExternalIdentifier_MVO> externalIdentifier;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_place", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<PlaceRef_MVO> place;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_MVO_id")
@@ -63,7 +63,10 @@ public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Seri
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_MVO_id")
     private List<ProductOfferingTerm_MVO> productOfferingTerm;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_policy", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<PolicyRef_MVO> policy;
 }

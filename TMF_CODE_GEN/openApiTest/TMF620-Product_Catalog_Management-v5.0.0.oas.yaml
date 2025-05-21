@@ -2234,13 +2234,15 @@ components:
           BundledGroupProductOffering: '#/components/schemas/BundledGroupProductOffering_MVO'
     BundledProductOffering:
       allOf:
-        - $ref: '#/components/schemas/ProductOfferingRef'
+        - $ref: '#/components/schemas/Entity'
         - type: object
           description: >-
             Represents a containment of a product offering within another product offering,
             including specification of cardinality (e.g. is the bundled offering mandatory, how many
             times can it be instantiated in the parent product, etc.).
           properties:
+            version:
+              type: string
             bundledProductOfferingOption:
               $ref: '#/components/schemas/BundledProductOfferingOption'
     BundledProductOfferingOption:
@@ -3357,6 +3359,9 @@ components:
                 attributes. If applicable, possible values are "open", "closed", "closedBottom" and
                 "closedTop".
             regex:
+              type: string
+              description: A regular expression constraint for given value
+            value:
               type: string
               description: A regular expression constraint for given value
       discriminator:
@@ -6873,7 +6878,7 @@ components:
           ProductSpecificationRef: '#/components/schemas/ProductSpecificationRef_MVO'
     ProductSpecificationRelationship:
       allOf:
-        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Entity'
         - type: object
           description: >-
             A migration, substitution, dependency or exclusivity relationship between/among product

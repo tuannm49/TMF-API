@@ -15,18 +15,21 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductOfferingPrice extends BaseEntity implements java.io.Serializable {
+public class ProductOfferingPrice extends AbstractEntity implements java.io.Serializable {
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_id")
     private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_popRelationship", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<ProductOfferingPriceRelationship> popRelationship;
     @Embedded
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
@@ -36,13 +39,11 @@ public class ProductOfferingPrice extends BaseEntity implements java.io.Serializ
     @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String priceType;
-    private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_id")
     private List<TaxItem> tax;
     private Integer recurringChargePeriodLength;
-    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_id")
     private List<PricingLogicAlgorithm> pricingLogicAlgorithm;
@@ -51,20 +52,28 @@ public class ProductOfferingPrice extends BaseEntity implements java.io.Serializ
     private Money price;
     private Integer percentage;
     private Date lastUpdate;
-    private String name;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_id")
     private List<ExternalIdentifier> externalIdentifier;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_place", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<PlaceRef> place;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_bundledPopRelationship", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<BundledProductOfferingPriceRelationship> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductOfferingPrice_id")
     private List<ProductOfferingTerm> productOfferingTerm;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @ElementCollection
+    @CollectionTable(name = "ProductOffering_policy", joinColumns = {
+            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
+            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
+    })
     private List<PolicyRef> policy;
 }

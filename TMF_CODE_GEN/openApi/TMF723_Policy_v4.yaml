@@ -2546,7 +2546,7 @@ components:
         '@type':
           type: string
           description: The type for this alarm.
-      description: This resource represents an alarm supporting the information model defined in ITU-T X.733.
+      description: This resource represents an alarm supporting the information entity defined in ITU-T X.733.
     AlarmRef:
       required:
         - id

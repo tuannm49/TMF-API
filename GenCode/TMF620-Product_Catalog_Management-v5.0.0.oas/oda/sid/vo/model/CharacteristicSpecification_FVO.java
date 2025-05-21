@@ -15,10 +15,10 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CharacteristicSpecification_FVO extends Extensible_FVO implements java.io.Serializable {
     @Embedded
@@ -27,7 +27,6 @@ public class CharacteristicSpecification_FVO extends Extensible_FVO implements j
     @JsonProperty("@valueSchemaLocation")
     private String valueSchemaLocation;
     private Boolean isUnique;
-    private String description;
     private Integer maxCardinality;
     private Integer minCardinality;
     private String regex;
@@ -38,11 +37,6 @@ public class CharacteristicSpecification_FVO extends Extensible_FVO implements j
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CharacteristicSpecification_FVO_id")
     private List<CharacteristicValueSpecification_FVO> characteristicValueSpecification;
-    private String name;
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
     private Boolean extensible;
     private Boolean configurable;
 }

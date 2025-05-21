@@ -15,24 +15,13 @@ import oda.sid.tmf.model.product.*;
 import oda.sid.tmf.model.resource.*;
 import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
+import oda.sid.tmf.model.base.*;
 
-@Entity
+@Embeddable
 @Data
-@Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MarketSegmentRef implements java.io.Serializable {
-    @JsonProperty("@referredType")
-    private String referredType;
-    @JsonProperty("@baseType")
-    private String baseType;
-    @JsonProperty("@type")
-    private String type;
-    private String name;
-    private String href;
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
+public class MarketSegmentRef extends AbstractEntityRef implements java.io.Serializable {
+    @Override
+    public void fetchEntity(Class theClass, int depth) {
+    }
 }
