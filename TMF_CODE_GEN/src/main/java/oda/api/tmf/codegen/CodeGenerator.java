@@ -22,18 +22,18 @@ public class CodeGenerator {
     private final String directoryMapFile = "TMF_CODE_GEN/directory_structure.json";
     private final String directoryPath = "TMF_CODE_GEN/openApiTest";
     private final String configFile = "TMF_CODE_GEN/config.json";
+    private static Map<String, String[]> configMap,directoryMap = new HashMap<>();
     public CodeGenerator() {
     }
 
     public void generate() throws IOException {
         // Đọc file JSON cấu hình
         ObjectMapper mapper = new ObjectMapper();
-//        List<Map<String, Object>> config = mapper.readValue(new File(configFile), new TypeReference<>() {});
-        Map<String, String[]> directoryMap = mapper.readValue(
+        directoryMap = mapper.readValue(
                 new File(directoryMapFile),
                 mapper.getTypeFactory().constructMapType(Map.class, String.class, String[].class)
         );
-        Map<String, String[]> configMap = mapper.readValue(
+        configMap = mapper.readValue(
                 new File(configFile),
                 mapper.getTypeFactory().constructMapType(Map.class, String.class, String[].class)
         );
@@ -48,11 +48,11 @@ public class CodeGenerator {
             // Sinh entity classes
             SchemaProcessor schemaProcessor = new SchemaProcessor(openAPI,apiDirGen,directoryMap,configMap);
             openAPI.getComponents().getSchemas().forEach((schemaName,Schema)->{
-                String category = findCategoryByFileName(directoryMap,schemaName);
+                String category = findCategoryByFileName(schemaName);
                 if(schemaName.equals("ExternalIdentifier")){
                     System.out.println("");
                 }
-                if(!findIgnoreByFileName(configMap,schemaName)){
+                if(!isExítConfig("ignoreSchema",schemaName)){
                     if(category!=null){
                         String outputDir = apiDirGen+"/"+category.replace(".","/");
                         String packageName = category;
@@ -132,18 +132,18 @@ public class CodeGenerator {
         }
         return fileNames;
     }
-    public static boolean findIgnoreByFileName(Map<String, String[]> ignoreMap, String fileName) {
-        String[] ignoreSchema = ignoreMap.get("ignoreSchema");
+    public static boolean isExítConfig(String configName, String name) {
+        String[] ignoreSchema = configMap.get(configName);
         for (String file : ignoreSchema) {
             String regex = file.replace("*", ".*");
             // Kiểm tra xem fileName khớp với regex
-            if (fileName.matches(regex)) {
+            if (name.matches(regex)) {
                 return true;
             }
         }
         return false;
     }
-    public static String findCategoryByFileName(Map<String, String[]> directoryMap, String fileName) {
+    public static String findCategoryByFileName(String fileName) {
         // Duyệt qua từng danh mục trong Map
         for (Map.Entry<String, String[]> entry : directoryMap.entrySet()) {
             String category = entry.getKey();

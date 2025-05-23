@@ -5,73 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="383d3599-51f7-46bc-8f34-4348afb1ee5c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/OpenAPISchemaExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/SchemaProcessor_bk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractCatalogEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntityRef.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Attachment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/CatalogEntityId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/CatalogRef.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ClassFields.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ClassFieldsCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Duration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/FieldSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/LifecycleStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Money.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/OutputUtilities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ParsedVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Quantity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/QueryParameterParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ReferencedEntityGetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/RelatedParty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ServiceConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/ServiceLevelAgreement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/TimePeriod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Utilities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/annotation/EntityReferenceProperty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/annotation/VersionProperty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/AbstractNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/BranchNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/Criteria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/LeafNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/NodeNames.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/Operation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/OperationValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/criteria/Operator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/BadUsageException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/ExceptionBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/ExceptionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/FunctionalException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/InvalidEnumeratedValueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/KeyValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/exceptions/UnknownResourceException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/utils/BeanUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/utils/CustomJsonDateSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/utils/Jackson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/utils/TMFDate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/utils/URIParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/client/CatalogClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrchestrationEngine/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrchestrationEngine/src/main/java/oda/core/OrchestrationEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Addressable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Attachment.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/AttachmentRef.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/AttachmentRefOrValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/BaseEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/BaseEntityRef.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/ChannelRef.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Characteristic.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/CharacteristicRelationship.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/CharacteristicSpecification.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/CharacteristicSpecificationRelationship.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/CharacteristicValueSpecification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Duration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Extensible.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/Extensible.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Hub.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Money.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/PlaceRef.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/Quantity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/common/TimePeriod.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/customer/TaxItem.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/others/ExternalIdentifier.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/others/IntentSpecificationRef.java" beforeDir="false" />
@@ -84,7 +33,7 @@
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/AllowedProductAction.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledGroupProductOffering.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledGroupProductOfferingOption.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledProductOffering.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledProductOffering.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledProductOfferingOption.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledProductOfferingPriceRelationship.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/tmf/model/product/BundledProductSpecification.java" beforeDir="false" />
@@ -218,12 +167,10 @@
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/vo/model/TargetProductSchema_MVO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/vo/model/TaxItem_FVO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF620-Product_Catalog_Management-v5.0.0.oas/oda/sid/vo/model/TaxItem_MVO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/common/BaseEntity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/common/Note.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/common/RelatedPlaceRefOrValue.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/common/ThresholdRef.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/common/TimePeriod.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/party/RelatedParty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/others/BaseEntity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/product/PolicyAction.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/product/PolicyActionAlarm.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/tmf/model/product/PolicyActionInteger.java" beforeDir="false" />
@@ -250,42 +197,45 @@
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/vo/model/PolicyRule_Create.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GenCode/TMF723_Policy_v4/oda/sid/vo/model/PolicyRule_Update.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/directory_structure.json" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/directory_structure.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF723_Policy_v4.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/TMF723_Policy_v4.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/revenueSharingModelManagement.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApi/revenueSharingModelManagement.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/openApiTest/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/openApiTest/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/openApiTest/TMF723_Policy_v4.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/CodeGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/SchemaProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/SchemaProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/SchemaProcessor_bk.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/CodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/CodeGenerator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor$SchemaAnalysisResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor$SchemaAnalysisResult.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/database/DbmsDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/database/DbmsDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/model/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/model/ProductItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/ProductItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/model/UserRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/UserRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor_bk$SchemaAnalysisResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_CODE_GEN/target/classes/oda/api/tmf/codegen/SchemaProcessor_bk.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/BaseEntityRef.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/Duration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/LifecycleStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/Money.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/Quantity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model/TimePeriod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/ProductItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/entity/UserRef.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractCatalogEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractCatalogEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntityRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntityRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/CatalogRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/EntityRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/client/CatalogClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/client/EntityClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Addressable.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Addressable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Attachment.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/AttachmentRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/AttachmentRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/AttachmentRefOrValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/AttachmentRefOrValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/BaseEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/BaseEntityRef.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/ChannelRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/ChannelRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Characteristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Characteristic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicRelationship.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicRelationship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicSpecification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicSpecificationRelationship.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicSpecificationRelationship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicValueSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/CharacteristicValueSpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Duration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Extensible.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Hub.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Hub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Money.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/PlaceRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/PlaceRef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/Quantity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common/TimePeriod.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/customer/TaxItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/customer/TaxItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/others/ExternalIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/others/ExternalIdentifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/others/IntentSpecificationRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/others/IntentSpecificationRef.java" afterDir="false" />
@@ -301,6 +251,7 @@
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOffering.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOffering.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingOption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingPriceRelationship.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingPriceRelationship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductOfferingRef.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/BundledProductSpecification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/Catalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/Catalog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/product/Category.java" afterDir="false" />
@@ -328,32 +279,34 @@
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/service/ServiceSpecificationRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/service/ServiceSpecificationRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/database/DbmsDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/database/DbmsDatabase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/controller/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/model/BaseEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/model/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/model/ProductItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/model/UserRef.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/BaseEntityRef.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/Duration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/LifecycleStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/Money.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/Quantity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/commons/model/TimePeriod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/entity/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/entity/ProductItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/api/tmf/entity/UserRef.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractCatalogEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractCatalogEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractEntityRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/AbstractEntityRef.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/base/CatalogRef.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/client/CatalogClient.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Addressable.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Addressable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Attachment.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/AttachmentRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/AttachmentRef.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/AttachmentRefOrValue.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/AttachmentRefOrValue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/BaseEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/BaseEntityRef.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/ChannelRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/ChannelRef.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Characteristic.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Characteristic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicRelationship.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicRelationship.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicSpecification.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicSpecificationRelationship.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicSpecificationRelationship.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicValueSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/CharacteristicValueSpecification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Duration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Extensible.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Hub.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Hub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Money.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/PlaceRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/PlaceRef.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/Quantity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/common/TimePeriod.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/customer/TaxItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/customer/TaxItem.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/others/ExternalIdentifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/others/ExternalIdentifier.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/others/IntentSpecificationRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/others/IntentSpecificationRef.class" afterDir="false" />
@@ -369,6 +322,7 @@
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOffering.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOffering.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOfferingOption.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOfferingOption.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOfferingPriceRelationship.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOfferingPriceRelationship.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductOfferingRef.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductSpecification.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/BundledProductSpecification.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/Catalog.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/Catalog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/product/Category.class" afterDir="false" />
@@ -394,6 +348,7 @@
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/sale/MarketSegmentRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/sale/MarketSegmentRef.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/service/ServiceCandidateRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/service/ServiceCandidateRef.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/service/ServiceSpecificationRef.class" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/target/classes/oda/sid/tmf/model/service/ServiceSpecificationRef.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,13 +366,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/OrchestrationEngine/src/main/java/oda/core/OrchestrationEngine.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/CodeGenerator.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_CODE_GEN/src/main/java/oda/api/tmf/codegen/SchemaProcessor.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/repository/DbmsRepository.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/utils/ParsedVersion.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractCatalogEntity.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/AbstractEntity.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/CatalogRef.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base/EntityRef.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
@@ -437,7 +393,7 @@
     "Application.DirectoryScanner.executor": "Run",
     "Application.OpenAPISchemaExtractor.executor": "Run",
     "Application.oda.Application.executor": "Run",
-    "Application.oda.api.tmf.codegen.CodeGenerator.executor": "Run",
+    "Application.oda.api.tmf.codegen.CodeGenerator.executor": "Debug",
     "Docker.docker: Compose Deployment.executor": "Run",
     "Maven.TMF_CODE_GEN [compile].executor": "Run",
     "Maven.TMF_CODE_GEN [test].executor": "Run",
@@ -455,10 +411,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model" />
+      <recent name="$PROJECT_DIR$/TMF_CODE_GEN/openApi" />
       <recent name="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/base" />
       <recent name="$PROJECT_DIR$/TMF_CODE_GEN/openApiTest" />
       <recent name="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/model" />
-      <recent name="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/sid/tmf/model/common" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/TMF_CODE_GEN/openApi" />

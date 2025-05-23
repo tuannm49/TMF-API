@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,59 +22,48 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOfferingPrice extends AbstractEntity implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @JoinTable(name = "ProdOffrPrc_prodSpecCharValUse")
     private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_popRelationship", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_popRel")
     private List<ProductOfferingPriceRelationship> popRelationship;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Quantity unitOfMeasure;
     private String lifecycleStatus;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String priceType;
+    private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @JoinTable(name = "ProdOffrPrc_tax")
     private List<TaxItem> tax;
     private Integer recurringChargePeriodLength;
+    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @JoinTable(name = "ProdOffrPrc")
     private List<PricingLogicAlgorithm> pricingLogicAlgorithm;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Money price;
     private Integer percentage;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @JoinTable(name = "ProdOffrPrc_externalIdentifier")
     private List<ExternalIdentifier> externalIdentifier;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_place", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_place")
     private List<PlaceRef> place;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_bundledPopRelationship", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_bundledPopRel")
     private List<BundledProductOfferingPriceRelationship> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_id")
+    @JoinTable(name = "ProdOffrPrc_productOffrTerm")
     private List<ProductOfferingTerm> productOfferingTerm;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_policy", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_policy")
     private List<PolicyRef> policy;
 }

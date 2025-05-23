@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,33 +22,20 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Category_MVO extends Entity_MVO implements java.io.Serializable {
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name = "parent_id")),
-            @AttributeOverride(name="name", column=@Column(name = "parent_name")),
-            @AttributeOverride(name="version", column=@Column(name = "parent_version")),
-            @AttributeOverride(name="href", column=@Column(name = "parent_href")),
-            @AttributeOverride(name="type", column=@Column(name = "parent_type")),
-            @AttributeOverride(name="baseType", column=@Column(name = "parent_baseType")),
-            @AttributeOverride(name="referredType", column=@Column(name = "parent_referredType")),
-            @AttributeOverride(name="schemaLocation", column=@Column(name = "parent_schemaLocation"))
-    })
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private CategoryRef_MVO parent;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_subCategory", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "Catg_MVO_subCatg")
     private List<CategoryRef_MVO> subCategory;
     private Boolean isRoot;
     private String lifecycleStatus;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_productOffering", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "Catg_MVO_productOffr")
     private List<ProductOfferingRef_MVO> productOffering;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
+    private String description;
+    private String version;
 }

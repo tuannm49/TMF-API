@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -17,11 +18,11 @@ import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
 import oda.sid.tmf.model.base.*;
 
-@Embeddable
+@Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResourceSpecificationRef_MVO extends AbstractEntityRef implements java.io.Serializable {
-    @Override
-    public void fetchEntity(Class theClass, int depth) {
-    }
+public class ResourceSpecificationRef_MVO extends EntityRef implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
+    private String version;
 }

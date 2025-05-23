@@ -8,23 +8,88 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static oda.api.tmf.codegen.CodeGenerator.findCategoryByFileName;
-import static oda.api.tmf.codegen.CodeGenerator.findIgnoreByFileName;
+import static oda.api.tmf.codegen.CodeGenerator.*;
 
 public class SchemaProcessor {
     private final OpenAPI openAPI;
     private final Set<String> generatedSchemas;
     private int inlineSchemaCounter;
-    private final Map<String, String[]> directoryMap;
-    private final Map<String, String[]> configMap;
     private final String apiDirGen;
-
+    private static final Map<String, String> ABBREVIATIONS = new HashMap<>();
+    static {
+        // Từ khóa chung
+        ABBREVIATIONS.put("Specification", "Spec");
+        ABBREVIATIONS.put("Characteristic", "Char");
+        ABBREVIATIONS.put("Value", "Val");
+        ABBREVIATIONS.put("Relationship", "Rel");
+        ABBREVIATIONS.put("Reference", "Ref");
+        ABBREVIATIONS.put("Geographic", "Geo");
+        ABBREVIATIONS.put("Address", "Addr");
+        ABBREVIATIONS.put("Entity", "Ent");
+        ABBREVIATIONS.put("Test", "Tst");
+        ABBREVIATIONS.put("Order", "Ord");
+        ABBREVIATIONS.put("Item", "Itm");
+        ABBREVIATIONS.put("Service", "Svc");
+        ABBREVIATIONS.put("Resource", "Res");
+        ABBREVIATIONS.put("Product", "Prod");
+        ABBREVIATIONS.put("Party", "Pty");
+        ABBREVIATIONS.put("Customer", "Cust");
+        ABBREVIATIONS.put("Billing", "Bill");
+        ABBREVIATIONS.put("Account", "Acct");
+        ABBREVIATIONS.put("Balance", "Bal");
+        ABBREVIATIONS.put("Qualification", "Qual");
+        ABBREVIATIONS.put("Offering", "Offr");
+        ABBREVIATIONS.put("Promotion", "Promo");
+        ABBREVIATIONS.put("Loyalty", "Lty");
+        ABBREVIATIONS.put("Agreement", "Agrmt");
+        ABBREVIATIONS.put("Use", "Use");
+        ABBREVIATIONS.put("Catalog", "Cat");
+        ABBREVIATIONS.put("Category", "Catg");
+        ABBREVIATIONS.put("Ticket", "Tkt");
+        ABBREVIATIONS.put("Location", "Loc");
+        ABBREVIATIONS.put("Site", "Site");
+        ABBREVIATIONS.put("Execution", "Exec");
+        ABBREVIATIONS.put("Environment", "Env");
+        ABBREVIATIONS.put("Data", "Data");
+        ABBREVIATIONS.put("Schema", "Schm");
+        ABBREVIATIONS.put("Instance", "Inst");
+        ABBREVIATIONS.put("Definition", "Def");
+        ABBREVIATIONS.put("Event", "Evt");
+        ABBREVIATIONS.put("State", "St");
+        ABBREVIATIONS.put("Type", "Typ");
+        ABBREVIATIONS.put("NonFunctional", "NonFunc");
+        ABBREVIATIONS.put("Functional", "Func");
+        ABBREVIATIONS.put("Metric", "Mtr");
+        ABBREVIATIONS.put("Measure", "Msr");
+        ABBREVIATIONS.put("Threshold", "Thr");
+        ABBREVIATIONS.put("Violation", "Vio");
+        ABBREVIATIONS.put("Privacy", "Priv");
+        ABBREVIATIONS.put("Profile", "Prof");
+        ABBREVIATIONS.put("Partnership", "Prtn");
+        ABBREVIATIONS.put("Sales", "Sls");
+        ABBREVIATIONS.put("Lead", "Ld");
+        ABBREVIATIONS.put("Quote", "Qt");
+        ABBREVIATIONS.put("Price", "Prc");
+        ABBREVIATIONS.put("Payment", "Pmt");
+        ABBREVIATIONS.put("Cart", "Crt");
+        ABBREVIATIONS.put("Inventory", "Inv");
+        ABBREVIATIONS.put("Consumption", "Cons");
+        ABBREVIATIONS.put("Recommendation", "Rec");
+        ABBREVIATIONS.put("Problem", "Prob");
+        ABBREVIATIONS.put("Level", "Lvl");
+        ABBREVIATIONS.put("Objective", "Obj");
+        ABBREVIATIONS.put("Candidate", "Cand");
+        ABBREVIATIONS.put("Alarm", "Alm");
+        ABBREVIATIONS.put("Device", "Dev");
+        ABBREVIATIONS.put("Physical", "Phys");
+        ABBREVIATIONS.put("Logical", "Log");
+        ABBREVIATIONS.put("Bundle", "Bndl");
+        ABBREVIATIONS.put("Bundled", "Bndl");
+    }
     public SchemaProcessor(OpenAPI openAPI, String apiDirGen, Map<String, String[]> directoryMap, Map<String, String[]> configMap) {
         this.openAPI = openAPI;
-        this.configMap = configMap;
         this.generatedSchemas = new HashSet<>();
         this.inlineSchemaCounter = 0;
-        this.directoryMap = directoryMap;
         this.apiDirGen = apiDirGen;
     }
 
@@ -98,18 +163,27 @@ public class SchemaProcessor {
     }
 
     private void generateEntityClass(String schemaName, Schema schema, String fileName, String outputDir, String packageName, Set<String> visitedSchemas) throws IOException {
-        if (!findIgnoreByFileName(configMap, schemaName)) {
+        if (!isExítConfig("ignoreSchema", schemaName)) {
             SchemaAnalysisResult analysis = analyzeSchema(schema, new HashSet<>());
             String baseClass = analysis.baseClass;
             Map<String, Schema> properties = analysis.additionalProperties;
-            if (schemaName.contains("Ref")) properties = new HashMap<>();
+//            if (schemaName.contains("Ref")) properties = new HashMap<>();
 
-            String className = toCamelCase(schemaName, true);
+            String className = renameEntity(schemaName, true);
             StringBuilder sb = new StringBuilder();
-            String category = findCategoryByFileName(directoryMap, schemaName);
+            String category = findCategoryByFileName(schemaName);
             if (category != null) {
                 outputDir = apiDirGen + "/" + category.replace(".", "/");
                 packageName = category;
+            }
+            if (isAbstractCatalogEntity(schemaName)) {
+                baseClass = "AbstractCatalogEntity";
+            } else {
+                if (baseClass != null && !schemaName.endsWith("Ref")) {
+                    baseClass = renameEntity(baseClass, true);
+                } else if (isRef(schemaName)||schemaName.contains("RefOrValue") || schemaName.endsWith("Ref")) {
+                    baseClass = "EntityRef";
+                }
             }
             // Package và imports
             sb.append("package ").append(packageName).append(";\n\n");
@@ -121,6 +195,7 @@ public class SchemaProcessor {
             sb.append("import lombok.Data;\n");
             sb.append("import java.util.List;\n");
             sb.append("import java.util.Date;\n");
+            sb.append("import java.util.logging.Logger;\n");
             sb.append("import oda.sid.tmf.model.others.*;\n");
             sb.append("import oda.sid.tmf.model.common.*;\n");
             sb.append("import oda.sid.tmf.model.customer.*;\n");
@@ -134,44 +209,37 @@ public class SchemaProcessor {
 //                sb.append("import ").append(packageName).append(".").append(toCamelCase(baseClass, true)).append(";\n");
 //            }
             sb.append("\n");
-            if (schemaName.contains("RelatedPartyRefOrPartyRoleRef")) {
-                System.out.println("");
-            }
-            // Class annotations
-            if (isEmbeddable(schemaName) || schemaName.endsWith("Ref") ||
-                    schemaName.contains("RefOrValue") || (baseClass != null && baseClass.endsWith("Ref"))) {
+            if(isEmbeddable(schemaName)){
                 sb.append("@Embeddable\n");
-            } else {
+            }else {
                 sb.append("@Entity\n");
             }
+
             sb.append("@Data\n");
-//            sb.append("@Document\n");
             sb.append("@JsonInclude(JsonInclude.Include.NON_NULL)\n");
             sb.append("public class ").append(className);
-
-            if (isAbstractCatalogEntity(schemaName)) {
-                sb.append(" extends AbstractCatalogEntity");
-            } else {
-                if (baseClass != null && !schemaName.endsWith("Ref")) {
-                    sb.append(" extends ").append(toCamelCase(baseClass, true));
-                } else if (schemaName.contains("RefOrValue") || schemaName.endsWith("Ref")) {
-                    sb.append(" extends ").append("AbstractEntityRef");
-                }
+            if (baseClass != null) {
+                sb.append(" extends ").append(baseClass);
             }
 
             sb.append(" implements java.io.Serializable {\n");
+            sb.append("    private final static long serialVersionUID = 1L;\n");
+            sb.append("    private static final Logger logger = Logger.getLogger(Catalog.class.getName());\n");
             // Properties
             if (properties != null) {
+                if(schemaName.equals("ProductSpecificationRef")){
+                    System.out.println("");
+                }
                 if (baseClass != null && !baseClass.equals("Extensible")) {
                     properties.remove("id");
-                    properties.remove("baseType");
-                    properties.remove("schemaLocation");
-                    properties.remove("type");
-                    properties.remove("referredType");
                     properties.remove("name");
                     properties.remove("href");
-                    properties.remove("version");
-                    properties.remove("description");
+//                    properties.remove("description");
+                    properties.remove("@type");
+                    properties.remove("@baseType");
+                    properties.remove("@schemaLocation");
+                    properties.remove("@referredType");
+
                 }
                 if (baseClass != null && baseClass.equals("Extensible") && !schemaName.endsWith("Ref") && properties.containsKey("id") == false) {
                     sb.append("    @Id\n");
@@ -196,49 +264,89 @@ public class SchemaProcessor {
                         propName = propName.replace("@", "");
                     }
                     if ("array".equals(propSchema.getType()) && propSchema.getItems() != null && propSchema.getItems().get$ref() != null) {
-                        if (javaType.contains("ProductOfferingRelationship")) {
-                            System.out.println("");
-                        }
-                        if (javaType.contains("Ref") || javaType.contains("RefOrValue") || isRef(javaType)) {
-                            sb.append("    @ElementCollection\n");
-                            sb.append("    @CollectionTable(name = \"ProductOffering_" + propName + "\", joinColumns = {\n");
-                            sb.append("            @JoinColumn(name = \"REF_ID\",referencedColumnName = \"id\"),\n");
-                            sb.append("            @JoinColumn(name = \"REF_TYPE\",referencedColumnName = \"type\")\n");
-                            sb.append("    })\n");
-                        } else {
-                            sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                            sb.append("    @JoinColumn(name = \"").append(toCamelCase(schemaName, false)).append("_id\")\n");
+                        if(isRef(javaType)){
+                            if (isAbstractCatalogEntity(javaType)) {
+                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
+//                                sb.append("            @JoinColumn(name=\"refId\", referencedColumnName = \"catalogId\")\n");
+                            }else {
+                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
+//                                sb.append("            @JoinColumn(name=\"refId\", referencedColumnName = \"id\")\n");
+                            }
+
+                        }else {
+                            if (isAbstractCatalogEntity(javaType)) {
+                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
+//                                sb.append("    @JoinColumns({\n");
+//                                sb.append("            @JoinColumn(name=\"CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
+//                                sb.append("            @JoinColumn(name=\"CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
+//                                sb.append("            @JoinColumn(name=\"ENTITY_ID\", referencedColumnName = \"id\")\n");
+//                                sb.append("    })\n");
+                            }else {
+                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
+//                                sb.append("    @JoinColumns({\n");
+//                                sb.append("            @JoinColumn(name=\"ENTITY_ID\", referencedColumnName = \"id\")\n");
+//                                sb.append("    })\n");
+                            }
+
                         }
 
+
                     } else if (propSchema.get$ref() != null && !propName.equals("id")) {
-                        if (isEmbeddable(javaType)) {
-                            sb.append("    @Embedded\n");
-                            sb.append("    @AttributeOverrides({@AttributeOverride(name=\"type\", column=@Column(name = \"target_type\")),@AttributeOverride(name=\"schemaLocation\", column=@Column(name = \"target_schemaLocation\"))})\n");
-                        } else if (javaType.contains("Ref") || isRef(javaType)) {
-                            sb.append("    @Embedded\n");
-                            sb.append("    @AttributeOverrides({\n");
-                            sb.append("            @AttributeOverride(name=\"id\", column=@Column(name = \"" + propName + "_id\")),\n");
-                            sb.append("            @AttributeOverride(name=\"name\", column=@Column(name = \"" + propName + "_name\")),\n");
-                            sb.append("            @AttributeOverride(name=\"version\", column=@Column(name = \"" + propName + "_version\")),\n");
-                            sb.append("            @AttributeOverride(name=\"href\", column=@Column(name = \"" + propName + "_href\")),\n");
-                            sb.append("            @AttributeOverride(name=\"type\", column=@Column(name = \"" + propName + "_type\")),\n");
-                            sb.append("            @AttributeOverride(name=\"baseType\", column=@Column(name = \"" + propName + "_baseType\")),\n");
-                            sb.append("            @AttributeOverride(name=\"referredType\", column=@Column(name = \"" + propName + "_referredType\")),\n");
-                            sb.append("            @AttributeOverride(name=\"schemaLocation\", column=@Column(name = \"" + propName + "_schemaLocation\"))\n");
-                            sb.append("    })\n");
-                        } else {
-                            sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
-                            sb.append("    @JoinColumn(name = \"").append(toCamelCase(propName, false)).append("_id\")\n");
+                        if(isRef(javaType)){
+                            if (isAbstractCatalogEntity(javaType)) {
+                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+//                                sb.append("    @JoinColumns({\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
+//                                sb.append("    })\n");
+                            }else {
+                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+//                                sb.append("    @JoinColumns({\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_id\", referencedColumnName = \"refId\")\n");
+//                                sb.append("    })\n");
+                            }
+
+                        }else {
+                            if (isAbstractCatalogEntity(javaType)) {
+                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+//                                sb.append("    @JoinColumns({\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
+//                                sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
+//                                sb.append("    })\n");
+                            }else {
+                                if(isEmbeddable(javaType)){
+                                    sb.append("    @Embedded\n");
+                                }else {
+                                    sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+//                                    sb.append("    @JoinColumns({\n");
+//                                    sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
+//                                    sb.append("    })\n");
+                                }
+                            }
                         }
+
                     }
-                    sb.append("    private ").append(javaType).append(" ").append(toCamelCase(propName, false)).append(";\n");
+                    sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                 }
             }
-            if ((baseClass != null && baseClass.endsWith("Ref")) || schemaName.contains("RefOrValue") || schemaName.endsWith("Ref")) {
+            /*if ((baseClass != null && baseClass.endsWith("Ref")) || schemaName.contains("RefOrValue") || schemaName.endsWith("Ref")) {
                 sb.append("    @Override\n");
                 sb.append("    public void fetchEntity(Class theClass, int depth) {\n");
                 sb.append("    }\n");
-            }
+            }*/
+            /*else if (baseClass != null && (!baseClass.equals("AbstractCatalogEntity") || !baseClass.equals("AbstractEntity"))) {
+                sb.append("    @Override\n");
+                sb.append("    @JsonIgnore\n");
+                sb.append("    public Logger getLogger() {\n");
+                sb.append("        return logger;\n");
+                sb.append("    }\n");
+            }*/
             sb.append("}\n");
             Files.createDirectories(Paths.get(outputDir));
             String filePath = Paths.get(outputDir, fileName).toString();
@@ -246,41 +354,38 @@ public class SchemaProcessor {
         }
 
     }
-
-    private boolean isEmbeddable(String schemaName) {
-        for (String embeddedName : configMap.get("Embeddable")) {
-            if (schemaName.equals(embeddedName)) return true;
+    private String shortenIdentifier(String name) {
+        // Thay thế các từ dài bằng từ viết tắt
+        int maxLength = 30;
+        String result = name;
+        for (Map.Entry<String, String> entry : ABBREVIATIONS.entrySet()) {
+            result = result.replaceAll(entry.getKey(), entry.getValue());
         }
-        return false;
-    }
 
+        // Nếu vẫn vượt quá độ dài tối đa, cắt chuỗi
+        if (result.length() > maxLength) {
+            result = result.substring(0, maxLength);
+            // Đảm bảo không cắt giữa dấu gạch dưới
+            int lastUnderscore = result.lastIndexOf('_');
+            if (lastUnderscore > 0 && lastUnderscore < maxLength - 1) {
+                result = result.substring(0, lastUnderscore);
+            }
+        }
+
+        return result;
+    }
     private boolean isRef(String schemaName) {
         schemaName = schemaName.replace("List<", "").replace(">", "");
-        for (String embeddedName : configMap.get("Ref")) {
-            if (schemaName.equals(embeddedName)) return true;
-        }
-        return false;
+        return isExítConfig("Ref",schemaName);
+    }
+    private boolean isEmbeddable(String schemaName) {
+        return isExítConfig("Embeddable",schemaName);
     }
 
     private boolean isAbstractCatalogEntity(String schemaName) {
-        for (String embeddedName : configMap.get("AbstractCatalogEntity")) {
-            if (schemaName.equals(embeddedName)) return true;
-        }
-        return false;
+        return isExítConfig("AbstractCatalogEntity",schemaName);
     }
 
-    private boolean isAbstractEntity(String schemaName) {
-        if (isAbstractCatalogEntity(schemaName) == false && isEmbeddable(schemaName) == false && schemaName.endsWith("Ref"))
-            return true;
-        return false;
-    }
-
-    private boolean isMappedSuperclass(String schemaName) {
-        for (String embeddedName : configMap.get("MappedSuperclass")) {
-            if (schemaName.equals(embeddedName)) return true;
-        }
-        return false;
-    }
 
     private void processReferencedSchemas(Schema schema, String outputDir, String parentSchemaName, String propertyName, String packageName, Set<String> visitedSchemas) throws IOException {
 
@@ -294,7 +399,7 @@ public class SchemaProcessor {
                 visitedSchemas.add(refSchemaName);
                 Schema refSchema = openAPI.getComponents().getSchemas().get(refSchemaName);
                 if (refSchema != null) {
-                    String refFileName = toCamelCase(refSchemaName, true) + ".java";
+                    String refFileName = renameEntity(refSchemaName, true) + ".java";
                     generateEntityClass(refSchemaName, refSchema, refFileName, outputDir, packageName, visitedSchemas);
                     generatedSchemas.add(refSchemaName);
                 }
@@ -337,17 +442,17 @@ public class SchemaProcessor {
                     visitedSchemas.add(refSchemaName);
                     Schema refSchema = openAPI.getComponents().getSchemas().get(refSchemaName);
                     if (refSchema != null) {
-                        String refFileName = toCamelCase(refSchemaName, true) + ".java";
+                        String refFileName = renameEntity(refSchemaName, true) + ".java";
                         generateEntityClass(refSchemaName, refSchema, refFileName, outputDir, packageName, new HashSet<>());
                         generatedSchemas.add(refSchemaName);
                     }
                     visitedSchemas.remove(refSchemaName);
                 }
             } else if (subSchema.getProperties() != null || subSchema.getAllOf() != null) {
-                String inlineSchemaName = parentSchemaName + toCamelCase(propertyName, true) + "Inline" + inlineSchemaCounter++;
+                String inlineSchemaName = parentSchemaName + renameEntity(propertyName, true) + "Inline" + inlineSchemaCounter++;
                 if (!visitedSchemas.contains(inlineSchemaName)) {
                     visitedSchemas.add(inlineSchemaName);
-                    String inlineFileName = toCamelCase(inlineSchemaName, true) + ".java";
+                    String inlineFileName = renameEntity(inlineSchemaName, true) + ".java";
                     generateEntityClass(inlineSchemaName, subSchema, inlineFileName, outputDir, packageName, new HashSet<>());
                     generatedSchemas.add(inlineSchemaName);
                     visitedSchemas.remove(inlineSchemaName);
@@ -359,7 +464,7 @@ public class SchemaProcessor {
     private String getJavaType(Schema schema, String parentSchemaName) {
         if (schema.get$ref() != null) {
             String ref = schema.get$ref().replace("#/components/schemas/", "");
-            return toCamelCase(ref, true);
+            return renameEntity(ref, true);
         }
         if (schema.getOneOf() != null || schema.getAnyOf() != null) {
             return "String";
@@ -408,9 +513,9 @@ public class SchemaProcessor {
         return false;
     }
 
-    private String toCamelCase(String name, boolean capitalizeFirst) {
+    private String renameEntity(String name, boolean capitalizeFirst) {
         if ("Entity".equals(name)) return "AbstractEntity";
-        if ("EntityRef".equals(name)) return "AbstractEntityRef";
+        if ("EntityRef".equals(name)) return "EntityRef";
         return name;
     }
 }

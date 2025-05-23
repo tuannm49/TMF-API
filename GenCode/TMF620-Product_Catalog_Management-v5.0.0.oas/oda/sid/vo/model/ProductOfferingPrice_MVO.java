@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,52 +22,47 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO")
     private List<ProductSpecificationCharacteristicValueUse_MVO> prodSpecCharValueUse;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO_popRel")
     private List<ProductOfferingPriceRelationship_MVO> popRelationship;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Quantity unitOfMeasure;
     private String lifecycleStatus;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private String priceType;
+    private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO_tax")
     private List<TaxItem_MVO> tax;
     private Integer recurringChargePeriodLength;
+    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO")
     private List<PricingLogicAlgorithm_MVO> pricingLogicAlgorithm;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private Money price;
     private Integer percentage;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO")
     private List<ExternalIdentifier_MVO> externalIdentifier;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_place", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_MVO_place")
     private List<PlaceRef_MVO> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO_bundledPopRel")
     private List<BundledProductOfferingPriceRelationship_MVO> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOfferingPrice_MVO_id")
+    @JoinTable(name = "ProdOffrPrc_MVO")
     private List<ProductOfferingTerm_MVO> productOfferingTerm;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_policy", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffrPrc_MVO_policy")
     private List<PolicyRef_MVO> policy;
 }

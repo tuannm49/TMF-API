@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -17,12 +18,10 @@ import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
 import oda.sid.tmf.model.base.*;
 
-@Embeddable
+@Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TargetProductSchema implements java.io.Serializable {
-    @JsonProperty("@type")
-    private String type;
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
+public class TargetProductSchema extends EntityRef implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
 }

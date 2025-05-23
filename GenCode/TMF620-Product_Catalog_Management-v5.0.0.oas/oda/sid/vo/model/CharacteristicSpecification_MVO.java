@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,8 +22,9 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CharacteristicSpecification_MVO extends Extensible implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     @JsonProperty("@valueSchemaLocation")
     private String valueSchemaLocation;
@@ -33,10 +35,10 @@ public class CharacteristicSpecification_MVO extends Extensible implements java.
     private String regex;
     private String valueType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CharacteristicSpecification_MVO_id")
+    @JoinTable(name = "CharSpec_MVO_charSpecRel")
     private List<CharacteristicSpecificationRelationship_MVO> charSpecRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CharacteristicSpecification_MVO_id")
+    @JoinTable(name = "CharSpec_MVO")
     private List<CharacteristicValueSpecification_MVO> characteristicValueSpecification;
     private String name;
     @Id

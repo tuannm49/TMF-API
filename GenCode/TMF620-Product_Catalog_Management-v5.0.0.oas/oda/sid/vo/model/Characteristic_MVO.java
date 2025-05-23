@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,13 +22,15 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Characteristic_MVO extends Extensible implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private String name;
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Characteristic_MVO_id")
+    @JoinTable(name = "Char_MVO_characteristicRel")
     private List<CharacteristicRelationship_MVO> characteristicRelationship;
     private String valueType;
 }

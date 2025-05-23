@@ -16,9 +16,9 @@ import org.glassfish.jersey.client.ClientProperties;
  * @author bahman.barzideh
  *
  */
-public class CatalogClient {
+public class EntityClient {
 
-    private CatalogClient() {
+    private EntityClient() {
     }
 
     public static Object getObject(String href, Class theClass, int depth) {

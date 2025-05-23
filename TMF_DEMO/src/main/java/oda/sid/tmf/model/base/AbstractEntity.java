@@ -21,24 +21,13 @@ import java.util.logging.Logger;
 @MappedSuperclass
 @Data
 public abstract class AbstractEntity implements Serializable {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-
-
-//    @Id
-//    @Column(name = "VERSION", nullable = false)
-//    @VersionProperty
-//    private String version;
-//
-//    @Transient
-//    @JsonIgnore
-//    private ParsedVersion parsedVersion;
-
     private String href;
     private String name;
-    private String description;
     @JsonProperty("@type")
     private String type;
     @JsonProperty("@baseType")
@@ -47,17 +36,6 @@ public abstract class AbstractEntity implements Serializable {
     private String schemaLocation;
     @JsonProperty("@referredType")
     private String referredType;
-    private String version;
-//    @Column(name = "LAST_UPDATE", nullable = true)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date lastUpdate;
-//
-//    @Column(name = "LIFECYCLE_STATUS", nullable = true)
-//    private LifecycleStatus lifecycleStatus;
-//
-//    private TimePeriod validFor;
-
-
-
-
+    protected AbstractEntity() {
+    }
 }

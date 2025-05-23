@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,135 +22,71 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductOffering extends AbstractCatalogEntity implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name = "productSpecification_id")),
-            @AttributeOverride(name="name", column=@Column(name = "productSpecification_name")),
-            @AttributeOverride(name="version", column=@Column(name = "productSpecification_version")),
-            @AttributeOverride(name="href", column=@Column(name = "productSpecification_href")),
-            @AttributeOverride(name="type", column=@Column(name = "productSpecification_type")),
-            @AttributeOverride(name="baseType", column=@Column(name = "productSpecification_baseType")),
-            @AttributeOverride(name="referredType", column=@Column(name = "productSpecification_referredType")),
-            @AttributeOverride(name="schemaLocation", column=@Column(name = "productSpecification_schemaLocation"))
-    })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private ProductSpecificationRef productSpecification;
     private String lifecycleStatus;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name = "serviceCandidate_id")),
-            @AttributeOverride(name="name", column=@Column(name = "serviceCandidate_name")),
-            @AttributeOverride(name="version", column=@Column(name = "serviceCandidate_version")),
-            @AttributeOverride(name="href", column=@Column(name = "serviceCandidate_href")),
-            @AttributeOverride(name="type", column=@Column(name = "serviceCandidate_type")),
-            @AttributeOverride(name="baseType", column=@Column(name = "serviceCandidate_baseType")),
-            @AttributeOverride(name="referredType", column=@Column(name = "serviceCandidate_referredType")),
-            @AttributeOverride(name="schemaLocation", column=@Column(name = "serviceCandidate_schemaLocation"))
-    })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private ServiceCandidateRef serviceCandidate;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_channel", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
-    private List<ChannelRef> channel;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_channel")
+    private List<ChannelRef> channel;
+    private String description;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_productOffrChar")
     private List<CharacteristicSpecification> productOfferingCharacteristic;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_productOfferingPrice", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_productOffrPrc")
     private List<ProductOfferingPriceRefOrValue> productOfferingPrice;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name = "resourceCandidate_id")),
-            @AttributeOverride(name="name", column=@Column(name = "resourceCandidate_name")),
-            @AttributeOverride(name="version", column=@Column(name = "resourceCandidate_version")),
-            @AttributeOverride(name="href", column=@Column(name = "resourceCandidate_href")),
-            @AttributeOverride(name="type", column=@Column(name = "resourceCandidate_type")),
-            @AttributeOverride(name="baseType", column=@Column(name = "resourceCandidate_baseType")),
-            @AttributeOverride(name="referredType", column=@Column(name = "resourceCandidate_referredType")),
-            @AttributeOverride(name="schemaLocation", column=@Column(name = "resourceCandidate_schemaLocation"))
-    })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private ResourceCandidateRef resourceCandidate;
     private String statusReason;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_bundledProdOffr")
     private List<BundledProductOffering> bundledProductOffering;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_attachment", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_attachment")
     private List<AttachmentRefOrValue> attachment;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_externalIdentifier")
     private List<ExternalIdentifier> externalIdentifier;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_place", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_place")
     private List<PlaceRef> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_productOffrTerm")
     private List<ProductOfferingTerm> productOfferingTerm;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_marketSegment", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_marketSegment")
     private List<MarketSegmentRef> marketSegment;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_policy", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_policy")
     private List<PolicyRef> policy;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_prodSpecCharValUse")
     private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_agreement", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_agreement")
     private List<AgreementRef> agreement;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
     private Boolean isSellable;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_allowedAction")
     private List<AllowedProductAction> allowedAction;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name = "serviceLevelAgreement_id")),
-            @AttributeOverride(name="name", column=@Column(name = "serviceLevelAgreement_name")),
-            @AttributeOverride(name="version", column=@Column(name = "serviceLevelAgreement_version")),
-            @AttributeOverride(name="href", column=@Column(name = "serviceLevelAgreement_href")),
-            @AttributeOverride(name="type", column=@Column(name = "serviceLevelAgreement_type")),
-            @AttributeOverride(name="baseType", column=@Column(name = "serviceLevelAgreement_baseType")),
-            @AttributeOverride(name="referredType", column=@Column(name = "serviceLevelAgreement_referredType")),
-            @AttributeOverride(name="schemaLocation", column=@Column(name = "serviceLevelAgreement_schemaLocation"))
-    })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private SLARef serviceLevelAgreement;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_productOfferingRelationship", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    private String version;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_productOffrRel")
     private List<ProductOfferingRelationship> productOfferingRelationship;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductOffering_id")
+    @JoinTable(name = "ProdOffr_bundledGroupProdOffr")
     private List<BundledGroupProductOffering> bundledGroupProductOffering;
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_category", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdOffr_category")
     private List<CategoryRef> category;
 }

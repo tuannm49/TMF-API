@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,10 +22,9 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductCatalog_FVO extends Catalog_FVO implements java.io.Serializable {
-    @ElementCollection
-    @CollectionTable(name = "ProductOffering_category", joinColumns = {
-            @JoinColumn(name = "REF_ID",referencedColumnName = "id"),
-            @JoinColumn(name = "REF_TYPE",referencedColumnName = "type")
-    })
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ProdCat_FVO_category")
     private List<CategoryRef_FVO> category;
 }

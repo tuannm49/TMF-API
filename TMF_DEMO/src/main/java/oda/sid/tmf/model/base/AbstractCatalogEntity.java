@@ -1,7 +1,6 @@
 package oda.sid.tmf.model.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import oda.sid.tmf.model.base.annotation.VersionProperty;
 
 import jakarta.persistence.*;
@@ -13,19 +12,20 @@ import java.io.Serializable;
  *
  */
 @MappedSuperclass
-@Data
 public abstract class AbstractCatalogEntity extends AbstractEntity implements Serializable {
 
     public final static String ROOT_CATALOG_ID = "";
-/*
-    @Column(name = "CATALOG_ID", nullable = true)
-    @JsonIgnore
-    private String catalogId;
 
-    @Column(name = "CATALOG_VERSION", nullable = true)
+    @Id
+    @Column(name = "catalog_id", nullable = false)
+    @JsonIgnore
+    private String catalogId = "1";
+
+    @Id
+    @Column(name = "catalog_version", nullable = false)
     @JsonIgnore
     @VersionProperty
-    private String catalogVersion;
+    private String catalogVersion = "1.0";
 
     @Transient
     @JsonIgnore
@@ -99,12 +99,6 @@ public abstract class AbstractCatalogEntity extends AbstractEntity implements Se
     }
 
 
-    public void configureCatalogIdentifier(){
-        setCatalogId (ROOT_CATALOG_ID);
-        setParsedCatalogVersion(ParsedVersion.ROOT_CATALOG_VERSION);
-    }
-
-
     private void loadCatalogVersions(String catalogVersion) {
         if (ParsedVersion.ROOT_CATALOG_VERSION.getInternalView().equals(catalogVersion) == true) {
             this.parsedCatalogVersion = ParsedVersion.ROOT_CATALOG_VERSION;
@@ -120,6 +114,6 @@ public abstract class AbstractCatalogEntity extends AbstractEntity implements Se
 
         this.parsedCatalogVersion = new ParsedVersion(catalogVersion);
         this.catalogVersion = this.parsedCatalogVersion.getInternalView();
-    }*/
+    }
 
 }

@@ -12,9 +12,10 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
-        <module name="TMF_DEMO" />
         <module name="TMF638" />
+        <module name="OrchestrationEngine" />
         <module name="TMF_CODE_GEN" />
+        <module name="TMF_DEMO" />
       </profile>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -25,6 +26,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="OrchestrationEngine" options="-parameters" />
       <module name="TMF638" options="-parameters" />
       <module name="TMF_CODE_GEN" options="-parameters" />
       <module name="TMF_DEMO" options="-parameters" />

@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -21,13 +22,14 @@ import oda.sid.tmf.model.base.*;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BundledGroupProductOffering_FVO extends Extensible_FVO implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "BundledGroupProductOffering_FVO_id")
+    @JoinTable(name = "BndlGroupProdOffr_FVO")
     private List<BundledGroupProductOffering_FVO> bundledGroupProductOffering;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "BundledGroupProductOffering_FVO_id")
+    @JoinTable(name = "BndlGroupProdOffr_FVO")
     private List<BundledProductOffering_FVO> bundledProductOffering;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "bundledGroupProductOfferingOption_id")
     private BundledGroupProductOfferingOption_FVO bundledGroupProductOfferingOption;
 }

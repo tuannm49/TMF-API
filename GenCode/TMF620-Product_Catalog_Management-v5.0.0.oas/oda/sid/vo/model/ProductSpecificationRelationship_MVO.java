@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
+import java.util.logging.Logger;
 import oda.sid.tmf.model.others.*;
 import oda.sid.tmf.model.common.*;
 import oda.sid.tmf.model.customer.*;
@@ -17,18 +18,17 @@ import oda.sid.tmf.model.sale.*;
 import oda.sid.tmf.model.service.*;
 import oda.sid.tmf.model.base.*;
 
-@Embeddable
+@Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductSpecificationRelationship_MVO extends AbstractEntityRef implements java.io.Serializable {
+public class ProductSpecificationRelationship_MVO extends EntityRef implements java.io.Serializable {
+    private final static long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private String relationshipType;
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name="type", column=@Column(name = "target_type")),@AttributeOverride(name="schemaLocation", column=@Column(name = "target_schemaLocation"))})
     private TimePeriod validFor;
+    private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ProductSpecificationRelationship_MVO_id")
+    @JoinTable(name = "ProdSpecRel_MVO_characteristic")
     private List<CharacteristicSpecification_MVO> characteristic;
-    @Override
-    public void fetchEntity(Class theClass, int depth) {
-    }
 }

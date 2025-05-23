@@ -5,7 +5,7 @@
     "RelatedParty","Quantity","Money","Duration","Attachment","Extensible"
   ],
   "Embeddable": [
-    "TimePeriod","Duration","Money","Quantity","TargetProductSchema"
+    "TimePeriod","Duration","Money","Quantity"
   ],
   "MappedSuperclass": [
     "Entity","EntityRef","AbstractEntity","AbstractEntityRef","Extensible","Addressable"
@@ -14,6 +14,6 @@
     "Category","ProductOffering","ProductSpecification","ResourceCandidate","ResourceSpecification","ServiceCandidate","ServiceSpecification"
   ],
   "Ref": [
-    "ProductOfferingRelationship","ProductOfferingPriceRelationship","BundledProductOfferingPriceRelationship"
+    "*Ref","*RefOrValue*","ProductOfferingRelationship","ProductOfferingPriceRelationship","BundledProductOfferingPriceRelationship","TargetProductSchema"
   ]
 }

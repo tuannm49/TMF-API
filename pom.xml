@@ -17,6 +17,7 @@
         <module>TMF638</module>
         <module>TMF_DEMO</module>
         <module>TMF_CODE_GEN</module>
+        <module>OrchestrationEngine</module>
     </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
