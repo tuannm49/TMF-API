@@ -1,22 +1,14 @@
 package oda.sid.tmf.model.product;
 
-import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.*;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
+
 import java.util.List;
-import java.util.Date;
 import java.util.logging.Logger;
-import oda.sid.tmf.model.others.*;
-import oda.sid.tmf.model.common.*;
-import oda.sid.tmf.model.customer.*;
-import oda.sid.tmf.model.party.*;
-import oda.sid.tmf.model.product.*;
-import oda.sid.tmf.model.resource.*;
-import oda.sid.tmf.model.sale.*;
-import oda.sid.tmf.model.service.*;
-import oda.sid.tmf.model.base.*;
 
 @Entity
 @Data

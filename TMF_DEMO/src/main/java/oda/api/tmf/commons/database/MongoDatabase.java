@@ -1,8 +1,8 @@
 package oda.api.tmf.commons.database;
 
-import oda.api.tmf.commons.utils.YamlConfigLoader;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import oda.api.tmf.commons.utils.YamlConfigLoader;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.Map;

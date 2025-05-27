@@ -1,8 +1,8 @@
 package oda.api.tmf.commons.database;
 
-import oda.api.tmf.commons.utils.YamlConfigLoader;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
+import oda.api.tmf.commons.utils.YamlConfigLoader;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 

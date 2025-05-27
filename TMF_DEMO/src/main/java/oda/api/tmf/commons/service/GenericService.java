@@ -1,7 +1,7 @@
 package oda.api.tmf.commons.service;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
-import oda.api.tmf.commons.base.ClassFields;
 import oda.api.tmf.commons.base.ReferencedEntityGetter;
 import oda.api.tmf.commons.database.DbmsDatabase;
 import oda.api.tmf.commons.database.MongoDatabase;
@@ -10,8 +10,6 @@ import oda.api.tmf.commons.exceptions.UnknownResourceException;
 import oda.api.tmf.commons.repository.DbmsRepository;
 import oda.api.tmf.commons.repository.GenericRepository;
 import oda.api.tmf.commons.repository.MongoRepository;
-import jakarta.persistence.EntityManagerFactory;
-import oda.sid.tmf.model.product.ProductOffering;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.Path;
