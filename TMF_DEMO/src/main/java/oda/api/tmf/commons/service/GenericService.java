@@ -71,8 +71,8 @@ public class GenericService<T> {
      * @param entity the entity to create
      * @throws BadUsageException if the operation fails due to invalid usage
      */
-    public T create(T entity,UriInfo uriInfo) throws BadUsageException {
-        entity = addHref(entity,uriInfo);
+    public T create(T entity,URI uri) throws BadUsageException {
+        entity = addHref(entity,uri);
         return repository.create(entity);
     }
 
@@ -153,8 +153,7 @@ public class GenericService<T> {
     public List<T> findByCriteria(Map<String, List<String>> map) {
         return repository.findByCriteria(map, entityClass);
     }
-    public String buildHref(UriInfo uriInfo, String id) {
-        URI uri = (uriInfo != null) ? uriInfo.getBaseUri() : null;
+    public String buildHref(URI uri, String id) {
         String basePath = (uri != null) ? uri.toString() : null;
         if (basePath == null) {
             return null;
@@ -193,7 +192,7 @@ public class GenericService<T> {
     protected void getReferencedEntities(Set<T> entities, int depth) {
         referencedEntityGetter.getReferencedEntities(entities, depth);
     }
-    private T addHref(T entity,UriInfo uriInfo){
+    private T addHref(T entity,URI uriInfo){
         try {
             // Lấy class của entity
             Class<?> clazz = entity.getClass();
