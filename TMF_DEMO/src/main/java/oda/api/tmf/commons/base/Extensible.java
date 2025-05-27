@@ -1,0 +1,18 @@
+package oda.api.tmf.commons.base;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Data;
+
+@MappedSuperclass
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Extensible implements java.io.Serializable {
+    @JsonProperty("@type")
+    private String type;
+    @JsonProperty("@baseType")
+    private String baseType;
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
+}

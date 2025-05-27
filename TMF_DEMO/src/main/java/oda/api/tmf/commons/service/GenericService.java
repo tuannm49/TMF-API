@@ -1,5 +1,8 @@
 package oda.api.tmf.commons.service;
 
+import lombok.extern.slf4j.Slf4j;
+import oda.api.tmf.commons.base.ClassFields;
+import oda.api.tmf.commons.base.ReferencedEntityGetter;
 import oda.api.tmf.commons.database.DbmsDatabase;
 import oda.api.tmf.commons.database.MongoDatabase;
 import oda.api.tmf.commons.exceptions.BadUsageException;
@@ -8,31 +11,40 @@ import oda.api.tmf.commons.repository.DbmsRepository;
 import oda.api.tmf.commons.repository.GenericRepository;
 import oda.api.tmf.commons.repository.MongoRepository;
 import jakarta.persistence.EntityManagerFactory;
+import oda.sid.tmf.model.product.ProductOffering;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.ws.rs.Path;
+import javax.ws.rs.core.UriInfo;
+import java.lang.reflect.Field;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Generic service class for CRUD operations and querying entities.
  *
  * @param <T> the type of the entity
  */
+@Slf4j
 public class GenericService<T> {
 
     private GenericRepository<T> repository;
     private Class<T> entityClass;
     private final String dbType;
+    private final ReferencedEntityGetter<T> referencedEntityGetter;
 
     /**
      * Constructor for GenericService.
      *
-     * @param repository  the GenericRepository instance
+     * @param dbType  the GenericRepository instance
      * @param entityClass the class of the entity
      */
-    public GenericService(String dbType,Class<T> entityClass) {
+    public GenericService(String dbType, Class<T> entityClass) {
         this.dbType = dbType;
         this.entityClass = entityClass;
+        this.referencedEntityGetter = new ReferencedEntityGetter<>(entityClass);;
         if("mysql".equals(dbType)){
             EntityManagerFactory entityManagerFactory =  DbmsDatabase.entityManagerFactory();
             repository = (GenericRepository<T>) new DbmsRepository<>(entityManagerFactory.createEntityManager(),entityClass);
@@ -51,6 +63,7 @@ public class GenericService<T> {
      * @throws BadUsageException if the operation fails due to invalid usage
      */
     public int create(List<T> entities) throws BadUsageException {
+
         return repository.create(entities);
     }
 
@@ -60,7 +73,8 @@ public class GenericService<T> {
      * @param entity the entity to create
      * @throws BadUsageException if the operation fails due to invalid usage
      */
-    public T create(T entity) throws BadUsageException {
+    public T create(T entity,UriInfo uriInfo) throws BadUsageException {
+        entity = addHref(entity,uriInfo);
         return repository.create(entity);
     }
 
@@ -141,4 +155,76 @@ public class GenericService<T> {
     public List<T> findByCriteria(Map<String, List<String>> map) {
         return repository.findByCriteria(map, entityClass);
     }
+    public String buildHref(UriInfo uriInfo, String id) {
+        URI uri = (uriInfo != null) ? uriInfo.getBaseUri() : null;
+        String basePath = (uri != null) ? uri.toString() : null;
+        if (basePath == null) {
+            return null;
+        }
+
+        if (basePath.endsWith("/") == false) {
+            basePath += "/";
+        }
+
+        basePath += getRelativeEntityContext() + "/";
+        if (id == null || id.length() <= 0) {
+            return (basePath);
+        }
+
+        basePath += id;
+
+        return basePath;
+    }
+    public String getRelativeEntityContext() {
+        Path path = getClass().getAnnotation(Path.class);
+        String value = (path != null) ? path.value() :  null;
+        if (value == null) {
+            return null;
+        }
+
+        int index = value.lastIndexOf("/");
+        return (index >= 0) ? value.substring(index + 1) : value;
+    }
+    protected void getReferencedEntities(T entity, int depth) {
+        referencedEntityGetter.getReferencedEntities(entity, depth);
+    }
+
+    /*
+     *
+     */
+    protected void getReferencedEntities(Set<T> entities, int depth) {
+        referencedEntityGetter.getReferencedEntities(entities, depth);
+    }
+    private T addHref(T entity,UriInfo uriInfo){
+        try {
+            // Lấy class của entity
+            Class<?> clazz = entity.getClass();
+
+            // Tìm field href
+            Field hrefField = clazz.getDeclaredField("href");
+            // Tìm field id
+            Field idField = clazz.getDeclaredField("id");
+            // Cho phép truy cập private field
+            hrefField.setAccessible(true);
+            // Cho phép truy cập private id
+            idField.setAccessible(true);
+
+            // Gán giá trị cho field href (giả sử href là String)
+            String hrefValue = buildHref(uriInfo,idField.get(entity).toString()); // Hàm để tạo giá trị href
+            hrefField.set(entity, hrefValue);
+
+        } catch (NoSuchFieldException e) {
+            // Xử lý nếu entity không có field href
+            throw new IllegalArgumentException("Entity must have an href field", e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Cannot set href field", e);
+        }
+
+        // Thực hiện logic khác, ví dụ lưu entity vào database
+        // saveToDatabase(entity);
+
+        return entity;
+    }
+
+
 }
