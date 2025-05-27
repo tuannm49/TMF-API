@@ -11,6 +11,7 @@ import oda.api.tmf.commons.repository.DbmsRepository;
 import oda.api.tmf.commons.repository.GenericRepository;
 import oda.api.tmf.commons.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.UriInfo;
@@ -71,9 +72,10 @@ public class GenericService<T> {
      * @param entity the entity to create
      * @throws BadUsageException if the operation fails due to invalid usage
      */
-    public T create(T entity,URI uri) throws BadUsageException {
-        entity = addHref(entity,uri);
-        return repository.create(entity);
+    public T create(T entity, String url) throws BadUsageException,UnknownResourceException {
+        T object = repository.create(entity);
+        object = addHref(object,url);
+        return update(object);
     }
 
     /**
@@ -153,24 +155,23 @@ public class GenericService<T> {
     public List<T> findByCriteria(Map<String, List<String>> map) {
         return repository.findByCriteria(map, entityClass);
     }
-    public String buildHref(URI uri, String id) {
-        String basePath = (uri != null) ? uri.toString() : null;
-        if (basePath == null) {
+    public String buildHref(String url, String id) {
+        if (url == null) {
             return null;
         }
 
-        if (basePath.endsWith("/") == false) {
-            basePath += "/";
+        if (url.endsWith("/") == false) {
+            url += "/";
         }
 
-        basePath += getRelativeEntityContext() + "/";
+//        url += getRelativeEntityContext() + "/";
         if (id == null || id.length() <= 0) {
-            return (basePath);
+            return (url);
         }
 
-        basePath += id;
+        url += id;
 
-        return basePath;
+        return url;
     }
     public String getRelativeEntityContext() {
         Path path = getClass().getAnnotation(Path.class);
@@ -192,27 +193,25 @@ public class GenericService<T> {
     protected void getReferencedEntities(Set<T> entities, int depth) {
         referencedEntityGetter.getReferencedEntities(entities, depth);
     }
-    private T addHref(T entity,URI uriInfo){
+    private T addHref(T entity,String url){
         try {
             // Lấy class của entity
             Class<?> clazz = entity.getClass();
 
             // Tìm field href
-            Field hrefField = clazz.getDeclaredField("href");
+//            Field hrefField = clazz.getField("href");
+            Field hrefField = findFieldInHierarchy(clazz, "href");
             // Tìm field id
-            Field idField = clazz.getDeclaredField("id");
+            Field idField = findFieldInHierarchy(clazz, "id");
             // Cho phép truy cập private field
             hrefField.setAccessible(true);
             // Cho phép truy cập private id
             idField.setAccessible(true);
 
             // Gán giá trị cho field href (giả sử href là String)
-            String hrefValue = buildHref(uriInfo,idField.get(entity).toString()); // Hàm để tạo giá trị href
+            String hrefValue = buildHref(url,idField.get(entity).toString()); // Hàm để tạo giá trị href
             hrefField.set(entity, hrefValue);
 
-        } catch (NoSuchFieldException e) {
-            // Xử lý nếu entity không có field href
-            throw new IllegalArgumentException("Entity must have an href field", e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Cannot set href field", e);
         }
@@ -222,6 +221,16 @@ public class GenericService<T> {
 
         return entity;
     }
-
+    private Field findFieldInHierarchy(Class<?> clazz, String fieldName) {
+        Class<?> current = clazz;
+        while (current != null) {
+            try {
+                return current.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+                current = current.getSuperclass(); // Tìm trong superclass
+            }
+        }
+        return null; // Không tìm thấy field
+    }
 
 }

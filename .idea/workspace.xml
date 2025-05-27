@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="383d3599-51f7-46bc-8f34-4348afb1ee5c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/service/GenericService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/service/GenericService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/controller/ProductController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,10 +56,10 @@
     "Application.Application.executor": "Run",
     "Application.CodeGenerator.executor": "Run",
     "Application.DirectoryScanner.executor": "Run",
-    "Application.Main (1).executor": "Run",
+    "Application.Main (1).executor": "Debug",
     "Application.Main.executor": "Run",
     "Application.OpenAPISchemaExtractor.executor": "Run",
-    "Application.oda.Application.executor": "Run",
+    "Application.oda.Application.executor": "Debug",
     "Application.oda.api.tmf.codegen.CodeGenerator.executor": "Debug",
     "Docker.docker: Compose Deployment.executor": "Run",
     "Maven.OrchestrationEngine [compile].executor": "Run",
@@ -101,7 +103,7 @@
       <recent name="com.example.commons.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.oda.Application">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="OrchestrationEngine" />
@@ -180,9 +182,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.oda.Application" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.oda.Application" />
         <item itemvalue="Application.oda.api.tmf.codegen.CodeGenerator" />
         <item itemvalue="Application.OpenAPISchemaExtractor" />
       </list>
@@ -198,5 +200,26 @@
       <updated>1747044766887</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/controller/ProductSpecificationController.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/service/GenericService.java</url>
+          <line>212</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TMF_DEMO/src/main/java/oda/api/tmf/commons/service/GenericService.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
