@@ -3,7 +3,8 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.api.tmf.commons.base.Extensible;
+import oda.api.tmf.commons.base.TimePeriod;
 import oda.sid.tmf.model.common.ChannelRef;
 import org.hibernate.annotations.GenericGenerator;
 

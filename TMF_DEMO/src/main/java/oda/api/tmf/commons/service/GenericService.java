@@ -10,6 +10,7 @@ import oda.api.tmf.commons.exceptions.UnknownResourceException;
 import oda.api.tmf.commons.repository.DbmsRepository;
 import oda.api.tmf.commons.repository.GenericRepository;
 import oda.api.tmf.commons.repository.MongoRepository;
+import oda.sid.tmf.model.base.CatalogEntityId;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,7 +34,7 @@ public class GenericService<T> {
     private Class<T> entityClass;
     private final String dbType;
     private final ReferencedEntityGetter<T> referencedEntityGetter;
-
+    private CatalogEntityId catalogEntityId = null;
     /**
      * Constructor for GenericService.
      *
@@ -49,6 +50,10 @@ public class GenericService<T> {
             repository = (GenericRepository<T>) new DbmsRepository<>(entityManagerFactory.createEntityManager(),entityClass);
         }else{
             repository = (GenericRepository<T>) new MongoRepository<>(MongoDatabase.mongoTemplate(),entityClass);
+        }
+        Class<?> superClass = entityClass.getSuperclass();
+        if(superClass.getName().endsWith("AbstractCatalogEntity")){
+            catalogEntityId = new CatalogEntityId();
         }
     }
 
@@ -96,8 +101,9 @@ public class GenericService<T> {
      * @param id the ID of the entity to delete
      * @throws UnknownResourceException if the entity is not found
      */
-    public void delete(Object id) throws UnknownResourceException {
-        repository.remove(id);
+    public void delete(String id) throws UnknownResourceException {
+        catalogEntityId.setId(id);
+        repository.remove(catalogEntityId);
     }
 
     /**
@@ -114,8 +120,9 @@ public class GenericService<T> {
      * @return the found entity
      * @throws UnknownResourceException if the entity is not found
      */
-    public T findById(Object id) throws UnknownResourceException {
-        return repository.find(id);
+    public T findById(String id) throws UnknownResourceException {
+        catalogEntityId.setId(id);
+        return repository.find(catalogEntityId);
     }
 
     /**

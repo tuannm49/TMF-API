@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 @Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@IdClass(CatalogEntityId.class)
 public class ProductSpecification extends AbstractCatalogEntity implements java.io.Serializable {
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());

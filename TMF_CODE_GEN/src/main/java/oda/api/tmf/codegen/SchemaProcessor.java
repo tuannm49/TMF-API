@@ -2,6 +2,7 @@ package oda.api.tmf.codegen;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
+import jakarta.persistence.IdClass;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -217,6 +218,9 @@ public class SchemaProcessor {
 
             sb.append("@Data\n");
             sb.append("@JsonInclude(JsonInclude.Include.NON_NULL)\n");
+            if (isAbstractCatalogEntity(schemaName)) {
+                sb.append("@IdClass(CatalogEntityId.class)\n");
+            }
             sb.append("public class ").append(className);
             if (baseClass != null) {
                 sb.append(" extends ").append(baseClass);
