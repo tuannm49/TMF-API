@@ -3,14 +3,12 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
-import oda.sid.tmf.model.common.AttachmentRefOrValue;
+import oda.sid.tmf.model.base.AbstractCatalogEntity;
+import oda.sid.tmf.model.base.CatalogEntityId;
+import oda.sid.tmf.model.base.EntityRef;
+import oda.sid.tmf.model.base.TimePeriod;
 import oda.sid.tmf.model.common.CharacteristicSpecification;
 import oda.sid.tmf.model.others.ExternalIdentifier;
-import oda.sid.tmf.model.others.IntentSpecificationRef;
-import oda.sid.tmf.model.party.RelatedPartyRefOrPartyRoleRef;
-import oda.sid.tmf.model.resource.ResourceSpecificationRef;
-import oda.sid.tmf.model.service.ServiceSpecificationRef;
 
 import java.util.Date;
 import java.util.List;
@@ -25,45 +23,45 @@ public class ProductSpecification extends AbstractCatalogEntity implements java.
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_productSpecChar")
+    @JoinTable(name = "CharacteristicSpecification")
     private List<CharacteristicSpecification> productSpecCharacteristic;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private IntentSpecificationRef intentSpecification;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private TargetProductSchema targetProductSchema;
+    @OneToOne
+    private EntityRef intentSpecification;
+    @OneToOne
+    private EntityRef targetProductSchema;
     private String lifecycleStatus;
     @Embedded
     private TimePeriod validFor;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_serviceSpec")
-    private List<ServiceSpecificationRef> serviceSpecification;
+    @JoinTable(name = "serviceSpecification_ServiceSpecificationRef")
+    private List<EntityRef> serviceSpecification;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_resourceSpec")
-    private List<ResourceSpecificationRef> resourceSpecification;
+    @JoinTable(name = "resourceSpecification_ResourceSpecificationRef")
+    private List<EntityRef> resourceSpecification;
     private String description;
     private String productNumber;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_relatedPty")
-    private List<RelatedPartyRefOrPartyRoleRef> relatedParty;
+    @JoinTable(name = "relatedParty_RelatedPartyRefOrPartyRoleRef")
+    private List<EntityRef> relatedParty;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_attachment")
-    private List<AttachmentRefOrValue> attachment;
+    @JoinTable(name = "attachment_AttachmentRefOrValue")
+    private List<EntityRef> attachment;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_bundledProdSpec")
+    @JoinTable(name = "BundledProductSpecification")
     private List<BundledProductSpecification> bundledProductSpecification;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_productSpecRel")
+    @JoinTable(name = "ProductSpecificationRelationship")
     private List<ProductSpecificationRelationship> productSpecificationRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_externalIdentifier")
+    @JoinTable(name = "ExternalIdentifier")
     private List<ExternalIdentifier> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_category")
-    private List<CategoryRef> category;
+    @JoinTable(name = "category_CategoryRef")
+    private List<EntityRef> category;
     private String brand;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_policy")
-    private List<PolicyRef> policy;
+    @JoinTable(name = "policy_PolicyRef")
+    private List<EntityRef> policy;
 }

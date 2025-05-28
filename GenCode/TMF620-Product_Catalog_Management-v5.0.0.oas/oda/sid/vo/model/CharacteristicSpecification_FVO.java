@@ -35,10 +35,10 @@ public class CharacteristicSpecification_FVO extends Extensible_FVO implements j
     private String regex;
     private String valueType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_FVO_charSpecRel")
+    @JoinTable(name = "CharacteristicSpecificationRelationship_FVO")
     private List<CharacteristicSpecificationRelationship_FVO> charSpecRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_FVO")
+    @JoinTable(name = "CharacteristicValueSpecification_FVO")
     private List<CharacteristicValueSpecification_FVO> characteristicValueSpecification;
     private Boolean extensible;
     private Boolean configurable;

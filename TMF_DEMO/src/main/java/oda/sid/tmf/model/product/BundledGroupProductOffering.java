@@ -3,7 +3,7 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.Extensible;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
@@ -17,14 +17,14 @@ public class BundledGroupProductOffering extends Extensible implements java.io.S
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private String name;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr")
+    @JoinTable(name = "BundledGroupProductOffering")
     private List<BundledGroupProductOffering> bundledGroupProductOffering;
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr")
+    @JoinTable(name = "BundledProductOffering")
     private List<BundledProductOffering> bundledProductOffering;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private BundledGroupProductOfferingOption bundledGroupProductOfferingOption;

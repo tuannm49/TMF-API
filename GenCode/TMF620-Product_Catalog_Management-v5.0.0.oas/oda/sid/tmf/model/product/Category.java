@@ -21,19 +21,20 @@ import oda.sid.tmf.model.base.*;
 @Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@IdClass(CatalogEntityId.class)
 public class Category extends AbstractCatalogEntity implements java.io.Serializable {
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private CategoryRef parent;
+    @OneToOne
+    private EntityRef parent;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Catg_subCatg")
-    private List<CategoryRef> subCategory;
+    @JoinTable(name = "subCategory_CategoryRef")
+    private List<EntityRef> subCategory;
     private Boolean isRoot;
     private String lifecycleStatus;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Catg_productOffr")
-    private List<ProductOfferingRef> productOffering;
+    @JoinTable(name = "productOffering_ProductOfferingRef")
+    private List<EntityRef> productOffering;
     @Embedded
     private TimePeriod validFor;
     private Date lastUpdate;

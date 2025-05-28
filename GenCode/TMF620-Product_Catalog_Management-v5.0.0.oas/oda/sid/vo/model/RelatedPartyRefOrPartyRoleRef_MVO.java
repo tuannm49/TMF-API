@@ -27,7 +27,8 @@ public class RelatedPartyRefOrPartyRoleRef_MVO extends Extensible implements jav
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private String id;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private PartyRefOrPartyRoleRef_MVO partyOrPartyRole;
     private String role;
 }

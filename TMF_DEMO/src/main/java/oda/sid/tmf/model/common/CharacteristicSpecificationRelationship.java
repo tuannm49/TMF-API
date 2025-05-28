@@ -6,7 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.Extensible;
+import oda.sid.tmf.model.base.TimePeriod;
 import oda.sid.tmf.model.product.Catalog;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,7 +22,8 @@ public class CharacteristicSpecificationRelationship extends Extensible implemen
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private String name;
+    private String id;
+    private String name;
     private String characteristicSpecificationId;
     private String relationshipType;
     private String parentSpecificationHref;

@@ -28,6 +28,6 @@ spring:
     jackson:
         serialization:
             write-dates-as-timestamps:  false
-#logging:
-#    level:
-#        org.hibernate.orm.jdbc.bind: TRACE
+logging:
+    level:
+        org.hibernate.orm.jdbc.bind: TRACE

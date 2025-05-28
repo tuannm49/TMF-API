@@ -27,7 +27,8 @@ public class BundledProductOfferingOption extends Extensible implements java.io.
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private Integer numberRelOfferDefault;
+    private String id;
+    private Integer numberRelOfferDefault;
     private Integer numberRelOfferLowerLimit;
     private Integer numberRelOfferUpperLimit;
 }

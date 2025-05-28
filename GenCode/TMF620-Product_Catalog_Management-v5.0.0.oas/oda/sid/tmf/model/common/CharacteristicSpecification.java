@@ -35,10 +35,10 @@ public class CharacteristicSpecification extends Extensible implements java.io.S
     private String regex;
     private String valueType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_charSpecRel")
+    @JoinTable(name = "CharacteristicSpecificationRelationship")
     private List<CharacteristicSpecificationRelationship> charSpecRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_characteristicValSpec")
+    @JoinTable(name = "CharacteristicValueSpecification")
     private List<CharacteristicValueSpecification> characteristicValueSpecification;
     private String name;
     @Id

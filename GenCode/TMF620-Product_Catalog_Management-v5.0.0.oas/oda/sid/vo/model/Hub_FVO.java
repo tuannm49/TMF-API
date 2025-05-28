@@ -27,6 +27,7 @@ public class Hub_FVO extends Extensible implements java.io.Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private String callback;
+    private String id;
+    private String callback;
     private String query;
 }

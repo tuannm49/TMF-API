@@ -26,7 +26,7 @@ public class ProductSpecification_FVO extends Entity_FVO implements java.io.Seri
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_productSpecChar")
+    @JoinTable(name = "CharacteristicSpecification_FVO")
     private List<CharacteristicSpecification_FVO> productSpecCharacteristic;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private IntentSpecificationRef_FVO intentSpecification;
@@ -36,35 +36,35 @@ public class ProductSpecification_FVO extends Entity_FVO implements java.io.Seri
     @Embedded
     private TimePeriod validFor;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_serviceSpec")
+    @JoinTable(name = "ServiceSpecificationRef_FVO")
     private List<ServiceSpecificationRef_FVO> serviceSpecification;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_resourceSpec")
+    @JoinTable(name = "ResourceSpecificationRef_FVO")
     private List<ResourceSpecificationRef_FVO> resourceSpecification;
     private String description;
     private String productNumber;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_relatedPty")
+    @JoinTable(name = "RelatedPartyRefOrPartyRoleRef_FVO")
     private List<RelatedPartyRefOrPartyRoleRef_FVO> relatedParty;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_attachment")
-    private List<AttachmentRefOrValue_FVO> attachment;
+    @JoinTable(name = "attachment_AttachmentRefOrValue_FVO")
+    private List<EntityRef> attachment;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_bundledProdSpec")
+    @JoinTable(name = "BundledProductSpecification_FVO")
     private List<BundledProductSpecification_FVO> bundledProductSpecification;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_productSpecRel")
+    @JoinTable(name = "ProductSpecificationRelationship_FVO")
     private List<ProductSpecificationRelationship_FVO> productSpecificationRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO")
+    @JoinTable(name = "ExternalIdentifier_FVO")
     private List<ExternalIdentifier_FVO> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_category")
+    @JoinTable(name = "CategoryRef_FVO")
     private List<CategoryRef_FVO> category;
     private String brand;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpec_FVO_policy")
+    @JoinTable(name = "PolicyRef_FVO")
     private List<PolicyRef_FVO> policy;
 }

@@ -26,10 +26,10 @@ public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Seri
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO")
+    @JoinTable(name = "ProductSpecificationCharacteristicValueUse_MVO")
     private List<ProductSpecificationCharacteristicValueUse_MVO> prodSpecCharValueUse;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO_popRel")
+    @JoinTable(name = "ProductOfferingPriceRelationship_MVO")
     private List<ProductOfferingPriceRelationship_MVO> popRelationship;
     @Embedded
     private Quantity unitOfMeasure;
@@ -40,29 +40,29 @@ public class ProductOfferingPrice_MVO extends Entity_MVO implements java.io.Seri
     private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO_tax")
+    @JoinTable(name = "TaxItem_MVO")
     private List<TaxItem_MVO> tax;
     private Integer recurringChargePeriodLength;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO")
+    @JoinTable(name = "PricingLogicAlgorithm_MVO")
     private List<PricingLogicAlgorithm_MVO> pricingLogicAlgorithm;
     @Embedded
     private Money price;
     private Integer percentage;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO")
+    @JoinTable(name = "ExternalIdentifier_MVO")
     private List<ExternalIdentifier_MVO> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO_place")
+    @JoinTable(name = "PlaceRef_MVO")
     private List<PlaceRef_MVO> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO_bundledPopRel")
+    @JoinTable(name = "BundledProductOfferingPriceRelationship_MVO")
     private List<BundledProductOfferingPriceRelationship_MVO> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO")
+    @JoinTable(name = "ProductOfferingTerm_MVO")
     private List<ProductOfferingTerm_MVO> productOfferingTerm;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_MVO_policy")
+    @JoinTable(name = "PolicyRef_MVO")
     private List<PolicyRef_MVO> policy;
 }

@@ -27,4 +27,5 @@ public class Entity_MVO extends Extensible implements java.io.Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;}
+    private String id;
+}

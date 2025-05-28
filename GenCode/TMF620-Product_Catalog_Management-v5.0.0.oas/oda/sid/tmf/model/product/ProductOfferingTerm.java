@@ -27,7 +27,8 @@ public class ProductOfferingTerm extends Extensible implements java.io.Serializa
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @Embedded
+    private String id;
+    @Embedded
     private Duration duration;
     private String name;
     private String description;

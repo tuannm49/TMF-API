@@ -25,7 +25,7 @@ public class AllowedProductAction_FVO extends Extensible_FVO implements java.io.
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "AllowedProdAction_FVO_channel")
+    @JoinTable(name = "ChannelRef_FVO")
     private List<ChannelRef_FVO> channel;
     @Embedded
     private TimePeriod validFor;

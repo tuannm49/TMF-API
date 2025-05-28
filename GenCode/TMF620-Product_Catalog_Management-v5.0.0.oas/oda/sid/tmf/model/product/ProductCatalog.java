@@ -25,6 +25,6 @@ public class ProductCatalog extends Catalog implements java.io.Serializable {
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdCat_category")
-    private List<CategoryRef> category;
+    @JoinTable(name = "category_CategoryRef")
+    private List<EntityRef> category;
 }

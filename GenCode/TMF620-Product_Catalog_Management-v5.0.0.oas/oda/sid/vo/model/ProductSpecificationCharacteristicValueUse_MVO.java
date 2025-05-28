@@ -33,7 +33,7 @@ public class ProductSpecificationCharacteristicValueUse_MVO extends Extensible i
     private String name;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecCharValUse_MVO")
+    @JoinTable(name = "CharacteristicValueSpecification_MVO")
     private List<CharacteristicValueSpecification_MVO> productSpecCharacteristicValue;
     @Id
     @GeneratedValue(generator = "UUID")

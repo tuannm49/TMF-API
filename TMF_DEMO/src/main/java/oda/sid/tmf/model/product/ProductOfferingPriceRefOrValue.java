@@ -3,7 +3,7 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.EntityRef;
 
 import java.util.logging.Logger;
 

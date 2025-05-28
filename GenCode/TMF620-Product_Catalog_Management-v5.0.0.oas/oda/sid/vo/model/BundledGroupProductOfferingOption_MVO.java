@@ -27,6 +27,7 @@ public class BundledGroupProductOfferingOption_MVO extends Extensible implements
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private Integer numberRelOfferLowerLimit;
+    private String id;
+    private Integer numberRelOfferLowerLimit;
     private Integer numberRelOfferUpperLimit;
 }

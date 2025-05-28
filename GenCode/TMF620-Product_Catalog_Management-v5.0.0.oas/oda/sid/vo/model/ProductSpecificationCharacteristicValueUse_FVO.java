@@ -32,7 +32,7 @@ public class ProductSpecificationCharacteristicValueUse_FVO extends Extensible_F
     private String valueType;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecCharValUse_FVO")
+    @JoinTable(name = "CharacteristicValueSpecification_FVO")
     private List<CharacteristicValueSpecification_FVO> productSpecCharacteristicValue;
     private Integer maxCardinality;
 }

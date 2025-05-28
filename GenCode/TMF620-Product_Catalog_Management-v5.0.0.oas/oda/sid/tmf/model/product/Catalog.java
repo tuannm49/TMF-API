@@ -31,7 +31,7 @@ public class Catalog extends AbstractEntity implements java.io.Serializable {
     private Date lastUpdate;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Cat_relatedPty")
-    private List<RelatedPartyRefOrPartyRoleRef> relatedParty;
+    @JoinTable(name = "relatedParty_RelatedPartyRefOrPartyRoleRef")
+    private List<EntityRef> relatedParty;
     private String version;
 }

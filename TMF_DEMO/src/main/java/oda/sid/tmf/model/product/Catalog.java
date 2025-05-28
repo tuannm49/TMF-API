@@ -3,8 +3,9 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
-import oda.sid.tmf.model.party.RelatedPartyRefOrPartyRoleRef;
+import oda.sid.tmf.model.base.AbstractEntity;
+import oda.sid.tmf.model.base.EntityRef;
+import oda.sid.tmf.model.base.TimePeriod;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Catalog extends AbstractEntity implements java.io.Serializable {
     private Date lastUpdate;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Cat_relatedPty")
-    private List<RelatedPartyRefOrPartyRoleRef> relatedParty;
+    @JoinTable(name = "relatedParty_RelatedPartyRefOrPartyRoleRef")
+    private List<EntityRef> relatedParty;
     private String version;
 }

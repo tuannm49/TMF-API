@@ -29,6 +29,6 @@ public class ProductSpecificationRelationship_FVO extends EntityRef_FVO implemen
     private TimePeriod validFor;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecRel_FVO_characteristic")
+    @JoinTable(name = "CharacteristicSpecification_FVO")
     private List<CharacteristicSpecification_FVO> characteristic;
 }

@@ -249,7 +249,7 @@ public class SchemaProcessor {
                     sb.append("    @Id\n");
                     sb.append("    @GeneratedValue(generator = \"UUID\")\n");
                     sb.append("    @GenericGenerator(name = \"UUID\",strategy = \"org.hibernate.id.UUIDGenerator\")\n");
-                    sb.append("    private String id;");
+                    sb.append("    private String id;\n");
                 }
                 for (var propEntry : properties.entrySet()) {
                     String propName = propEntry.getKey();
@@ -262,81 +262,46 @@ public class SchemaProcessor {
                         sb.append("    @Id\n");
                         sb.append("    @GeneratedValue(generator = \"UUID\")\n");
                         sb.append("    @GenericGenerator(name = \"UUID\",strategy = \"org.hibernate.id.UUIDGenerator\")\n");
-                    }
+                        sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
+                    }else
                     if (propName.startsWith("@")) {
                         sb.append("    @JsonProperty(\"").append(propName).append("\")\n");
                         propName = propName.replace("@", "");
-                    }
+                        sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
+                    }else
                     if ("array".equals(propSchema.getType()) && propSchema.getItems() != null && propSchema.getItems().get$ref() != null) {
-                        if(isRef(javaType)){
-                            if (isAbstractCatalogEntity(javaType)) {
-                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
-//                                sb.append("            @JoinColumn(name=\"refId\", referencedColumnName = \"catalogId\")\n");
-                            }else {
-                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
-//                                sb.append("            @JoinColumn(name=\"refId\", referencedColumnName = \"id\")\n");
-                            }
-
+                        String typeRef = javaType.replace("List<", "").replace(">", "");
+                        if(isRef(typeRef)){
+                            sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                            sb.append("    @JoinTable(name = \""+shortenIdentifier(propName+"_"+typeRef)+"\")\n");
+                            sb.append("    private ").append("List<EntityRef>").append(" ").append(renameEntity(propName, false)).append(";\n");
                         }else {
-                            if (isAbstractCatalogEntity(javaType)) {
-                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
-//                                sb.append("    @JoinColumns({\n");
-//                                sb.append("            @JoinColumn(name=\"CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
-//                                sb.append("            @JoinColumn(name=\"CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
-//                                sb.append("            @JoinColumn(name=\"ENTITY_ID\", referencedColumnName = \"id\")\n");
-//                                sb.append("    })\n");
-                            }else {
-                                sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                                sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+propName)+"\")\n");
-//                                sb.append("    @JoinColumns({\n");
-//                                sb.append("            @JoinColumn(name=\"ENTITY_ID\", referencedColumnName = \"id\")\n");
-//                                sb.append("    })\n");
-                            }
-
+                            sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
+                            sb.append("    @JoinTable(name = \""+typeRef+"\")\n");
+                            sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                         }
-
-
                     } else if (propSchema.get$ref() != null && !propName.equals("id")) {
                         if(isRef(javaType)){
-                            if (isAbstractCatalogEntity(javaType)) {
-                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
-//                                sb.append("    @JoinColumns({\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
-//                                sb.append("    })\n");
-                            }else {
-                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
-//                                sb.append("    @JoinColumns({\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_id\", referencedColumnName = \"refId\")\n");
-//                                sb.append("    })\n");
-                            }
+//                            sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+//                            sb.append("    @JoinTable(name = \""+javaType+"\")\n");
+                            sb.append("    @OneToOne\n");
+                            sb.append("    private ").append("EntityRef").append(" ").append(renameEntity(propName, false)).append(";\n");
 
                         }else {
-                            if (isAbstractCatalogEntity(javaType)) {
-                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
-//                                sb.append("    @JoinColumns({\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_ID\", referencedColumnName = \"catalogId\"),\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_CATALOG_VERSION\", referencedColumnName = \"catalogVersion\"),\n");
-//                                sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
-//                                sb.append("    })\n");
+                            if(isEmbeddable(javaType)){
+                                sb.append("    @Embedded\n");
+                                sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                             }else {
-                                if(isEmbeddable(javaType)){
-                                    sb.append("    @Embedded\n");
-                                }else {
-                                    sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
-//                                    sb.append("    @JoinColumns({\n");
-//                                    sb.append("            @JoinColumn(name=\""+propName+"_ENTITY_ID\", referencedColumnName = \"id\")\n");
-//                                    sb.append("    })\n");
-                                }
+                                sb.append("    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)\n");
+                                sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                             }
+
                         }
 
+                    }else {
+                        sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                     }
-                    sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
+
                 }
             }
             /*if ((baseClass != null && baseClass.endsWith("Ref")) || schemaName.contains("RefOrValue") || schemaName.endsWith("Ref")) {
@@ -360,20 +325,21 @@ public class SchemaProcessor {
     }
     private String shortenIdentifier(String name) {
         // Thay thế các từ dài bằng từ viết tắt
-        int maxLength = 30;
+        int maxLength = 50;
         String result = name;
-        for (Map.Entry<String, String> entry : ABBREVIATIONS.entrySet()) {
-            result = result.replaceAll(entry.getKey(), entry.getValue());
-        }
+
 
         // Nếu vẫn vượt quá độ dài tối đa, cắt chuỗi
         if (result.length() > maxLength) {
-            result = result.substring(0, maxLength);
-            // Đảm bảo không cắt giữa dấu gạch dưới
-            int lastUnderscore = result.lastIndexOf('_');
-            if (lastUnderscore > 0 && lastUnderscore < maxLength - 1) {
-                result = result.substring(0, lastUnderscore);
+            for (Map.Entry<String, String> entry : ABBREVIATIONS.entrySet()) {
+                result = result.replaceAll(entry.getKey(), entry.getValue());
             }
+//            result = result.substring(0, maxLength);
+//            // Đảm bảo không cắt giữa dấu gạch dưới
+//            int lastUnderscore = result.lastIndexOf('_');
+//            if (lastUnderscore > 0 && lastUnderscore < maxLength - 1) {
+//                result = result.substring(0, lastUnderscore);
+//            }
         }
 
         return result;
@@ -519,6 +485,7 @@ public class SchemaProcessor {
 
     private String renameEntity(String name, boolean capitalizeFirst) {
         if ("Entity".equals(name)) return "AbstractEntity";
+        if ("BaseEntity".equals(name)) return "AbstractEntity";
         if ("EntityRef".equals(name)) return "EntityRef";
         return name;
     }

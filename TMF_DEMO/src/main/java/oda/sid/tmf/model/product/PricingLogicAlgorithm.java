@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.AbstractEntity;
+import oda.sid.tmf.model.base.TimePeriod;
 
 import java.util.logging.Logger;
 

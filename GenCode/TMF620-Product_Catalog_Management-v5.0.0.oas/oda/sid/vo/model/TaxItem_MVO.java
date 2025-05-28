@@ -27,7 +27,8 @@ public class TaxItem_MVO extends Extensible implements java.io.Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @Embedded
+    private String id;
+    @Embedded
     private Money taxAmount;
     private Integer taxRate;
     private String taxCategory;

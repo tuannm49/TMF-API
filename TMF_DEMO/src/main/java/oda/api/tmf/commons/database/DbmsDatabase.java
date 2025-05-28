@@ -39,7 +39,7 @@ public class DbmsDatabase {
         properties.setProperty("hibernate.hbm2ddl.auto", YamlConfigLoader.getNestedValue(config, "spring", "jpa", "hibernate", "ddl-auto"));
         properties.setProperty("hibernate.show_sql", String.valueOf((Boolean) YamlConfigLoader.getNestedValue(config, "spring", "jpa", "show-sql")));
         properties.setProperty("hibernate.generate_statistics", String.valueOf((Boolean)  YamlConfigLoader.getNestedValue(config, "spring", "jpa",  "generate_statistics")));
-        properties.setProperty("hibernate.format_sql", "true");
+//        properties.setProperty("hibernate.format_sql", "true");
         return properties;
     }
 }

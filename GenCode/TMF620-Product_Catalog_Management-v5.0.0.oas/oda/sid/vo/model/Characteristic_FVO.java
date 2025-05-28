@@ -30,7 +30,7 @@ public class Characteristic_FVO extends Extensible implements java.io.Serializab
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Char_FVO_characteristicRel")
+    @JoinTable(name = "CharacteristicRelationship_FVO")
     private List<CharacteristicRelationship_FVO> characteristicRelationship;
     private String valueType;
 }

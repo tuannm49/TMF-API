@@ -27,9 +27,10 @@ public class AllowedProductAction extends Extensible implements java.io.Serializ
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "AllowedProdAction_channel")
-    private List<ChannelRef> channel;
+    private String id;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "channel_ChannelRef")
+    private List<EntityRef> channel;
     @Embedded
     private TimePeriod validFor;
     private String action;

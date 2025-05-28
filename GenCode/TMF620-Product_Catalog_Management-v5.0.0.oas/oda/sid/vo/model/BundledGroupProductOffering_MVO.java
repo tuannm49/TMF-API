@@ -26,14 +26,14 @@ public class BundledGroupProductOffering_MVO extends Extensible implements java.
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private String name;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr_MVO")
+    @JoinTable(name = "BundledGroupProductOffering_MVO")
     private List<BundledGroupProductOffering_MVO> bundledGroupProductOffering;
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr_MVO")
+    @JoinTable(name = "BundledProductOffering_MVO")
     private List<BundledProductOffering_MVO> bundledProductOffering;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private BundledGroupProductOfferingOption_MVO bundledGroupProductOfferingOption;

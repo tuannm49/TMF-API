@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.Duration;
+import oda.sid.tmf.model.base.Extensible;
+import oda.sid.tmf.model.base.TimePeriod;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.logging.Logger;
@@ -20,7 +22,8 @@ public class ProductOfferingTerm extends Extensible implements java.io.Serializa
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @Embedded
+    private String id;
+    @Embedded
     private Duration duration;
     private String name;
     private String description;

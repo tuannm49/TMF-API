@@ -25,15 +25,15 @@ public class ProductSpecificationCharacteristicValueUse extends Extensible imple
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Integer minCardinality;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private ProductSpecificationRef productSpecification;
+    @OneToOne
+    private EntityRef productSpecification;
     @Embedded
     private TimePeriod validFor;
     private String valueType;
     private String name;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecCharValUse")
+    @JoinTable(name = "CharacteristicValueSpecification")
     private List<CharacteristicValueSpecification> productSpecCharacteristicValue;
     @Id
     @GeneratedValue(generator = "UUID")

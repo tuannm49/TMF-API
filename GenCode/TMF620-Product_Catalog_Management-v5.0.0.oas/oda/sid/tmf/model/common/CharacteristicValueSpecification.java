@@ -27,7 +27,8 @@ public class CharacteristicValueSpecification extends Extensible implements java
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private String rangeInterval;
+    private String id;
+    private String rangeInterval;
     private Boolean isDefault;
     private Integer valueTo;
     private String regex;

@@ -25,6 +25,6 @@ public class ProductCatalog_FVO extends Catalog_FVO implements java.io.Serializa
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdCat_FVO_category")
+    @JoinTable(name = "CategoryRef_FVO")
     private List<CategoryRef_FVO> category;
 }

@@ -9,11 +9,6 @@ import oda.api.tmf.commons.service.GenericService;
 import oda.sid.tmf.model.product.ProductOffering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 
 @RestController
 @RequestMapping("/productOffering")

@@ -27,12 +27,12 @@ public class Category_FVO extends Entity_FVO implements java.io.Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private CategoryRef_FVO parent;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Catg_FVO_subCatg")
+    @JoinTable(name = "CategoryRef_FVO")
     private List<CategoryRef_FVO> subCategory;
     private Boolean isRoot;
     private String lifecycleStatus;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Catg_FVO_productOffr")
+    @JoinTable(name = "ProductOfferingRef_FVO")
     private List<ProductOfferingRef_FVO> productOffering;
     @Embedded
     private TimePeriod validFor;

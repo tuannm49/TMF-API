@@ -29,6 +29,6 @@ public class ProductSpecificationRelationship_MVO extends EntityRef implements j
     private TimePeriod validFor;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecRel_MVO_characteristic")
+    @JoinTable(name = "CharacteristicSpecification_MVO")
     private List<CharacteristicSpecification_MVO> characteristic;
 }

@@ -25,10 +25,10 @@ public class BundledGroupProductOffering_FVO extends Extensible_FVO implements j
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr_FVO")
+    @JoinTable(name = "BundledGroupProductOffering_FVO")
     private List<BundledGroupProductOffering_FVO> bundledGroupProductOffering;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "BndlGroupProdOffr_FVO")
+    @JoinTable(name = "BundledProductOffering_FVO")
     private List<BundledProductOffering_FVO> bundledProductOffering;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private BundledGroupProductOfferingOption_FVO bundledGroupProductOfferingOption;

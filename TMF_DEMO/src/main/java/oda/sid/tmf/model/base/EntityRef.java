@@ -3,8 +3,8 @@ package oda.sid.tmf.model.base;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import lombok.Data;
 import oda.sid.tmf.model.client.EntityClient;
@@ -24,7 +24,7 @@ import java.io.Serializable;
  * than it needs to be.
  *
  */
-@MappedSuperclass
+@Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Data
 public class EntityRef extends AbstractEntityRef implements Serializable {
@@ -59,7 +59,7 @@ public class EntityRef extends AbstractEntityRef implements Serializable {
 
     @Override
     public void fetchEntity(Class theClass, int depth) {
-        entity = (AbstractEntity) EntityClient.getObject(refHref, theClass, depth);
+        entity = (AbstractEntity) EntityClient.getObject(refHref, theClass);
     }
 
 }

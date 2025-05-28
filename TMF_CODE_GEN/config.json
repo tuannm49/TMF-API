@@ -1,8 +1,9 @@
 {
   "ignoreSchema": [
-    "*HUB*","*Event*","*Import*","*Export*","JsonPatch*","Boolean*","Float*","Integer*","MapArray*","MapCharacteristic*",
+    "*HUB*","*Import*","*Export*","JsonPatch*","Boolean*","Float*","Integer*","*Integer","*Object","MapArray*","MapCharacteristic*",
     "Number*","ObjectArray*","ObjectCharacteristic*","String*","Error*","JobStateType","Entity","EntityRef","TimePeriod",
-    "RelatedParty","Quantity","Money","Duration","Attachment","Extensible"
+    "RelatedParty","Quantity","Money","Duration","Attachment","Extensible","*CreateEvent*","*DeleteEvent*","*String","*Ref",
+    "*ChangeEvent*","*RequiredEvent*"
   ],
   "Embeddable": [
     "TimePeriod","Duration","Money","Quantity"

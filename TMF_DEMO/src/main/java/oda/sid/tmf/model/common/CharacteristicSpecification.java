@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.Extensible;
+import oda.sid.tmf.model.base.TimePeriod;
 import oda.sid.tmf.model.product.Catalog;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,10 +29,10 @@ public class CharacteristicSpecification extends Extensible implements java.io.S
     private String regex;
     private String valueType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_charSpecRel")
+    @JoinTable(name = "CharacteristicSpecificationRelationship")
     private List<CharacteristicSpecificationRelationship> charSpecRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "CharSpec_characteristicValSpec")
+    @JoinTable(name = "CharacteristicValueSpecification")
     private List<CharacteristicValueSpecification> characteristicValueSpecification;
     private String name;
     @Id

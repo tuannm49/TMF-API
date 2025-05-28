@@ -2,7 +2,6 @@ package oda.api.tmf.commons.service;
 
 import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
-import oda.api.tmf.commons.base.ReferencedEntityGetter;
 import oda.api.tmf.commons.database.DbmsDatabase;
 import oda.api.tmf.commons.database.MongoDatabase;
 import oda.api.tmf.commons.exceptions.BadUsageException;
@@ -12,15 +11,10 @@ import oda.api.tmf.commons.repository.GenericRepository;
 import oda.api.tmf.commons.repository.MongoRepository;
 import oda.sid.tmf.model.base.CatalogEntityId;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.core.UriInfo;
 import java.lang.reflect.Field;
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Generic service class for CRUD operations and querying entities.
@@ -33,7 +27,6 @@ public class GenericService<T> {
     private GenericRepository<T> repository;
     private Class<T> entityClass;
     private final String dbType;
-    private final ReferencedEntityGetter<T> referencedEntityGetter;
     private CatalogEntityId catalogEntityId = null;
     /**
      * Constructor for GenericService.
@@ -44,7 +37,6 @@ public class GenericService<T> {
     public GenericService(String dbType, Class<T> entityClass) {
         this.dbType = dbType;
         this.entityClass = entityClass;
-        this.referencedEntityGetter = new ReferencedEntityGetter<>(entityClass);;
         if("mysql".equals(dbType)){
             EntityManagerFactory entityManagerFactory =  DbmsDatabase.entityManagerFactory();
             repository = (GenericRepository<T>) new DbmsRepository<>(entityManagerFactory.createEntityManager(),entityClass);
@@ -162,6 +154,9 @@ public class GenericService<T> {
     public List<T> findByCriteria(Map<String, List<String>> map) {
         return repository.findByCriteria(map, entityClass);
     }
+
+
+
     public String buildHref(String url, String id) {
         if (url == null) {
             return null;
@@ -171,7 +166,6 @@ public class GenericService<T> {
             url += "/";
         }
 
-//        url += getRelativeEntityContext() + "/";
         if (id == null || id.length() <= 0) {
             return (url);
         }
@@ -180,51 +174,22 @@ public class GenericService<T> {
 
         return url;
     }
-    public String getRelativeEntityContext() {
-        Path path = getClass().getAnnotation(Path.class);
-        String value = (path != null) ? path.value() :  null;
-        if (value == null) {
-            return null;
-        }
 
-        int index = value.lastIndexOf("/");
-        return (index >= 0) ? value.substring(index + 1) : value;
-    }
-    protected void getReferencedEntities(T entity, int depth) {
-        referencedEntityGetter.getReferencedEntities(entity, depth);
-    }
-
-    /*
-     *
-     */
-    protected void getReferencedEntities(Set<T> entities, int depth) {
-        referencedEntityGetter.getReferencedEntities(entities, depth);
-    }
-    private T addHref(T entity,String url){
+    public T addHref(T entity, String url){
         try {
-            // Lấy class của entity
             Class<?> clazz = entity.getClass();
 
-            // Tìm field href
-//            Field hrefField = clazz.getField("href");
             Field hrefField = findFieldInHierarchy(clazz, "href");
-            // Tìm field id
             Field idField = findFieldInHierarchy(clazz, "id");
-            // Cho phép truy cập private field
             hrefField.setAccessible(true);
-            // Cho phép truy cập private id
             idField.setAccessible(true);
 
-            // Gán giá trị cho field href (giả sử href là String)
-            String hrefValue = buildHref(url,idField.get(entity).toString()); // Hàm để tạo giá trị href
+            String hrefValue = buildHref(url,idField.get(entity).toString());
             hrefField.set(entity, hrefValue);
 
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Cannot set href field", e);
         }
-
-        // Thực hiện logic khác, ví dụ lưu entity vào database
-        // saveToDatabase(entity);
 
         return entity;
     }
@@ -234,10 +199,9 @@ public class GenericService<T> {
             try {
                 return current.getDeclaredField(fieldName);
             } catch (NoSuchFieldException e) {
-                current = current.getSuperclass(); // Tìm trong superclass
+                current = current.getSuperclass();
             }
         }
-        return null; // Không tìm thấy field
+        return null;
     }
-
 }

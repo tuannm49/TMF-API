@@ -3,7 +3,9 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.EntityRef;
+import oda.sid.tmf.model.base.Extensible;
+import oda.sid.tmf.model.base.TimePeriod;
 import oda.sid.tmf.model.common.CharacteristicValueSpecification;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,15 +19,15 @@ public class ProductSpecificationCharacteristicValueUse extends Extensible imple
     private final static long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Integer minCardinality;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private ProductSpecificationRef productSpecification;
+    @OneToOne
+    private EntityRef productSpecification;
     @Embedded
     private TimePeriod validFor;
     private String valueType;
     private String name;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecCharValUse")
+    @JoinTable(name = "CharacteristicValueSpecification")
     private List<CharacteristicValueSpecification> productSpecCharacteristicValue;
     @Id
     @GeneratedValue(generator = "UUID")

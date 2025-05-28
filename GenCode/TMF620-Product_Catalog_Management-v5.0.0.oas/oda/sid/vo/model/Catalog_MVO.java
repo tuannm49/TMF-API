@@ -31,7 +31,7 @@ public class Catalog_MVO extends Entity_MVO implements java.io.Serializable {
     private Date lastUpdate;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Cat_MVO_relatedPty")
+    @JoinTable(name = "RelatedPartyRefOrPartyRoleRef_MVO")
     private List<RelatedPartyRefOrPartyRoleRef_MVO> relatedParty;
     private String version;
 }

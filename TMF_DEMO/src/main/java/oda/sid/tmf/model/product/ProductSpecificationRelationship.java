@@ -3,7 +3,8 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.sid.tmf.model.base.*;
+import oda.sid.tmf.model.base.AbstractEntity;
+import oda.sid.tmf.model.base.TimePeriod;
 import oda.sid.tmf.model.common.CharacteristicSpecification;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public class ProductSpecificationRelationship extends AbstractEntity implements 
     private TimePeriod validFor;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecRel_characteristic")
+    @JoinTable(name = "CharacteristicSpecification")
     private List<CharacteristicSpecification> characteristic;
 }

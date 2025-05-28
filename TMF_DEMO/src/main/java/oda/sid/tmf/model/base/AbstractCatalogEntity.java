@@ -24,7 +24,7 @@ public abstract class AbstractCatalogEntity extends AbstractEntity implements Se
     @JsonIgnore
     private String catalogId = "1";
 
-    @Id
+//    @Id
     @Column(name = "catalog_version", nullable = false)
     @JsonIgnore
     @VersionProperty

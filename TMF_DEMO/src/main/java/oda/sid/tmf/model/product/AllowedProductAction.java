@@ -3,9 +3,9 @@ package oda.sid.tmf.model.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import oda.api.tmf.commons.base.Extensible;
-import oda.api.tmf.commons.base.TimePeriod;
-import oda.sid.tmf.model.common.ChannelRef;
+import oda.sid.tmf.model.base.EntityRef;
+import oda.sid.tmf.model.base.Extensible;
+import oda.sid.tmf.model.base.TimePeriod;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
@@ -20,9 +20,10 @@ public class AllowedProductAction extends Extensible implements java.io.Serializ
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "AllowedProdAction_channel")
-    private List<ChannelRef> channel;
+    private String id;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "channel_ChannelRef")
+    private List<EntityRef> channel;
     @Embedded
     private TimePeriod validFor;
     private String action;

@@ -26,11 +26,11 @@ public class ProductOfferingPrice extends AbstractEntity implements java.io.Seri
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_prodSpecCharValUse")
+    @JoinTable(name = "ProductSpecificationCharacteristicValueUse")
     private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_popRel")
-    private List<ProductOfferingPriceRelationship> popRelationship;
+    @JoinTable(name = "popRelationship_ProductOfferingPriceRelationship")
+    private List<EntityRef> popRelationship;
     @Embedded
     private Quantity unitOfMeasure;
     private String lifecycleStatus;
@@ -40,30 +40,30 @@ public class ProductOfferingPrice extends AbstractEntity implements java.io.Seri
     private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_tax")
+    @JoinTable(name = "TaxItem")
     private List<TaxItem> tax;
     private Integer recurringChargePeriodLength;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc")
+    @JoinTable(name = "PricingLogicAlgorithm")
     private List<PricingLogicAlgorithm> pricingLogicAlgorithm;
     @Embedded
     private Money price;
     private Integer percentage;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_externalIdentifier")
+    @JoinTable(name = "ExternalIdentifier")
     private List<ExternalIdentifier> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_place")
-    private List<PlaceRef> place;
+    @JoinTable(name = "place_PlaceRef")
+    private List<EntityRef> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_bundledPopRel")
-    private List<BundledProductOfferingPriceRelationship> bundledPopRelationship;
+    @JoinTable(name = "bundledPopRel_BndlProdOffrPrcRel")
+    private List<EntityRef> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_productOffrTerm")
+    @JoinTable(name = "ProductOfferingTerm")
     private List<ProductOfferingTerm> productOfferingTerm;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_policy")
-    private List<PolicyRef> policy;
+    @JoinTable(name = "policy_PolicyRef")
+    private List<EntityRef> policy;
 }

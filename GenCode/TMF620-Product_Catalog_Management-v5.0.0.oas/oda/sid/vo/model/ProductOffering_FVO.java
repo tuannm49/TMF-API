@@ -31,62 +31,62 @@ public class ProductOffering_FVO extends Entity_FVO implements java.io.Serializa
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private ServiceCandidateRef_FVO serviceCandidate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_channel")
+    @JoinTable(name = "ChannelRef_FVO")
     private List<ChannelRef_FVO> channel;
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_productOffrChar")
+    @JoinTable(name = "CharacteristicSpecification_FVO")
     private List<CharacteristicSpecification_FVO> productOfferingCharacteristic;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_productOffrPrc")
-    private List<ProductOfferingPriceRefOrValue_FVO> productOfferingPrice;
+    @JoinTable(name = "productOffrPrc_ProdOffrPrcRefOrVal_FVO")
+    private List<EntityRef> productOfferingPrice;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private ResourceCandidateRef_FVO resourceCandidate;
     private String statusReason;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_bundledProdOffr")
+    @JoinTable(name = "BundledProductOffering_FVO")
     private List<BundledProductOffering_FVO> bundledProductOffering;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_attachment")
-    private List<AttachmentRefOrValue_FVO> attachment;
+    @JoinTable(name = "attachment_AttachmentRefOrValue_FVO")
+    private List<EntityRef> attachment;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO")
+    @JoinTable(name = "ExternalIdentifier_FVO")
     private List<ExternalIdentifier_FVO> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_place")
+    @JoinTable(name = "PlaceRef_FVO")
     private List<PlaceRef_FVO> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_productOffrTerm")
+    @JoinTable(name = "ProductOfferingTerm_FVO")
     private List<ProductOfferingTerm_FVO> productOfferingTerm;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_marketSegment")
+    @JoinTable(name = "MarketSegmentRef_FVO")
     private List<MarketSegmentRef_FVO> marketSegment;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_policy")
+    @JoinTable(name = "PolicyRef_FVO")
     private List<PolicyRef_FVO> policy;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO")
+    @JoinTable(name = "ProductSpecificationCharacteristicValueUse_FVO")
     private List<ProductSpecificationCharacteristicValueUse_FVO> prodSpecCharValueUse;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_agreement")
+    @JoinTable(name = "AgreementRef_FVO")
     private List<AgreementRef_FVO> agreement;
     @Embedded
     private TimePeriod validFor;
     private Boolean isSellable;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_allowedAction")
+    @JoinTable(name = "AllowedProductAction_FVO")
     private List<AllowedProductAction_FVO> allowedAction;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private SLARef_FVO serviceLevelAgreement;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_productOffrRel")
+    @JoinTable(name = "ProductOfferingRelationship_FVO")
     private List<ProductOfferingRelationship_FVO> productOfferingRelationship;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO")
+    @JoinTable(name = "BundledGroupProductOffering_FVO")
     private List<BundledGroupProductOffering_FVO> bundledGroupProductOffering;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffr_FVO_category")
+    @JoinTable(name = "CategoryRef_FVO")
     private List<CategoryRef_FVO> category;
 }

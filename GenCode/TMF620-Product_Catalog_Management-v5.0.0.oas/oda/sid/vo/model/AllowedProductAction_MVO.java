@@ -27,8 +27,9 @@ public class AllowedProductAction_MVO extends Extensible implements java.io.Seri
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "AllowedProdAction_MVO_channel")
+    private String id;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ChannelRef_MVO")
     private List<ChannelRef_MVO> channel;
     @Embedded
     private TimePeriod validFor;

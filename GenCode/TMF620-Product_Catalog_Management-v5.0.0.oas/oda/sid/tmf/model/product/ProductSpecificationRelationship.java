@@ -29,6 +29,6 @@ public class ProductSpecificationRelationship extends AbstractEntity implements 
     private TimePeriod validFor;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdSpecRel_characteristic")
+    @JoinTable(name = "CharacteristicSpecification")
     private List<CharacteristicSpecification> characteristic;
 }

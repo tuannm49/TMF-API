@@ -26,10 +26,10 @@ public class ProductOfferingPrice_FVO extends Entity_FVO implements java.io.Seri
     private static final Logger logger = Logger.getLogger(Catalog.class.getName());
     private Boolean isBundle;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO")
+    @JoinTable(name = "ProductSpecificationCharacteristicValueUse_FVO")
     private List<ProductSpecificationCharacteristicValueUse_FVO> prodSpecCharValueUse;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO_popRel")
+    @JoinTable(name = "ProductOfferingPriceRelationship_FVO")
     private List<ProductOfferingPriceRelationship_FVO> popRelationship;
     @Embedded
     private Quantity unitOfMeasure;
@@ -40,30 +40,30 @@ public class ProductOfferingPrice_FVO extends Entity_FVO implements java.io.Seri
     private String description;
     private String recurringChargePeriodType;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO_tax")
+    @JoinTable(name = "TaxItem_FVO")
     private List<TaxItem_FVO> tax;
     private Integer recurringChargePeriodLength;
     private String version;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO")
+    @JoinTable(name = "PricingLogicAlgorithm_FVO")
     private List<PricingLogicAlgorithm_FVO> pricingLogicAlgorithm;
     @Embedded
     private Money price;
     private Integer percentage;
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO")
+    @JoinTable(name = "ExternalIdentifier_FVO")
     private List<ExternalIdentifier_FVO> externalIdentifier;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO_place")
+    @JoinTable(name = "PlaceRef_FVO")
     private List<PlaceRef_FVO> place;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO_bundledPopRel")
+    @JoinTable(name = "BundledProductOfferingPriceRelationship_FVO")
     private List<BundledProductOfferingPriceRelationship_FVO> bundledPopRelationship;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO")
+    @JoinTable(name = "ProductOfferingTerm_FVO")
     private List<ProductOfferingTerm_FVO> productOfferingTerm;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ProdOffrPrc_FVO_policy")
+    @JoinTable(name = "PolicyRef_FVO")
     private List<PolicyRef_FVO> policy;
 }

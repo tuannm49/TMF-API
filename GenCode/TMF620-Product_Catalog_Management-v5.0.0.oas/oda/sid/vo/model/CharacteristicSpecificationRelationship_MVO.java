@@ -27,7 +27,8 @@ public class CharacteristicSpecificationRelationship_MVO extends Extensible impl
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;    private String name;
+    private String id;
+    private String name;
     private String characteristicSpecificationId;
     private String relationshipType;
     private String parentSpecificationHref;

@@ -9,10 +9,6 @@ import oda.api.tmf.commons.service.GenericService;
 import oda.sid.tmf.model.product.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/productCatalogManagement/productSpecification")

@@ -8,7 +8,6 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
-import oda.sid.tmf.model.base.ServiceConstants;
 import org.glassfish.jersey.client.ClientProperties;
 
 /**
@@ -21,13 +20,10 @@ public class EntityClient {
     private EntityClient() {
     }
 
-    public static Object getObject(String href, Class theClass, int depth) {
+    public static Object getObject(String href, Class theClass) {
         Client client = createClient();
         WebTarget webResource = client.target(href);
-        if (depth > ServiceConstants.MINIMUM_DEPTH_VALUE) {
-            webResource = webResource.queryParam("depth", String.valueOf(depth));
-        }
-        
+
         return webResource.request(MediaType.APPLICATION_JSON).get(theClass);
     }
         

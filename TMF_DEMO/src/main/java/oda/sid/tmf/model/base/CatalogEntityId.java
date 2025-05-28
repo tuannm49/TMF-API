@@ -14,9 +14,9 @@ public class CatalogEntityId implements Serializable {
     private final static long serialVersionUID = 1L;
 
     private String catalogId = "1";
-    private String catalogVersion = "1.0";
+//    private String catalogVersion;
     private String id;
-
+//    private String version;
 
 
 }
