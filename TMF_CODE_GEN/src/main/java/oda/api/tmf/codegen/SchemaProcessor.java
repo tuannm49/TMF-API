@@ -228,7 +228,7 @@ public class SchemaProcessor {
 
             sb.append(" implements java.io.Serializable {\n");
             sb.append("    private final static long serialVersionUID = 1L;\n");
-            sb.append("    private static final Logger logger = Logger.getLogger(Catalog.class.getName());\n");
+//            sb.append("    private static final Logger logger = Logger.getLogger(Catalog.class.getName());\n");
             // Properties
             if (properties != null) {
                 if(schemaName.equals("ProductSpecificationRef")){
@@ -273,11 +273,11 @@ public class SchemaProcessor {
                         String typeRef = javaType.replace("List<", "").replace(">", "");
                         if(isRef(typeRef)){
                             sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                            sb.append("    @JoinTable(name = \""+shortenIdentifier(propName+"_"+typeRef)+"\")\n");
+                            sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+typeRef)+"\")\n");
                             sb.append("    private ").append("List<EntityRef>").append(" ").append(renameEntity(propName, false)).append(";\n");
                         }else {
                             sb.append("    @OneToMany(cascade = CascadeType.PERSIST)\n");
-                            sb.append("    @JoinTable(name = \""+typeRef+"\")\n");
+                            sb.append("    @JoinTable(name = \""+shortenIdentifier(schemaName+"_"+typeRef)+"\")\n");
                             sb.append("    private ").append(javaType).append(" ").append(renameEntity(propName, false)).append(";\n");
                         }
                     } else if (propSchema.get$ref() != null && !propName.equals("id")) {
@@ -318,14 +318,20 @@ public class SchemaProcessor {
             }*/
             sb.append("}\n");
             Files.createDirectories(Paths.get(outputDir));
+
             String filePath = Paths.get(outputDir, fileName).toString();
             Files.writeString(Paths.get(filePath), sb.toString());
+
+            Files.createDirectories(Paths.get(outputDir.replace("model","entity")));
+            filePath = Paths.get(outputDir.replace("model","entity"), fileName).toString();
+            String contentFile = sb.toString().replace("@Entity","").replace(".model.",".entity.");
+            Files.writeString(Paths.get(filePath), contentFile);
         }
 
     }
     private String shortenIdentifier(String name) {
         // Thay thế các từ dài bằng từ viết tắt
-        int maxLength = 50;
+        int maxLength = 250;
         String result = name;
 
 

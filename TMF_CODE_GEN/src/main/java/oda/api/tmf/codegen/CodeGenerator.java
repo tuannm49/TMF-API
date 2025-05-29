@@ -43,7 +43,7 @@ public class CodeGenerator {
         List<String> lstFile = getFilesInDirectory(directoryPath);
 
         for(String openApiFile: lstFile){
-            String apiDirGen =  "GenCode/"+openApiFile.replace(".yaml","");
+            String apiDirGen =  "GenCode/"+openApiFile.replace(".yaml","")+"/src/java";
             OpenAPI openAPI = new OpenAPIV3Parser().read(directoryPath+"/"+openApiFile, null, options);
             // Sinh entity classes
             SchemaProcessor schemaProcessor = new SchemaProcessor(openAPI,apiDirGen,directoryMap,configMap);
